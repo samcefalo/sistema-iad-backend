@@ -16,7 +16,7 @@ public abstract class Jogo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
-    private SituacaoJogo situacaoJogo;
+    private int situacaoJogo;
 
     @ManyToOne
     @JoinColumn(name = "equipe1_id")
@@ -29,5 +29,8 @@ public abstract class Jogo implements Serializable {
     @CollectionTable(name = "ACAO_JOGO")
     private List<Acao> acoes = new ArrayList<>();
 
+    public SituacaoJogo getSituacaoJogo() {
+        return SituacaoJogo.toEnum(situacaoJogo);
+    }
 
 }

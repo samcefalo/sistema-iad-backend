@@ -1,10 +1,10 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
-import me.samcefalo.sistemaiadbackend.domain.Entidade;
+import me.samcefalo.sistemaiadbackend.domain.Tecnico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EntidadeRepository extends JpaRepository<Entidade, Integer> {
+public interface TecnicoRepository extends JpaRepository<Tecnico, Integer> {
 
 }

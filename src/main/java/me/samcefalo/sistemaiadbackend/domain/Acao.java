@@ -23,7 +23,7 @@ public abstract class Acao implements Serializable {
     @JoinColumn(name = "jogo_id")
     private Jogo jogo;
 
-    private Area area;
+    private int area;
     @ManyToOne
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
@@ -31,5 +31,9 @@ public abstract class Acao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "jogador_id")
     private Jogador jogador;
+
+    public Area getArea() {
+        return Area.toEnum(area);
+    }
 
 }
