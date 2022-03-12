@@ -1,6 +1,8 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Jogo implements Serializable {
@@ -24,6 +27,13 @@ public abstract class Jogo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "equipe2_id")
     private Equipe equipe2;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "JOGO_JOGADOR",
+            joinColumns = @JoinColumn(name = "jogo_id"),
+            inverseJoinColumns = @JoinColumn(name = "jogador_id"))
+    private List<Jogador> jogadores = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "ACAO_JOGO")

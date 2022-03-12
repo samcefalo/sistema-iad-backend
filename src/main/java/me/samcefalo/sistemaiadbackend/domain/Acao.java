@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import me.samcefalo.sistemaiadbackend.domain.enums.Area;
 
@@ -15,12 +16,12 @@ public abstract class Acao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
-    private String nome;
     private int grauDificuldade;
     private boolean exito;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")
+    @JsonIgnore
     private Jogo jogo;
 
     private int area;

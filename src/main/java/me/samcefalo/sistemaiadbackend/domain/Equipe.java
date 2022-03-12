@@ -1,6 +1,8 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class Equipe implements Serializable {
 
@@ -16,11 +19,16 @@ public class Equipe implements Serializable {
     private int id;
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "tecnico_id")
+    @JsonIgnore
+    @OneToOne(mappedBy = "equipe")
     private Tecnico tecnico;
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
     private List<Jogador> jogadores = new ArrayList<>();
 
+    public Equipe(String nome) {
+        this.nome = nome;
+    }
 
 }
