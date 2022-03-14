@@ -1,14 +1,13 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +16,7 @@ import java.util.List;
 public abstract class Jogo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int situacaoJogo;
 
@@ -28,16 +27,15 @@ public abstract class Jogo implements Serializable {
     @JoinColumn(name = "equipe2_id")
     private Equipe equipe2;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "JOGO_JOGADOR",
             joinColumns = @JoinColumn(name = "jogo_id"),
             inverseJoinColumns = @JoinColumn(name = "jogador_id"))
-    private List<Jogador> jogadores = new ArrayList<>();
+    private Set<Jogador> jogadores = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "ACAO_JOGO")
-    private List<Acao> acoes = new ArrayList<>();
+    private Set<Acao> acoes = new HashSet<>();
 
     public SituacaoJogo getSituacaoJogo() {
         return SituacaoJogo.toEnum(situacaoJogo);

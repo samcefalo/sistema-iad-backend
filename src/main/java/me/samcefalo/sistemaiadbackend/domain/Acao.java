@@ -14,7 +14,7 @@ import java.io.Serializable;
 public abstract class Acao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int grauDificuldade;
     private boolean exito;

@@ -7,6 +7,8 @@ import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class DBService {
 
@@ -45,7 +47,13 @@ public class DBService {
         jogador.setTitular(true);
         jogador.setExpulso(false);
 
-        jogadorRepository.save(jogador);
+        Jogador jogador1 = new Jogador();
+        jogador1.setNome("Zidane");
+        jogador1.setNumero(9);
+        jogador1.setTitular(true);
+        jogador1.setExpulso(false);
+
+        jogadorRepository.saveAll(Arrays.asList(jogador, jogador1));
         tecnicoRepository.save(tecnico);
 
         Equipe equipe = new Equipe("Corinthians");
@@ -54,6 +62,7 @@ public class DBService {
         jogoFutsal.getJogadores().add(jogador);
 
         jogador.setEquipe(equipe);
+        jogador1.setEquipe(equipe);
         tecnico.setEquipe(equipe);
         passe.setEquipe(equipe);
         passe.setJogador(jogador);
@@ -62,9 +71,12 @@ public class DBService {
         tecnicoRepository.save(tecnico);
         acaoRepository.save(passe);
         jogoRepository.save(jogoFutsal);
-        jogadorRepository.save(jogador);
+        jogadorRepository.saveAll(Arrays.asList(jogador, jogador1));
 
-        System.out.println("teste");
+        System.out.println(jogadorRepository.findByEquipe(equipe));
+        System.out.println(jogadorRepository.findByJogosAndTitular(jogoFutsal, true));
+        System.out.println(jogadorRepository.findByJogosAndEquipeAndTitular(jogoFutsal, equipe, true));
+
     }
 
 }

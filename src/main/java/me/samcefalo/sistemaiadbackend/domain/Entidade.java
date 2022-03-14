@@ -14,7 +14,7 @@ import java.io.Serializable;
 public abstract class Entidade implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
 

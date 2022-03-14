@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.domain.Tecnico;
+import me.samcefalo.sistemaiadbackend.domain.dto.TecnicoDTO;
 import me.samcefalo.sistemaiadbackend.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
@@ -24,13 +26,15 @@ public class TecnicoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Tecnico>> findAll() {
+    public ResponseEntity<List<TecnicoDTO>> findAll() {
         return ResponseEntity.ok()
-                .body(tecnicoService.findAll());
+                .body(tecnicoService.findAll()
+                        .stream().map(tecnico -> new TecnicoDTO(tecnico)).collect(Collectors.toList()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Tecnico tecnico) {
+    public ResponseEntity<Void> insert(@RequestBody TecnicoDTO tecnicoDTO) {
+        Tecnico tecnico = tecnicoService.fromDTO(tecnicoDTO);
         tecnico = tecnicoService.insert(tecnico);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(tecnico.getId()).toUri();
@@ -38,7 +42,8 @@ public class TecnicoResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Tecnico tecnico, @PathVariable int id) {
+    public ResponseEntity<Void> update(@RequestBody TecnicoDTO tecnicoDTO, @PathVariable int id) {
+        Tecnico tecnico = tecnicoService.fromDTO(tecnicoDTO);
         tecnico.setId(id);
         tecnicoService.update(tecnico);
         return ResponseEntity.noContent().build();
