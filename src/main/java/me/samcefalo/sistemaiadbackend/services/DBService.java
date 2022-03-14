@@ -76,7 +76,8 @@ public class DBService {
         System.out.println(jogadorRepository.findByEquipe(equipe));
         System.out.println(jogadorRepository.findByJogosAndTitular(jogoFutsal, true));
         System.out.println(jogadorRepository.findByJogosAndEquipeAndTitular(jogoFutsal, equipe, true));
-
+        System.out.println(equipeRepository.findByJogadores(jogador));
+        System.out.println(acaoRepository.findByJogadorAndArea(jogador, Area.DEFENSIVO.getId()));
     }
 
 }
