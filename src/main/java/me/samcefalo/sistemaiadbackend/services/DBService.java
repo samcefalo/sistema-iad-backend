@@ -25,9 +25,9 @@ public class DBService {
 
     public void startTestDatas() {
         Passe passe = new Passe();
-        passe.setArea(Area.DEFENSIVO.getId());
+        passe.setArea(Area.OFENSIVO.getId());
         passe.setExito(true);
-        passe.setGrauDificuldade(1);
+        passe.setGrauDificuldade(2);
         acaoRepository.save(passe);
 
         JogoFutsal jogoFutsal = new JogoFutsal();
@@ -38,7 +38,7 @@ public class DBService {
         jogoFutsal.getAcoes().add(passe);
 
         Tecnico tecnico = new Tecnico();
-        tecnico.setNome("Ratinho");
+        tecnico.setNome("Teste");
         tecnico.getJogos().add(jogoFutsal);
 
         Jogador jogador = new Jogador();
@@ -67,6 +67,8 @@ public class DBService {
         passe.setEquipe(equipe);
         passe.setJogador(jogador);
 
+        jogoFutsal.setEquipe1(equipe);
+
         equipeRepository.save(equipe);
         tecnicoRepository.save(tecnico);
         acaoRepository.save(passe);
@@ -78,6 +80,7 @@ public class DBService {
         System.out.println(jogadorRepository.findByJogosAndEquipeAndTitular(jogoFutsal, equipe, true));
         System.out.println(equipeRepository.findByJogadores(jogador));
         System.out.println(acaoRepository.findByJogadorAndArea(jogador, Area.DEFENSIVO.getId()));
+
     }
 
 }

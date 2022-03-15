@@ -28,4 +28,14 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     @Transactional(readOnly = true)
     List<Acao> findByEquipeAndArea(Equipe equipe, int area);
 
+    @Transactional(readOnly = true)
+    List<Acao> findByJogadorAndAreaAndGrauDificuldade(Jogador jogador, int area, int grauDeDificuldade);
+
+    @Transactional(readOnly = true)
+    List<Acao> findByEquipeAnAndGrauDificuldade(Equipe equipe, int grauDeDificuldade);
+
+    @Transactional(readOnly = true)
+    List<Acao> findByJogadorAndGrauDificuldade(Jogador jogador, int grauDeDificuldade);
+
+
 }
