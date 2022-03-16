@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public abstract class Acao implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")
-    //@JsonIgnore
+    @JsonIgnore
     private Jogo jogo;
 
     private int area;
