@@ -18,14 +18,13 @@ public class Jogador extends Entidade {
     private int numero;
     private boolean expulso, titular;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "jogadores")
     @ToString.Exclude
-    @JsonIgnore
     private Set<Jogo> jogos = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
-
 
 }

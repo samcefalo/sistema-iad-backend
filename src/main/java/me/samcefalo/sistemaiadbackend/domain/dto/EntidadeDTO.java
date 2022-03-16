@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class EquipeDTO implements Serializable {
+public abstract class EntidadeDTO implements Serializable {
 
     private int id;
     private String nome;

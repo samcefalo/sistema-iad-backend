@@ -1,9 +1,7 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import me.samcefalo.sistemaiadbackend.domain.enums.Area;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +19,7 @@ public abstract class Acao implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Jogo jogo;
 
     private int area;
@@ -32,9 +30,5 @@ public abstract class Acao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "jogador_id")
     private Jogador jogador;
-
-    public Area getArea() {
-        return Area.toEnum(area);
-    }
 
 }

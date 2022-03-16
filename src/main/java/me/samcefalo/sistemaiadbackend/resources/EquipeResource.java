@@ -2,6 +2,7 @@ package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.domain.Equipe;
 import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
+import me.samcefalo.sistemaiadbackend.mappers.EquipeMappers;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class EquipeResource {
 
     @Autowired
     private EquipeService equipeService;
+    @Autowired
+    private EquipeMappers mappers;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Equipe> find(@PathVariable int id) {
@@ -29,12 +32,13 @@ public class EquipeResource {
     public ResponseEntity<List<EquipeDTO>> findAll() {
         return ResponseEntity.ok()
                 .body(equipeService.findAll()
-                        .stream().map(equipe -> new EquipeDTO(equipe)).collect(Collectors.toList()));
+                        .stream().map(equipe -> mappers.equipeToEquipeDto(equipe))
+                        .collect(Collectors.toList()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody EquipeDTO equipeDTO) {
-        Equipe equipe = equipeService.fromDTO(equipeDTO);
+        Equipe equipe = mappers.equipeDtoToEquipe(equipeDTO);
         equipe = equipeService.insert(equipe);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(equipe.getId()).toUri();

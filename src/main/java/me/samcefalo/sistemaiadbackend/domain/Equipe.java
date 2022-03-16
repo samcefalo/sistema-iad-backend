@@ -30,8 +30,4 @@ public class Equipe implements Serializable {
     @ToString.Exclude
     private Set<Jogador> jogadores = new HashSet<>();
 
-    public Equipe(String nome) {
-        this.nome = nome;
-    }
-
 }

@@ -56,7 +56,8 @@ public class DBService {
         jogadorRepository.saveAll(Arrays.asList(jogador, jogador1));
         tecnicoRepository.save(tecnico);
 
-        Equipe equipe = new Equipe("Corinthians");
+        Equipe equipe = new Equipe();
+        equipe.setNome("Corinthians");
         equipe.setTecnico(tecnico);
 
         jogoFutsal.getJogadores().add(jogador);
@@ -81,6 +82,8 @@ public class DBService {
         System.out.println(equipeRepository.findByJogadores(jogador));
         System.out.println(acaoRepository.findByJogadorAndArea(jogador, Area.DEFENSIVO.getId()));
 
+
     }
+
 
 }

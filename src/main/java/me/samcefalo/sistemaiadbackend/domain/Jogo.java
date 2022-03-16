@@ -2,7 +2,6 @@ package me.samcefalo.sistemaiadbackend.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Jogo implements Serializable {
+public class Jogo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,8 +36,5 @@ public abstract class Jogo implements Serializable {
     @CollectionTable(name = "ACAO_JOGO")
     private Set<Acao> acoes = new HashSet<>();
 
-    public SituacaoJogo getSituacaoJogo() {
-        return SituacaoJogo.toEnum(situacaoJogo);
-    }
 
 }

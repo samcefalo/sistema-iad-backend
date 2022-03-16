@@ -18,8 +18,4 @@ public abstract class Entidade implements Serializable {
     private int id;
     private String nome;
 
-    public Entidade(String nome) {
-        this.nome = nome;
-    }
-
 }

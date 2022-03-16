@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.domain.dto;
 import lombok.Data;
 
 @Data
-public class TecnicoDTO extends EntidadeDTO {
+public class DesarmeDTO extends AcaoDTO {
 
-    private int equipeId;
+    private boolean posseDeBola;
 
 }
