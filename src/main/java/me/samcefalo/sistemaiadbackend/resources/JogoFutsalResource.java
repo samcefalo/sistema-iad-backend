@@ -4,7 +4,6 @@ import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMappers;
 import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
-import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/jogos/futsal")
 public class JogoFutsalResource {
 
-    @Autowired
-    private JogoService jogoService;
     @Autowired
     private JogoFutsalService jogoFutsalService;
     @Autowired

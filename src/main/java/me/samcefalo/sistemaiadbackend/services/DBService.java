@@ -32,7 +32,9 @@ public class DBService {
 
         JogoFutsal jogoFutsal = new JogoFutsal();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.INICIADO.getId());
-        jogoRepository.save(jogoFutsal);
+        JogoFutebol jogoFutebol = new JogoFutebol();
+        jogoFutebol.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
+        jogoRepository.saveAll(Arrays.asList(jogoFutsal, jogoFutebol));
 
         passe.setJogo(jogoFutsal);
         jogoFutsal.getAcoes().add(passe);
