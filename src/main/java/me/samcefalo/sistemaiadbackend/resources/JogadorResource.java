@@ -23,9 +23,9 @@ public class JogadorResource {
     private EntidadeMappers mappers;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Jogador> find(@PathVariable int id) {
+    public ResponseEntity<JogadorDTO> find(@PathVariable int id) {
         Jogador jogador = jogadorService.find(id);
-        return ResponseEntity.ok().body(jogador);
+        return ResponseEntity.ok().body(mappers.jogadorToJogadorDto(jogador));
     }
 
     @RequestMapping(method = RequestMethod.GET)

@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public abstract class AcaoDTO implements Serializable {
 
-    private int id, grauDificuldade, area, equipeId, jogadorId, jogoId;
+    private int id, grauDificuldade, area, equipeId, jogadorId;
     private boolean exito;
 
 }

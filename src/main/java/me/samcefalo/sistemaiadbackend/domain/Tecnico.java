@@ -14,7 +14,7 @@ public class Tecnico extends Entidade {
 
     @JsonIgnore
     @ElementCollection
-    @CollectionTable(name = "TECNICO_JOGO")
+    @CollectionTable(name = "JOGO_TECNICO")
     @ToString.Exclude
     private Set<Jogo> jogos = new HashSet<>();
 

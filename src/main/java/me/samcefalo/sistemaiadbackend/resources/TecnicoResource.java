@@ -23,9 +23,9 @@ public class TecnicoResource {
     private EntidadeMappers mappers;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Tecnico> find(@PathVariable int id) {
+    public ResponseEntity<TecnicoDTO> find(@PathVariable int id) {
         Tecnico tecnico = tecnicoService.find(id);
-        return ResponseEntity.ok().body(tecnico);
+        return ResponseEntity.ok().body(mappers.tecnicoToTecnicoDto(tecnico));
     }
 
     @RequestMapping(method = RequestMethod.GET)

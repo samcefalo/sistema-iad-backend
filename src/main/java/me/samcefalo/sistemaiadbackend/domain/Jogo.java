@@ -12,29 +12,26 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Jogo implements Serializable {
+public abstract class Jogo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int situacaoJogo;
 
-    @ManyToOne
-    @JoinColumn(name = "equipe1_id")
-    private Equipe equipe1;
-    @ManyToOne
-    @JoinColumn(name = "equipe2_id")
-    private Equipe equipe2;
+    @ManyToMany
+    @JoinTable(name = "JOGO_EQUIPE",
+            joinColumns = @JoinColumn(name = "equipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "jogos_id"))
+    private Set<Equipe> equipes = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "JOGO_JOGADOR",
-            joinColumns = @JoinColumn(name = "jogo_id"),
-            inverseJoinColumns = @JoinColumn(name = "jogador_id"))
+            joinColumns = @JoinColumn(name = "jogador_id"),
+            inverseJoinColumns = @JoinColumn(name = "jogos_id"))
     private Set<Jogador> jogadores = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name = "ACAO_JOGO")
+    @OneToMany(mappedBy = "jogo")
     private Set<Acao> acoes = new HashSet<>();
-
 
 }

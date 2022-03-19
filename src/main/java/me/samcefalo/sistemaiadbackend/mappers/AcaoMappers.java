@@ -23,12 +23,11 @@ public interface AcaoMappers {
             @SubclassMapping(source = DribleDTO.class, target = Drible.class),
             @SubclassMapping(source = FinalizacaoDTO.class, target = Finalizacao.class)
     })
-    Acao map(AcaoDTO acaoDTO);*/
+     */
 
     //Acao
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
-    @Mapping(target = "jogo.id", source = "jogoId")
     Drible dribleDtoToDrible(DribleDTO dribleDTO);
 
     @InheritInverseConfiguration(name = "dribleDtoToDrible")
@@ -36,7 +35,6 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
-    @Mapping(target = "jogo.id", source = "jogoId")
     Desarme desarmeDtoToDesarme(DesarmeDTO desarmeDTO);
 
     @InheritInverseConfiguration(name = "desarmeDtoToDesarme")
@@ -44,7 +42,6 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
-    @Mapping(target = "jogo.id", source = "jogoId")
     Finalizacao finalizacaoDtoToFinalizacao(FinalizacaoDTO finalizacaoDTO);
 
     @InheritInverseConfiguration(name = "finalizacaoDtoToFinalizacao")
@@ -52,7 +49,6 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
-    @Mapping(target = "jogo.id", source = "jogoId")
     Passe passeDtoToPasse(PasseDTO passeDTO);
 
     @InheritInverseConfiguration(name = "passeDtoToPasse")

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +16,7 @@ public class Jogador extends Entidade {
     private boolean expulso, titular;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "jogadores")
+    @ManyToMany(mappedBy = "jogadores", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Jogo> jogos = new HashSet<>();
 
