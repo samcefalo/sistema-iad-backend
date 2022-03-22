@@ -1,10 +1,14 @@
 package me.samcefalo.sistemaiadbackend.domain.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public abstract class EntidadeDTO implements Serializable {
 
     private int id;

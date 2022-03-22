@@ -85,6 +85,7 @@ public class GetTests {
                 .andExpect(status().isOk());
     }
 
+
     @Test
     public void case3() throws Exception {
         mockMvc.perform(get("/equipes/1/jogos"))

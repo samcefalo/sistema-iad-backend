@@ -1,12 +1,17 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 public class JogoFutebol extends Jogo {
-
 
 }

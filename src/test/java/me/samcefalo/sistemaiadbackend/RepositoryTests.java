@@ -3,10 +3,7 @@ package me.samcefalo.sistemaiadbackend;
 import me.samcefalo.sistemaiadbackend.domain.*;
 import me.samcefalo.sistemaiadbackend.domain.enums.Area;
 import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
-import me.samcefalo.sistemaiadbackend.repositories.AcaoRepository;
-import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
-import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
-import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
+import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -38,6 +35,8 @@ public class RepositoryTests {
     private AcaoRepository acaoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
+    @Autowired
+    private TecnicoRepository tecnicoRepository;
 
     @BeforeAll
     void setUp() {
@@ -52,9 +51,13 @@ public class RepositoryTests {
 
         jogoFutsal.getJogadores().add(jogador);
 
+        Tecnico tecnico = new Tecnico();
+        tecnico.setNome("Zidane");
+
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
         equipe.getJogadores().add(jogador);
+        equipe.setTecnico(tecnico);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -67,6 +70,7 @@ public class RepositoryTests {
         passe.setJogo(jogoFutsal);
 
         jogadorRepository.save(passe.getJogador());
+        tecnicoRepository.save(equipe.getTecnico());
         equipeRepository.save(passe.getEquipe());
         jogoRepository.save(passe.getJogo());
         acaoRepository.save(passe);
@@ -120,6 +124,7 @@ public class RepositoryTests {
         assertFalse(equipe.getJogos().isEmpty());
         assertFalse(acoes.isEmpty());
         assertTrue(acao.getEquipe().equals(equipe));
+        assertNotNull(equipe.getTecnico());
     }
 
     @Transactional
@@ -133,6 +138,14 @@ public class RepositoryTests {
         assertFalse(jogo.getJogadores().isEmpty());
         assertEquals(SituacaoJogo.ENCERRADO.getId(), jogo.getSituacaoJogo());
         assertTrue(jogo.getJogadores().contains(jogador));
+    }
+
+    @Transactional
+    @Test
+    public void case7() {
+        List<Tecnico> tecnicos = tecnicoRepository.findAll();
+        Tecnico tecnico = tecnicos.get(0);
+        assertNotNull(tecnico.getEquipe());
     }
 
 }

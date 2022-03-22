@@ -1,15 +1,9 @@
 package me.samcefalo.sistemaiadbackend.entidade;
 
-import me.samcefalo.sistemaiadbackend.domain.Equipe;
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
-import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
-import me.samcefalo.sistemaiadbackend.domain.Passe;
+import me.samcefalo.sistemaiadbackend.domain.*;
 import me.samcefalo.sistemaiadbackend.domain.enums.Area;
 import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
-import me.samcefalo.sistemaiadbackend.repositories.AcaoRepository;
-import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
-import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
-import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
+import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -40,6 +34,8 @@ public class GetTests {
     private JogoRepository jogoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
+    @Autowired
+    private TecnicoRepository tecnicoRepository;
 
     @BeforeAll
     void setUp() {
@@ -51,11 +47,15 @@ public class GetTests {
         jogador.setTitular(true);
         jogador.setExpulso(false);
 
+        Tecnico tecnico = new Tecnico();
+        tecnico.setNome("Zidane");
+
         jogoFutsal.getJogadores().add(jogador);
 
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
         equipe.getJogadores().add(jogador);
+        equipe.setTecnico(tecnico);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -68,6 +68,7 @@ public class GetTests {
         passe.setJogo(jogoFutsal);
 
         jogadorRepository.save(jogador);
+        tecnicoRepository.save(tecnico);
         equipeRepository.save(equipe);
         jogoRepository.save(jogoFutsal);
         acaoRepository.save(passe);
@@ -97,6 +98,20 @@ public class GetTests {
     @Test
     public void case4() throws Exception {
         mockMvc.perform(get("/jogadores/1/acoes"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void case5() throws Exception {
+        mockMvc.perform(get("/tecnicos/"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void case6() throws Exception {
+        mockMvc.perform(get("/tecnicos/2"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

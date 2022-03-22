@@ -1,17 +1,18 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 public class Equipe implements Serializable {
 
@@ -21,7 +22,8 @@ public class Equipe implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "equipe", fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn(name = "tecnico_id")
     @ToString.Exclude
     private Tecnico tecnico;
 

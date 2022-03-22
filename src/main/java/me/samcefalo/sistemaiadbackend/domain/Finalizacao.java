@@ -1,10 +1,14 @@
 package me.samcefalo.sistemaiadbackend.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 public class Finalizacao extends Acao {
 

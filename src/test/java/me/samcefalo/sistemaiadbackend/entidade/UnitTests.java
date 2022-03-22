@@ -2,8 +2,9 @@ package me.samcefalo.sistemaiadbackend.entidade;
 
 import me.samcefalo.sistemaiadbackend.domain.Jogador;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UnitTests {
 
     @Autowired
@@ -29,7 +31,7 @@ public class UnitTests {
     @Autowired
     private JogadorRepository jogadorRepository;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         Jogador jogador = new Jogador();
         jogador.setExpulso(false);
@@ -45,8 +47,9 @@ public class UnitTests {
         List<Jogador> jogadores = jogadorRepository.findAll();
         Jogador jogador = jogadores.get(0);
         assertFalse(jogadores.isEmpty());
-        assertEquals(10, jogador.getNumero());
+        assertEquals("Samuel", jogador.getNome());
     }
+
 
     @Test
     void case2() throws Exception {

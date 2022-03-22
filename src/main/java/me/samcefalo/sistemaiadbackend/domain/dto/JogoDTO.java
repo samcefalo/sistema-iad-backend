@@ -1,12 +1,16 @@
 package me.samcefalo.sistemaiadbackend.domain.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public abstract class JogoDTO implements Serializable {
 
     private int id, situacaoJogo;

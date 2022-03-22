@@ -52,7 +52,6 @@ public class GetTests {
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
         equipe.getJogadores().add(jogador);
-        equipe.setTecnico(tecnico);
 
         jogoFutsal.getEquipes().add(equipe);
 
