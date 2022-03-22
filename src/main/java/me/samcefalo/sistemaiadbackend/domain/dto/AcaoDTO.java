@@ -9,5 +9,6 @@ public abstract class AcaoDTO implements Serializable {
 
     private int id, grauDificuldade, area, equipeId, jogadorId;
     private boolean exito;
+    private String tipo;
 
 }

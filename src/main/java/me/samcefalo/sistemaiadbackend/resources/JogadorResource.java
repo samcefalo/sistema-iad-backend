@@ -1,9 +1,15 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
+import me.samcefalo.sistemaiadbackend.domain.Acao;
 import me.samcefalo.sistemaiadbackend.domain.Jogador;
+import me.samcefalo.sistemaiadbackend.domain.Jogo;
+import me.samcefalo.sistemaiadbackend.domain.dto.AcaoDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogadorDTO;
+import me.samcefalo.sistemaiadbackend.domain.dto.JogoDTO;
 import me.samcefalo.sistemaiadbackend.mappers.EntidadeMappers;
+import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogadorService;
+import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +27,10 @@ public class JogadorResource {
     private JogadorService jogadorService;
     @Autowired
     private EntidadeMappers mappers;
+    @Autowired
+    private AcaoService acaoService;
+    @Autowired
+    private JogoService jogoService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<JogadorDTO> find(@PathVariable int id) {
@@ -34,6 +44,18 @@ public class JogadorResource {
                 .body(jogadorService.findAll()
                         .stream().map(jogador -> mappers.jogadorToJogadorDto(jogador))
                         .collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
+    public ResponseEntity<List<AcaoDTO>> findAcoes(@PathVariable int id) {
+        List<Acao> acoes = jogadorService.findAcoes(id);
+        return ResponseEntity.ok().body(acaoService.getListAcaoDto(acoes));
+    }
+
+    @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
+    public ResponseEntity<List<JogoDTO>> findJogos(@PathVariable int id) {
+        List<Jogo> jogos = jogadorService.findJogos(id);
+        return ResponseEntity.ok().body(jogoService.getListJogoDto(jogos));
     }
 
     @RequestMapping(method = RequestMethod.POST)

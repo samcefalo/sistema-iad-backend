@@ -19,19 +19,19 @@ public abstract class Jogo implements Serializable {
     private int id;
     private int situacaoJogo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "JOGO_EQUIPE",
             joinColumns = @JoinColumn(name = "equipe_id"),
             inverseJoinColumns = @JoinColumn(name = "jogos_id"))
     private Set<Equipe> equipes = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "JOGO_JOGADOR",
             joinColumns = @JoinColumn(name = "jogador_id"),
             inverseJoinColumns = @JoinColumn(name = "jogos_id"))
     private Set<Jogador> jogadores = new HashSet<>();
 
-    @OneToMany(mappedBy = "jogo")
+    @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY)
     private Set<Acao> acoes = new HashSet<>();
 
 }

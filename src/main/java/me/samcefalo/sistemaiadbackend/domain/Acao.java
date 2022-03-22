@@ -17,6 +17,7 @@ public abstract class Acao implements Serializable {
     private int id;
     private int grauDificuldade;
     private boolean exito;
+    private String tipo = getClass().getSimpleName();
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")
@@ -24,7 +25,7 @@ public abstract class Acao implements Serializable {
     private Jogo jogo;
 
     private int area;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
 

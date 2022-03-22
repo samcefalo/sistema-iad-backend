@@ -21,7 +21,7 @@ public class Equipe implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "equipe")
+    @OneToOne(mappedBy = "equipe", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Tecnico tecnico;
 

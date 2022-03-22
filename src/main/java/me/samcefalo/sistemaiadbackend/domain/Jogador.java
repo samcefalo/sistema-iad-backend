@@ -20,7 +20,7 @@ public class Jogador extends Entidade {
     @ToString.Exclude
     private Set<Jogo> jogos = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
 

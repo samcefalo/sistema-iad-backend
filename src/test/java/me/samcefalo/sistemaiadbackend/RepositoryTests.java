@@ -7,8 +7,9 @@ import me.samcefalo.sistemaiadbackend.repositories.AcaoRepository;
 import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
 import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RepositoryTests {
 
     @Autowired
@@ -37,7 +39,7 @@ public class RepositoryTests {
     @Autowired
     private EquipeRepository equipeRepository;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         JogoFutsal jogoFutsal = new JogoFutsal();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
@@ -46,6 +48,7 @@ public class RepositoryTests {
         jogador.setNome("Samuel");
         jogador.setTitular(true);
         jogador.setExpulso(false);
+        //jogador.getJogos().add(jogoFutsal);
 
         jogoFutsal.getJogadores().add(jogador);
 
@@ -67,6 +70,20 @@ public class RepositoryTests {
         equipeRepository.save(passe.getEquipe());
         jogoRepository.save(passe.getJogo());
         acaoRepository.save(passe);
+    }
+
+    @Test
+    void case1() throws Exception {
+        mockMvc.perform(get("/jogadores"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void case2() throws Exception {
+        mockMvc.perform(get("/equipes"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -105,18 +122,17 @@ public class RepositoryTests {
         assertTrue(acao.getEquipe().equals(equipe));
     }
 
+    @Transactional
     @Test
-    void case1() throws Exception {
-        mockMvc.perform(get("/jogadores"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void case2() throws Exception {
-        mockMvc.perform(get("/equipes"))
-                .andDo(print())
-                .andExpect(status().isOk());
+    public void case6() {
+        List<Jogador> jogadores = jogadorRepository.findAll();
+        Jogador jogador = jogadores.get(0);
+        List<Jogo> jogos = jogoRepository.findByJogadores(jogador);
+        Jogo jogo = jogos.get(0);
+        assertFalse(jogos.isEmpty());
+        assertFalse(jogo.getJogadores().isEmpty());
+        assertEquals(SituacaoJogo.ENCERRADO.getId(), jogo.getSituacaoJogo());
+        assertTrue(jogo.getJogadores().contains(jogador));
     }
 
 }
