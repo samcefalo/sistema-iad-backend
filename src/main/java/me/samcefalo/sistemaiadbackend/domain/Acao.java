@@ -20,6 +20,7 @@ public abstract class Acao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int grauDificuldade;
+    private int area;
     private boolean exito;
     private String tipo = getClass().getSimpleName();
 
@@ -28,7 +29,6 @@ public abstract class Acao implements Serializable {
     @JsonIgnore
     private Jogo jogo;
 
-    private int area;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
