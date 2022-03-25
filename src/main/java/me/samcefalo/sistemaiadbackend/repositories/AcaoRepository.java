@@ -41,10 +41,18 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     List<Acao> findByTipo(String tipo);
 
     @Transactional(readOnly = true)
+    List<Acao> findByJogadorAndExito(Jogador jogador, boolean exito);
+
+    @Transactional(readOnly = true)
     List<Acao> findByJogadorAndTipo(Jogador jogador, String tipo);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndTipoAAndGrauDificuldade(Jogador jogador, String tipo, int grauDeDificuldade);
+    List<Acao> findByJogadorAndTipoAndExito(Jogador jogador, String tipo, boolean exito);
 
+    @Transactional(readOnly = true)
+    List<Acao> findByJogadorAndTipoAndGrauDificuldade(Jogador jogador, String tipo, int grauDeDificuldade);
+
+    @Transactional(readOnly = true)
+    List<Acao> findByEquipeAndTipo(Equipe equipe, String tipo);
 
 }

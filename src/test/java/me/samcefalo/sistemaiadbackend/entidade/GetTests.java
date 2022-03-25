@@ -63,7 +63,7 @@ public class GetTests {
         passe.setJogador(jogador);
         passe.setEquipe(equipe);
         passe.setGrauDificuldade(1);
-        passe.setExito(true);
+        passe.setExito(false);
         passe.setArea(Area.OFENSIVO.getId());
         passe.setJogo(jogoFutsal);
 
