@@ -33,7 +33,7 @@ public abstract class Jogo implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "jogos_id"))
     private Set<Jogador> jogadores = new HashSet<>();
 
-    @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Acao> acoes = new HashSet<>();
 
 }

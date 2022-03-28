@@ -23,6 +23,11 @@ public class Jogador extends Entidade {
     @ToString.Exclude
     private Set<Jogo> jogos = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "jogador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<Acao> acoes = new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
