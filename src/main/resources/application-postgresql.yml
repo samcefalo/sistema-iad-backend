@@ -1,16 +1,9 @@
-spring:
-  datasource:
-    url: jdbc:postgres://ec2-3-225-213-67.compute-1.amazonaws.com:5432/d6k8ktkkcdpfqa
-    username: dbgjkeuiiqrlyz
-    password: 2c847450347d3d156fe9bc5cfdd9aed5e00a1366c37dc9e6c65dfb4a0c3be373
+spring.datasource.url: jdbc:postgresql://ec2-3-225-213-67.compute-1.amazonaws.com:5432/d6k8ktkkcdpfqa
+spring.datasource.username: dbgjkeuiiqrlyz
+spring.datasource.password: 2c847450347d3d156fe9bc5cfdd9aed5e00a1366c37dc9e6c65dfb4a0c3be373
 
-  jpa:
-    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate.ddl-auto: update
-    hibernate:
-      jdbc: time_zone = TimeZone
-    show-sql: true
+spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.show-sql: true
 
-server:
-  error:
-    include-message: always
+server.error.include-message: always
