@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonTypeName("JogoFutebol")
 public class JogoFutebolDTO extends JogoDTO {
 
 }
