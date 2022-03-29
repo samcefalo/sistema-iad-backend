@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,7 +60,7 @@ public class JogadorResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody JogadorDTO jogadorDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody JogadorDTO jogadorDTO) {
         Jogador jogador = mappers.jogadorDtoToJogador(jogadorDTO);
         jogador = jogadorService.insert(jogador);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -68,7 +69,7 @@ public class JogadorResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody JogadorDTO jogadorDTO, @PathVariable int id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody JogadorDTO jogadorDTO, @PathVariable int id) {
         Jogador jogador = mappers.jogadorDtoToJogador(jogadorDTO);
         jogador.setId(id);
         jogadorService.update(jogador);

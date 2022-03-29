@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class TecnicoResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody TecnicoDTO tecnicoDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
         Tecnico tecnico = mappers.tecnicoDtoToTecnico(tecnicoDTO);
         tecnico = tecnicoService.insert(tecnico);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,7 +46,7 @@ public class TecnicoResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody TecnicoDTO tecnicoDTO, @PathVariable int id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody TecnicoDTO tecnicoDTO, @PathVariable int id) {
         Tecnico tecnico = mappers.tecnicoDtoToTecnico(tecnicoDTO);
         tecnico.setId(id);
         tecnicoService.update(tecnico);

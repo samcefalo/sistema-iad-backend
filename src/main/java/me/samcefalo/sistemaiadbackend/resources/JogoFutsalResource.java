@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +38,7 @@ public class JogoFutsalResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody JogoFutsalDTO jogoFutsalDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody JogoFutsalDTO jogoFutsalDTO) {
         JogoFutsal jogoFutsal = mappers.jogoFutsalDtoToJogoFutsal(jogoFutsalDTO);
         jogoFutsal = jogoFutsalService.insert(jogoFutsal);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -46,7 +47,7 @@ public class JogoFutsalResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody JogoFutsalDTO jogoFutsalDTO, @PathVariable int id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody JogoFutsalDTO jogoFutsalDTO, @PathVariable int id) {
         JogoFutsal jogoFutsal = mappers.jogoFutsalDtoToJogoFutsal(jogoFutsalDTO);
         jogoFutsal.setId(id);
         jogoFutsalService.update(jogoFutsal);
