@@ -24,7 +24,7 @@ public class Jogador extends Entidade {
     private Set<Jogo> jogos = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "jogador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jogador", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Acao> acoes = new HashSet<>();
 

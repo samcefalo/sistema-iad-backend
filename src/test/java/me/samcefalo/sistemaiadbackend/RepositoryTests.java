@@ -46,6 +46,7 @@ public class RepositoryTests {
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
         Jogador jogador = new Jogador();
+        jogador.setNumero(10);
         jogador.setNome("Samuel");
         jogador.setTitular(true);
         jogador.setExpulso(false);
@@ -58,8 +59,9 @@ public class RepositoryTests {
 
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
-        equipe.getJogadores().add(jogador);
-        equipe.setTecnico(tecnico);
+
+        jogador.setEquipe(equipe);
+        tecnico.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -71,10 +73,10 @@ public class RepositoryTests {
         passe.setArea(Area.OFENSIVO.getId());
         passe.setJogo(jogoFutsal);
 
-        jogadorRepository.save(passe.getJogador());
-        tecnicoRepository.save(equipe.getTecnico());
-        equipeRepository.save(passe.getEquipe());
-        jogoRepository.save(passe.getJogo());
+        equipeRepository.save(equipe);
+        jogadorRepository.save(jogador);
+        tecnicoRepository.save(tecnico);
+        jogoRepository.save(jogoFutsal);
         acaoRepository.save(passe);
     }
 
@@ -88,6 +90,13 @@ public class RepositoryTests {
     @Test
     void case2() throws Exception {
         mockMvc.perform(get("/equipes"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void case8() throws Exception {
+        mockMvc.perform(get("/jogos/futsal"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

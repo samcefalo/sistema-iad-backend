@@ -58,6 +58,14 @@ public class EquipeResource {
         return ResponseEntity.ok().body(jogoService.getListJogoDto(jogos));
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody EquipeDTO equipeDTO, @PathVariable int id) {
+        Equipe equipe = mappers.equipeDtoToEquipe(equipeDTO);
+        equipe.setId(id);
+        equipeService.update(equipe);
+        return ResponseEntity.noContent().build();
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody EquipeDTO equipeDTO) {
         Equipe equipe = mappers.equipeDtoToEquipe(equipeDTO);
@@ -65,6 +73,12 @@ public class EquipeResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(equipe.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        equipeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -52,4 +52,10 @@ public class TecnicoResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        tecnicoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

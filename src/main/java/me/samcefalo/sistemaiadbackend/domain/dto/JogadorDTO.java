@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.*;
 
 @Getter
@@ -8,7 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonTypeName("Jogador")
 public class JogadorDTO extends EntidadeDTO {
 
     private int numero, equipeId;

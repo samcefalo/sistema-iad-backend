@@ -28,7 +28,7 @@ public abstract class Acao implements Serializable {
     @JsonIgnore
     private Jogo jogo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
 

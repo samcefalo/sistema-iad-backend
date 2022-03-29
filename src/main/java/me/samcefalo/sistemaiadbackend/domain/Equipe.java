@@ -22,8 +22,7 @@ public class Equipe implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "tecnico_id")
+    @OneToOne(mappedBy = "equipe", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Tecnico tecnico;
 
@@ -36,6 +35,11 @@ public class Equipe implements Serializable {
     @ManyToMany(mappedBy = "equipes", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Jogo> jogos = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Acao> acoes = new HashSet<>();
 
 }
 

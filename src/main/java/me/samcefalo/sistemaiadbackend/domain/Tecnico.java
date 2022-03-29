@@ -22,7 +22,8 @@ public class Tecnico extends Entidade {
     private Set<Jogo> jogos = new HashSet<>();
 
     @JsonIgnore
-    @OneToOne(mappedBy = "tecnico", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipe_id")
     @ToString.Exclude
     private Equipe equipe;
 

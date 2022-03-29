@@ -53,4 +53,10 @@ public class JogoFutsalResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        jogoFutsalService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
