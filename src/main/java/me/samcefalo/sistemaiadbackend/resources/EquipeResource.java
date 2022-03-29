@@ -6,9 +6,9 @@ import me.samcefalo.sistemaiadbackend.domain.Jogo;
 import me.samcefalo.sistemaiadbackend.domain.dto.AcaoDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogoDTO;
-import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
+import me.samcefalo.sistemaiadbackend.services.mappers.AcaoMappers;
 import me.samcefalo.sistemaiadbackend.services.mappers.EquipeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class EquipeResource {
     @Autowired
     private EquipeMappers mappers;
     @Autowired
-    private AcaoService acaoService;
+    private AcaoMappers acaoMappers;
     @Autowired
     private JogoService jogoService;
 
@@ -50,7 +50,7 @@ public class EquipeResource {
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
     public ResponseEntity<List<AcaoDTO>> findAcoes(@PathVariable int id) {
         List<Acao> acoes = equipeService.findAcoes(id);
-        return ResponseEntity.ok().body(acaoService.getListAcaoDto(acoes));
+        return ResponseEntity.ok().body(acaoMappers.acoesToAcoesDto(acoes));
     }
 
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)

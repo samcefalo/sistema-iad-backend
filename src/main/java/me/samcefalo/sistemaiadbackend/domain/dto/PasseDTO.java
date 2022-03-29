@@ -13,5 +13,4 @@ import lombok.ToString;
 @JsonTypeName("Passe")
 public class PasseDTO extends AcaoDTO {
 
-
 }

@@ -21,5 +21,4 @@ public interface JogoMappers {
 
     @InheritInverseConfiguration(name = "jogoFutebolDtoToJogoFutebol")
     JogoFutebolDTO jogoFutebolToJogoFutebolDto(JogoFutebol jogoFutebol);
-
 }

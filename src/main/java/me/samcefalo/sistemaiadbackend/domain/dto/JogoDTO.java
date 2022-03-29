@@ -16,9 +16,9 @@ import java.util.Set;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@tipo")
 public abstract class JogoDTO implements Serializable {
 
-    private int id;
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
     private Set<EquipeDTO> equipes = new HashSet<>();
+    private Set<JogadorDTO> jogadores = new HashSet<>();
 
 }
