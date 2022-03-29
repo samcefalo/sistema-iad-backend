@@ -53,7 +53,8 @@ public class GetTests {
 
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
-        equipe.getJogadores().add(jogador);
+
+        jogador.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -65,9 +66,9 @@ public class GetTests {
         passe.setArea(Area.OFENSIVO.getId());
         passe.setJogo(jogoFutsal);
 
+        equipeRepository.save(equipe);
         jogadorRepository.save(jogador);
         tecnicoRepository.save(tecnico);
-        equipeRepository.save(equipe);
         jogoRepository.save(jogoFutsal);
         acaoRepository.save(passe);
     }

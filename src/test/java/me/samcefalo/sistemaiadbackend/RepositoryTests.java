@@ -40,6 +40,10 @@ public class RepositoryTests {
     @Autowired
     private TecnicoRepository tecnicoRepository;
 
+    /*
+    A classe mais dependente (filho) sempre adiciona a classe pai
+     */
+
     @BeforeAll
     void setUp() {
         JogoFutsal jogoFutsal = new JogoFutsal();
