@@ -5,14 +5,13 @@ import me.samcefalo.sistemaiadbackend.domain.dto.TecnicoDTO;
 import me.samcefalo.sistemaiadbackend.services.TecnicoService;
 import me.samcefalo.sistemaiadbackend.services.mappers.EntidadeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
@@ -30,10 +29,13 @@ public class TecnicoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<TecnicoDTO>> findAll() {
+    public ResponseEntity<Page<TecnicoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                     @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(tecnicoService.findAll()
-                        .stream().map(tecnico -> mappers.tecnicoToTecnicoDto(tecnico)).collect(Collectors.toList()));
+                .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(tecnico -> mappers.tecnicoToTecnicoDto(tecnico)));
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -5,14 +5,13 @@ import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
 import me.samcefalo.sistemaiadbackend.services.mappers.JogoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/jogos/futsal")
@@ -30,11 +29,13 @@ public class JogoFutsalResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<JogoFutsalDTO>> findAll() {
+    public ResponseEntity<Page<JogoFutsalDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                        @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                        @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(jogoFutsalService.findAll()
-                        .stream().map(jogoFutsal -> mappers.jogoFutsalToJogoFutsalDto(jogoFutsal))
-                        .collect(Collectors.toList()));
+                .body(jogoFutsalService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(jogoFutsal -> mappers.jogoFutsalToJogoFutsalDto(jogoFutsal)));
     }
 
     @RequestMapping(method = RequestMethod.POST)

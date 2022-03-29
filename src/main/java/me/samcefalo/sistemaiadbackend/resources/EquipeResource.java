@@ -7,10 +7,11 @@ import me.samcefalo.sistemaiadbackend.domain.dto.AcaoDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogoDTO;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
-import me.samcefalo.sistemaiadbackend.services.JogoService;
 import me.samcefalo.sistemaiadbackend.services.mappers.AcaoMappers;
 import me.samcefalo.sistemaiadbackend.services.mappers.EquipeMappers;
+import me.samcefalo.sistemaiadbackend.services.mappers.JogoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/equipes")
@@ -31,7 +31,7 @@ public class EquipeResource {
     @Autowired
     private AcaoMappers acaoMappers;
     @Autowired
-    private JogoService jogoService;
+    private JogoMappers jogoMappers;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EquipeDTO> find(@PathVariable int id) {
@@ -40,11 +40,13 @@ public class EquipeResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<EquipeDTO>> findAll() {
+    public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                    @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                    @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                    @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(equipeService.findAll()
-                        .stream().map(equipe -> mappers.equipeToEquipeDto(equipe))
-                        .collect(Collectors.toList()));
+                .body(equipeService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(equipe -> mappers.equipeToEquipeDto(equipe)));
     }
 
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
@@ -56,7 +58,7 @@ public class EquipeResource {
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
     public ResponseEntity<List<JogoDTO>> findJogos(@PathVariable int id) {
         List<Jogo> jogos = equipeService.findJogos(id);
-        return ResponseEntity.ok().body(jogoService.getListJogoDto(jogos));
+        return ResponseEntity.ok().body(jogoMappers.getListJogoDto(jogos));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

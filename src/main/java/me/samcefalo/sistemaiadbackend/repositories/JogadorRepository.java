@@ -12,12 +12,6 @@ import java.util.List;
 @Repository
 public interface JogadorRepository extends JpaRepository<Jogador, Integer> {
 
-    /*
-    @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM Jogador obj WHERE obj.equipe.id = (:equipe)")
-    List<Jogador> findByEquipe(@Param("equipe") int equipe);
-    */
-
     @Transactional(readOnly = true)
     List<Jogador> findByEquipe(Equipe equipe);
 

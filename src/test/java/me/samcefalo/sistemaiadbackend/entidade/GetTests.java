@@ -33,7 +33,7 @@ public class GetTests {
     @Autowired
     private JogadorRepository jogadorRepository;
     @Autowired
-    private JogoRepository jogoRepository;
+    private JogoFutsalRepository jogoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
     @Autowired

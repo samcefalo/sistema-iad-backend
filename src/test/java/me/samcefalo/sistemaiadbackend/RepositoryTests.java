@@ -32,7 +32,7 @@ public class RepositoryTests {
     @Autowired
     private JogadorRepository jogadorRepository;
     @Autowired
-    private JogoRepository jogoRepository;
+    private JogoFutsalRepository jogoRepository;
     @Autowired
     private AcaoRepository acaoRepository;
     @Autowired

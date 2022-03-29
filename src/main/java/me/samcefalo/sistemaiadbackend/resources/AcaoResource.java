@@ -5,13 +5,13 @@ import me.samcefalo.sistemaiadbackend.domain.dto.AcaoDTO;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.mappers.AcaoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/acoes")
@@ -29,9 +29,13 @@ public class AcaoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<AcaoDTO>> findAll() {
+    public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                  @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(mappers.acoesToAcoesDto(acaoService.findAll()));
+                .body(acaoService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(acao -> mappers.getAcaoDto(acao)));
     }
 
     @RequestMapping(method = RequestMethod.POST)
