@@ -2,8 +2,8 @@ package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
-import me.samcefalo.sistemaiadbackend.mappers.JogoMappers;
 import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
+import me.samcefalo.sistemaiadbackend.services.mappers.JogoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

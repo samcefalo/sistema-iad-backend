@@ -1,4 +1,4 @@
-package me.samcefalo.sistemaiadbackend.mappers;
+package me.samcefalo.sistemaiadbackend.services.mappers;
 
 import me.samcefalo.sistemaiadbackend.domain.Desarme;
 import me.samcefalo.sistemaiadbackend.domain.Drible;
@@ -15,15 +15,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AcaoMappers {
-
-    /*
-    @SubclassMappings({
-            @SubclassMapping(source = PasseDTO.class, target = Passe.class),
-            @SubclassMapping(source = DesarmeDTO.class, target = Desarme.class),
-            @SubclassMapping(source = DribleDTO.class, target = Drible.class),
-            @SubclassMapping(source = FinalizacaoDTO.class, target = Finalizacao.class)
-    })
-     */
 
     //Acao
     @Mapping(target = "equipe.id", source = "equipeId")

@@ -2,8 +2,8 @@ package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.domain.Tecnico;
 import me.samcefalo.sistemaiadbackend.domain.dto.TecnicoDTO;
-import me.samcefalo.sistemaiadbackend.mappers.EntidadeMappers;
 import me.samcefalo.sistemaiadbackend.services.TecnicoService;
+import me.samcefalo.sistemaiadbackend.services.mappers.EntidadeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

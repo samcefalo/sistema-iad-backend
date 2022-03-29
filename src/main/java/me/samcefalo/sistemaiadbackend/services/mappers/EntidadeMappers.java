@@ -1,4 +1,4 @@
-package me.samcefalo.sistemaiadbackend.mappers;
+package me.samcefalo.sistemaiadbackend.services.mappers;
 
 import me.samcefalo.sistemaiadbackend.domain.Jogador;
 import me.samcefalo.sistemaiadbackend.domain.Tecnico;
