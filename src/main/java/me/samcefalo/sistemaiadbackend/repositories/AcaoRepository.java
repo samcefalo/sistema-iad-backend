@@ -4,7 +4,7 @@ import me.samcefalo.sistemaiadbackend.domain.Acao;
 import me.samcefalo.sistemaiadbackend.domain.Equipe;
 import me.samcefalo.sistemaiadbackend.domain.Jogador;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +21,10 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     List<Acao> findByJogador(Jogador jogador);
 
     @Transactional(readOnly = true)
-    Page<Acao> findByEquipe(Equipe equipe, PageRequest pageRequest);
+    Page<Acao> findByEquipe(Equipe equipe, Pageable pageable);
 
     @Transactional(readOnly = true)
-    Page<Acao> findByJogador(Jogador jogador, PageRequest pageRequest);
+    Page<Acao> findByJogador(Jogador jogador, Pageable pageable);
 
     @Transactional(readOnly = true)
     List<Acao> findByJogadorAndExito(Jogador jogador, boolean exito);

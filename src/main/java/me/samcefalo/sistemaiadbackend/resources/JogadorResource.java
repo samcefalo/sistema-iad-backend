@@ -49,7 +49,7 @@ public class JogadorResource {
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
     public ResponseEntity<Page<AcaoDTO>> findAcoesPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
                                                        @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                       @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                       @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(jogadorService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
@@ -59,7 +59,7 @@ public class JogadorResource {
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
     public ResponseEntity<Page<JogoDTO>> findJogosPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
                                                        @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                       @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                       @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(jogadorService.findJogosPage(id, page, linesPerPage, orderBy, direction)

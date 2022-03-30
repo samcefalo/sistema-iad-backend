@@ -5,7 +5,7 @@ import me.samcefalo.sistemaiadbackend.domain.Jogador;
 import me.samcefalo.sistemaiadbackend.domain.Jogo;
 import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +22,9 @@ public interface JogoFutsalRepository extends JpaRepository<JogoFutsal, Integer>
     List<Jogo> findByJogadores(Jogador jogador);
 
     @Transactional(readOnly = true)
-    Page<Jogo> findByEquipes(Equipe equipe, PageRequest pageRequest);
+    Page<Jogo> findByEquipes(Equipe equipe, Pageable pageable);
 
     @Transactional(readOnly = true)
-    Page<Jogo> findByJogador(Jogador jogador, PageRequest pageRequest);
+    Page<Jogo> findByJogadores(Jogador jogador, Pageable pageable);
 
 }
