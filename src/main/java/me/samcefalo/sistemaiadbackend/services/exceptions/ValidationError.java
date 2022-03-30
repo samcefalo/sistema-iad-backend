@@ -1,4 +1,4 @@
-package me.samcefalo.sistemaiadbackend.resources.exceptions;
+package me.samcefalo.sistemaiadbackend.services.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;
