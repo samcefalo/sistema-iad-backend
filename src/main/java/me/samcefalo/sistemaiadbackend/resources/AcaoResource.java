@@ -31,7 +31,7 @@ public class AcaoResource {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
                                                   @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                  @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                  @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                   @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(acaoService.findPage(page, linesPerPage, orderBy, direction)

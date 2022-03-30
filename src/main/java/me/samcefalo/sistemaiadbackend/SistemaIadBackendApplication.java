@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SistemaIadBackendApplication {
 
     //TODO adicionar Placar para jogos
-    //TODO adicionar paginas para resources
+    //TODO adicionar pesquisa para resources
     public static void main(String[] args) {
         SpringApplication.run(SistemaIadBackendApplication.class, args);
     }
