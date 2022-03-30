@@ -3,7 +3,8 @@ package me.samcefalo.sistemaiadbackend.repositories;
 import me.samcefalo.sistemaiadbackend.domain.Acao;
 import me.samcefalo.sistemaiadbackend.domain.Equipe;
 import me.samcefalo.sistemaiadbackend.domain.Jogador;
-import me.samcefalo.sistemaiadbackend.domain.Jogo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,22 +21,10 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     List<Acao> findByJogador(Jogador jogador);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogo(Jogo jogo);
+    Page<Acao> findByEquipe(Equipe equipe, PageRequest pageRequest);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndArea(Jogador jogador, int area);
-
-    @Transactional(readOnly = true)
-    List<Acao> findByEquipeAndArea(Equipe equipe, int area);
-
-    @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndAreaAndGrauDificuldade(Jogador jogador, int area, int grauDeDificuldade);
-
-    @Transactional(readOnly = true)
-    List<Acao> findByEquipeAndGrauDificuldade(Equipe equipe, int grauDeDificuldade);
-
-    @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndGrauDificuldade(Jogador jogador, int grauDeDificuldade);
+    Page<Acao> findByJogador(Jogador jogador, PageRequest pageRequest);
 
     @Transactional(readOnly = true)
     List<Acao> findByJogadorAndExito(Jogador jogador, boolean exito);
