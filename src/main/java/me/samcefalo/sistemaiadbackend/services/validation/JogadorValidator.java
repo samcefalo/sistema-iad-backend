@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
-import me.samcefalo.sistemaiadbackend.services.exceptions.FieldMessage;
+import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Jogador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

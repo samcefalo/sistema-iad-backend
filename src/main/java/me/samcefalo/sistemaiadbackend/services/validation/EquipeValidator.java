@@ -2,7 +2,7 @@ package me.samcefalo.sistemaiadbackend.services.validation;
 
 import lombok.NoArgsConstructor;
 import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
-import me.samcefalo.sistemaiadbackend.services.exceptions.FieldMessage;
+import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Equipe;
 import org.springframework.beans.factory.annotation.Autowired;
 

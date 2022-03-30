@@ -1,5 +1,7 @@
-package me.samcefalo.sistemaiadbackend.services.exceptions;
+package me.samcefalo.sistemaiadbackend.resources.exceptions;
 
+import me.samcefalo.sistemaiadbackend.services.exceptions.DataIntegrityException;
+import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
