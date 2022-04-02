@@ -14,6 +14,8 @@ import java.io.Serializable;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@tipo")
 public abstract class JogoDTO implements Serializable {
 
+    @Min(value = 1, message = "O id é obrigatório.")
+    private int id;
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
 

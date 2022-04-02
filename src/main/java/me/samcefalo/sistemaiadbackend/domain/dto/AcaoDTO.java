@@ -23,6 +23,8 @@ import java.io.Serializable;
 })
 public abstract class AcaoDTO implements Serializable {
 
+    @Min(value = 1, message = "O id é obrigatório.")
+    private int id;
     @Min(value = 1, message = "O grau de dificuldade é obrigatório.")
     private int grauDificuldade;
     @Min(value = 1, message = "A area é obrigatória.")
