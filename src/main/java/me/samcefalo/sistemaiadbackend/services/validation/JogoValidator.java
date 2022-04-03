@@ -1,8 +1,9 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
+import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Jogo;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.JogoValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,22 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JogoValidator implements ConstraintValidator<Jogo, Integer> {
+public class JogoValidator implements ConstraintValidator<JogoValid, JogoDTO> {
 
     @Autowired
     private JogoRepository jogoRepository;
 
     @Override
-    public void initialize(Jogo ann) {
+    public void initialize(JogoValid ann) {
     }
 
     @Override
-    public boolean isValid(Integer id, ConstraintValidatorContext context) {
+    public boolean isValid(JogoDTO jogo, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        //Equipe existente
-        if (!jogoRepository.findById(id).isPresent()) {
-            list.add(new FieldMessage("jogoId", "Jogo " + id + " inválido."));
+        //Jogo existente
+        if (jogo == null || jogo.getId() == 0
+                || !jogoRepository.findById(jogo.getId()).isPresent()) {
+            list.add(new FieldMessage("jogo", "Jogo inválido."));
         }
 
         for (FieldMessage e : list) {

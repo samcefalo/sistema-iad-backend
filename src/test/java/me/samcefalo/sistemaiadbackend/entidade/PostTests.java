@@ -50,7 +50,6 @@ public class PostTests {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
-        jogador.setEquipeId(1);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -64,7 +63,7 @@ public class PostTests {
                 .andExpect(status().isCreated());
     }
 
-    //BadRequest - equipe com nome null
+    //UnprocessableEntity - jogador com nome null
     @Test
     void case3() throws Exception {
         JogadorDTO jogador = new JogadorDTO();
@@ -78,7 +77,7 @@ public class PostTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

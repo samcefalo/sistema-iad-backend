@@ -53,7 +53,7 @@ public class PostTests {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
-        jogador.setEquipeId(1);
+        //jogador.setEquipeId(1);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -89,8 +89,19 @@ public class PostTests {
         PasseDTO passe = new PasseDTO();
         passe.setArea(Area.OFENSIVO.getId());
         passe.setGrauDificuldade(1);
-        passe.setJogadorId(1);
-        passe.setEquipeId(1);
+
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        JogadorDTO jogador = new JogadorDTO();
+        jogador.setId(1);
+
+        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        jogoFutsal.setId(2);
+
+        passe.setJogador(jogador);
+        passe.setEquipe(equipe);
+        passe.setJogo(jogoFutsal);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

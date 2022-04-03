@@ -1,19 +1,19 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
-import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Equipe;
-
-import javax.validation.constraints.Min;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class TecnicoDTO extends EntidadeDTO {
 
-    @Equipe
+    /*@Equipe
     @Min(value = 1, message = "O id da equipe é obrigatório.")
     private int equipeId;
+     */
 
 }

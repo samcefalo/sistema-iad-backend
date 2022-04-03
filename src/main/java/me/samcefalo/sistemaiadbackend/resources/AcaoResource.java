@@ -23,18 +23,19 @@ public class AcaoResource {
     private AcaoMapper acaoMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Acao> find(@PathVariable int id) {
+    public ResponseEntity<AcaoDTO> find(@PathVariable int id) {
         Acao acao = acaoService.find(id);
-        return ResponseEntity.ok().body(acao);
+        return ResponseEntity.ok().body(acaoMapper.mapTo(acao));
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<Acao>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
-                                               @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                               @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                               @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+    public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                  @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(acaoService.findPage(page, linesPerPage, orderBy, direction));
+                .body(acaoService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(acao -> acaoMapper.mapTo(acao)));
     }
 
     @RequestMapping(method = RequestMethod.POST)

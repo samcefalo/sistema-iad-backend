@@ -26,7 +26,7 @@ public abstract class Acao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "jogo_id")
     @JsonIgnore
-    private Jogo jogo = new JogoFutsal();
+    private Jogo jogo;
 
     @ManyToOne
     @JoinColumn(name = "equipe_id")

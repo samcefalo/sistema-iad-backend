@@ -1,9 +1,10 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
 import lombok.NoArgsConstructor;
+import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Equipe;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -12,21 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-public class EquipeValidator implements ConstraintValidator<Equipe, Integer> {
+public class EquipeValidator implements ConstraintValidator<EquipeValid, EquipeDTO> {
 
     @Autowired
     private EquipeRepository equipeRepository;
 
     @Override
-    public void initialize(Equipe ann) {
+    public void initialize(EquipeValid ann) {
     }
 
     @Override
-    public boolean isValid(Integer id, ConstraintValidatorContext context) {
+    public boolean isValid(EquipeDTO equipe, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
         //Equipe existente
-        if (!equipeRepository.findById(id).isPresent()) {
-            list.add(new FieldMessage("equipeId", "Equipe " + id + " inválida."));
+        if (equipe == null || equipe.getId() == 0
+                || !equipeRepository.findById(equipe.getId()).isPresent()) {
+            list.add(new FieldMessage("equipe", "Equipe inválida."));
         }
 
         for (FieldMessage e : list) {

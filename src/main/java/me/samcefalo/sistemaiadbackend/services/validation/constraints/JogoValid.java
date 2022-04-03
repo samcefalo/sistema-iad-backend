@@ -1,6 +1,6 @@
 package me.samcefalo.sistemaiadbackend.services.validation.constraints;
 
-import me.samcefalo.sistemaiadbackend.services.validation.TecnicoValidator;
+import me.samcefalo.sistemaiadbackend.services.validation.JogoValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,10 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = TecnicoValidator.class)
+@Constraint(validatedBy = JogoValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Tecnico {
+public @interface JogoValid {
     String message() default "Erro de validação";
 
     Class<?>[] groups() default {};

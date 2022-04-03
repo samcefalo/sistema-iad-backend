@@ -23,18 +23,19 @@ public class TecnicoResource {
     private EntidadeMapper entidadeMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Tecnico> find(@PathVariable int id) {
+    public ResponseEntity<TecnicoDTO> find(@PathVariable int id) {
         Tecnico tecnico = tecnicoService.find(id);
-        return ResponseEntity.ok().body(tecnico);
+        return ResponseEntity.ok().body((TecnicoDTO) entidadeMapper.mapTo(tecnico));
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<Tecnico>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                  @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
-                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+    public ResponseEntity<Page<TecnicoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                     @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction));
+                .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(tecnico -> (TecnicoDTO) entidadeMapper.mapTo(tecnico)));
     }
 
     @RequestMapping(method = RequestMethod.POST)

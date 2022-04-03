@@ -1,8 +1,9 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
+import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Jogador;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.JogadorValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,22 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JogadorValidator implements ConstraintValidator<Jogador, Integer> {
+public class JogadorValidator implements ConstraintValidator<JogadorValid, JogadorDTO> {
 
     @Autowired
     private JogadorRepository jogadorRepository;
 
     @Override
-    public void initialize(Jogador ann) {
+    public void initialize(JogadorValid ann) {
     }
 
     @Override
-    public boolean isValid(Integer id, ConstraintValidatorContext context) {
+    public boolean isValid(JogadorDTO jogador, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        //Equipe existente
-        if (!jogadorRepository.findById(id).isPresent()) {
-            list.add(new FieldMessage("jogadorId", "Jogador " + id + " inválido."));
+        //Jogador existente
+        if (jogador == null || jogador.getId() == 0
+                || !jogadorRepository.findById(jogador.getId()).isPresent()) {
+            list.add(new FieldMessage("jogador", "Jogador inválido."));
         }
 
         for (FieldMessage e : list) {

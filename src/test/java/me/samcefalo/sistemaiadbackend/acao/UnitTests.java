@@ -2,9 +2,11 @@ package me.samcefalo.sistemaiadbackend.acao;
 
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogadorService;
+import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -37,6 +39,8 @@ public class UnitTests {
     private JogadorService jogadorService;
     @Autowired
     private AcaoService acaoService;
+    @Autowired
+    private JogoFutsalService jogoFutsalService;
 
     @BeforeAll
     void setUp() {
@@ -46,11 +50,16 @@ public class UnitTests {
         jogador.setNumero(10);
         jogador.setNome("Samuel");
 
+        JogoFutsal jogoFutsal = new JogoFutsal();
+        jogoFutsal.setSituacaoJogo(1);
+
         Passe passe = new Passe();
         passe.setExito(true);
         passe.setJogador(jogador);
+        passe.setJogo(jogoFutsal);
 
         jogadorService.insert(jogador);
+        jogoFutsalService.insert(jogoFutsal);
         acaoService.insert(passe);
     }
 

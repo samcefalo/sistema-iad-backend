@@ -23,18 +23,19 @@ public class JogoFutsalResource {
     private JogoMapper jogoMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<JogoFutsal> find(@PathVariable int id) {
+    public ResponseEntity<JogoFutsalDTO> find(@PathVariable int id) {
         JogoFutsal jogoFutsal = jogoFutsalService.find(id);
-        return ResponseEntity.ok().body(jogoFutsal);
+        return ResponseEntity.ok().body((JogoFutsalDTO) jogoMapper.mapTo(jogoFutsal));
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoFutsal>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                     @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+    public ResponseEntity<Page<JogoFutsalDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                        @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                        @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(jogoFutsalService.findPage(page, linesPerPage, orderBy, direction));
+                .body(jogoFutsalService.findPage(page, linesPerPage, orderBy, direction)
+                        .map(jogoFutsal -> (JogoFutsalDTO) jogoMapper.mapTo(jogoFutsal)));
     }
 
     @RequestMapping(method = RequestMethod.POST)

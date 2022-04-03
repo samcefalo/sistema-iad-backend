@@ -7,6 +7,7 @@ import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
+import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -53,7 +54,7 @@ public class PostTests {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
-        jogador.setEquipeId(1);
+        //jogador.setEquipeId(1);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -89,8 +90,20 @@ public class PostTests {
         PasseDTO passe = new PasseDTO();
         passe.setArea(Area.OFENSIVO.getId());
         passe.setGrauDificuldade(1);
-        passe.setJogadorId(1);
-        passe.setEquipeId(1);
+        passe.setExito(true);
+
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        JogadorDTO jogador = new JogadorDTO();
+        jogador.setId(1);
+
+        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        jogoFutsal.setId(2);
+
+        passe.setJogador(jogador);
+        passe.setEquipe(equipe);
+        passe.setJogo(jogoFutsal);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -104,10 +117,10 @@ public class PostTests {
                 .andExpect(status().isCreated());
     }
 
-    //BadRequest - sem atributos necessarios
+    //UnprocessableEntity - sem atributos necessarios
     @Test
     void case5() throws Exception {
-        PasseDTO passe = new PasseDTO();
+        Passe passe = new Passe();
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -118,7 +131,7 @@ public class PostTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
