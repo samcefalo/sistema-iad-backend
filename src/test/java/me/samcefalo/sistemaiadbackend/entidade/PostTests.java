@@ -92,7 +92,7 @@ public class PostTests {
         tecnico.setNome("Samuel");
 
         EquipeDTO equipe = new EquipeDTO();
-        equipe.setId(2);
+        equipe.setId(1);
 
         tecnico.setEquipe(equipe);
 
