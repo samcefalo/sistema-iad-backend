@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
 
 @Getter
 @Setter
@@ -11,9 +12,7 @@ import lombok.ToString;
 @ToString
 public class TecnicoDTO extends EntidadeDTO {
 
-    /*@Equipe
-    @Min(value = 1, message = "O id da equipe é obrigatório.")
-    private int equipeId;
-     */
+    @EquipeValid
+    private EquipeDTO equipe;
 
 }
