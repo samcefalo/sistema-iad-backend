@@ -77,6 +77,11 @@ public class PostTests {
         JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.INICIADO.getId());
 
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        jogoFutsal.getEquipes().add(equipe);
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
