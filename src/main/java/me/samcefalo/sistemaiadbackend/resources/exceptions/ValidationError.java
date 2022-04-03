@@ -8,12 +8,18 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ValidationError extends StandardError {
+public class ValidationError {
+
+    private long timeStamp;
+    private int status;
+    private String path;
 
     private List<FieldMessage> errors = new ArrayList<>();
 
-    public ValidationError(long timeStamp, int status, String error, String message, String path) {
-        super(timeStamp, status, error, message, path);
+    public ValidationError(long timeStamp, int status, String path) {
+        this.timeStamp = timeStamp;
+        this.status = status;
+        this.path = path;
     }
 
     public void addError(String nome, String message) {
