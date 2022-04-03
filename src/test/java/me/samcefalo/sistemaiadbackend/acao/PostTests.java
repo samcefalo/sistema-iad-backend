@@ -3,11 +3,11 @@ package me.samcefalo.sistemaiadbackend.acao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.domain.dto.JogadorDTO;
-import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
-import me.samcefalo.sistemaiadbackend.domain.dto.PasseDTO;
-import me.samcefalo.sistemaiadbackend.domain.enums.Area;
+import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
+import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
+import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
+import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
+import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +91,6 @@ public class PostTests {
         passe.setGrauDificuldade(1);
         passe.setJogadorId(1);
         passe.setEquipeId(1);
-        passe.setJogoId(2);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -128,4 +127,5 @@ public class PostTests {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
 }

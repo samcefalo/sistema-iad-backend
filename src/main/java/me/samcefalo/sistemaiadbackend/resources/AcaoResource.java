@@ -1,9 +1,9 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
-import me.samcefalo.sistemaiadbackend.domain.Acao;
-import me.samcefalo.sistemaiadbackend.domain.dto.AcaoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.AcaoDTO;
+import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
+import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
-import me.samcefalo.sistemaiadbackend.services.mappers.AcaoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +20,26 @@ public class AcaoResource {
     @Autowired
     private AcaoService acaoService;
     @Autowired
-    private AcaoMappers mappers;
+    private AcaoMapper acaoMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<AcaoDTO> find(@PathVariable int id) {
+    public ResponseEntity<Acao> find(@PathVariable int id) {
         Acao acao = acaoService.find(id);
-        return ResponseEntity.ok().body(mappers.acaoToAcaoDto(acao));
+        return ResponseEntity.ok().body(acao);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                  @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+    public ResponseEntity<Page<Acao>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                               @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                               @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+                                               @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(acaoService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(acao -> mappers.acaoToAcaoDto(acao)));
+                .body(acaoService.findPage(page, linesPerPage, orderBy, direction));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody AcaoDTO acaoDTO) {
-        Acao acao = mappers.acaoDtoToAcao(acaoDTO);
+        Acao acao = acaoMapper.mapTo(acaoDTO);
         acao = acaoService.insert(acao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(acao.getId()).toUri();
@@ -49,7 +48,7 @@ public class AcaoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody AcaoDTO acaoDTO, @PathVariable int id) {
-        Acao acao = mappers.acaoDtoToAcao(acaoDTO);
+        Acao acao = acaoMapper.mapTo(acaoDTO);
         acao.setId(id);
         acaoService.update(acao);
         return ResponseEntity.noContent().build();

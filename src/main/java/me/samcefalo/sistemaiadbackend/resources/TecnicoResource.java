@@ -1,9 +1,9 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
-import me.samcefalo.sistemaiadbackend.domain.Tecnico;
-import me.samcefalo.sistemaiadbackend.domain.dto.TecnicoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.TecnicoDTO;
+import me.samcefalo.sistemaiadbackend.mappers.EntidadeMapper;
+import me.samcefalo.sistemaiadbackend.models.Tecnico;
 import me.samcefalo.sistemaiadbackend.services.TecnicoService;
-import me.samcefalo.sistemaiadbackend.services.mappers.EntidadeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +20,26 @@ public class TecnicoResource {
     @Autowired
     private TecnicoService tecnicoService;
     @Autowired
-    private EntidadeMappers mappers;
+    private EntidadeMapper entidadeMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<TecnicoDTO> find(@PathVariable int id) {
+    public ResponseEntity<Tecnico> find(@PathVariable int id) {
         Tecnico tecnico = tecnicoService.find(id);
-        return ResponseEntity.ok().body(mappers.tecnicoToTecnicoDto(tecnico));
+        return ResponseEntity.ok().body(tecnico);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<TecnicoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                     @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
-                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+    public ResponseEntity<Page<Tecnico>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                  @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(tecnico -> mappers.tecnicoToTecnicoDto(tecnico)));
+                .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
-        Tecnico tecnico = mappers.tecnicoDtoToTecnico(tecnicoDTO);
+        Tecnico tecnico = (Tecnico) entidadeMapper.mapTo(tecnicoDTO);
         tecnico = tecnicoService.insert(tecnico);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(tecnico.getId()).toUri();
@@ -49,7 +48,7 @@ public class TecnicoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody TecnicoDTO tecnicoDTO, @PathVariable int id) {
-        Tecnico tecnico = mappers.tecnicoDtoToTecnico(tecnicoDTO);
+        Tecnico tecnico = (Tecnico) entidadeMapper.mapTo(tecnicoDTO);
         tecnico.setId(id);
         tecnicoService.update(tecnico);
         return ResponseEntity.noContent().build();

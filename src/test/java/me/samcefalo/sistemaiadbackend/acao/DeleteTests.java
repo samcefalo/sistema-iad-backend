@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.acao;
 
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
-import me.samcefalo.sistemaiadbackend.domain.Passe;
+import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogadorService;
 import org.junit.jupiter.api.BeforeAll;

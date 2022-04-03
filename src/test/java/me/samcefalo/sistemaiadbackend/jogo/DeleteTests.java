@@ -1,8 +1,8 @@
 package me.samcefalo.sistemaiadbackend.jogo;
 
-import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
-import me.samcefalo.sistemaiadbackend.domain.Passe;
-import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
+import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
+import me.samcefalo.sistemaiadbackend.models.Passe;
+import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,9 +1,9 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
-import me.samcefalo.sistemaiadbackend.domain.Equipe;
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
-import me.samcefalo.sistemaiadbackend.domain.Jogo;
-import me.samcefalo.sistemaiadbackend.domain.JogoFutsal;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
+import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Jogo;
+import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

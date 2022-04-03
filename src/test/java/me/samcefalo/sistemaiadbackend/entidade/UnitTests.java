@@ -1,6 +1,6 @@
 package me.samcefalo.sistemaiadbackend.entidade;
 
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

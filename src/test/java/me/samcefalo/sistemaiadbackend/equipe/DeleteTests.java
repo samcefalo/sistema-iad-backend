@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.equipe;
 
-import me.samcefalo.sistemaiadbackend.domain.Equipe;
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
+import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogadorService;
 import org.junit.jupiter.api.BeforeAll;

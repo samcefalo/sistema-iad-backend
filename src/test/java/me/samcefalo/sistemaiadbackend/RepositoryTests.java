@@ -1,8 +1,8 @@
 package me.samcefalo.sistemaiadbackend;
 
-import me.samcefalo.sistemaiadbackend.domain.*;
-import me.samcefalo.sistemaiadbackend.domain.enums.Area;
-import me.samcefalo.sistemaiadbackend.domain.enums.SituacaoJogo;
+import me.samcefalo.sistemaiadbackend.models.*;
+import me.samcefalo.sistemaiadbackend.models.enums.Area;
+import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

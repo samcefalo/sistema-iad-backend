@@ -3,7 +3,7 @@ package me.samcefalo.sistemaiadbackend.equipe;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
+import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;

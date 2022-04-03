@@ -1,8 +1,8 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
-import me.samcefalo.sistemaiadbackend.domain.Equipe;
-import me.samcefalo.sistemaiadbackend.domain.Jogador;
-import me.samcefalo.sistemaiadbackend.domain.Tecnico;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
+import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Tecnico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
