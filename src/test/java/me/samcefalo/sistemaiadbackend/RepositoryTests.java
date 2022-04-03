@@ -32,7 +32,7 @@ public class RepositoryTests {
     @Autowired
     private JogadorRepository jogadorRepository;
     @Autowired
-    private JogoFutsalRepository jogoRepository;
+    private JogoRepository jogoRepository;
     @Autowired
     private AcaoRepository acaoRepository;
     @Autowired
@@ -100,7 +100,7 @@ public class RepositoryTests {
 
     @Test
     void case8() throws Exception {
-        mockMvc.perform(get("/jogos/futsal"))
+        mockMvc.perform(get("/jogos/"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

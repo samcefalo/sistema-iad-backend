@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.jogo;
 
-import me.samcefalo.sistemaiadbackend.models.*;
-import me.samcefalo.sistemaiadbackend.models.enums.Area;
+import me.samcefalo.sistemaiadbackend.models.JogoFutebol;
+import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,7 +32,7 @@ public class GetTests {
     @Autowired
     private JogadorRepository jogadorRepository;
     @Autowired
-    private JogoFutsalRepository jogoRepository;
+    private JogoRepository jogoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
     @Autowired
@@ -41,48 +43,29 @@ public class GetTests {
         JogoFutsal jogoFutsal = new JogoFutsal();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
-        Jogador jogador = new Jogador();
-        jogador.setNome("Samuel");
-        jogador.setTitular(true);
-        jogador.setExpulso(false);
+        JogoFutebol jogoFutebol = new JogoFutebol();
+        jogoFutebol.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
-        Tecnico tecnico = new Tecnico();
-        tecnico.setNome("Zidane");
-
-        jogoFutsal.getJogadores().add(jogador);
-
-        Equipe equipe = new Equipe();
-        equipe.setNome("Corinthians");
-
-        jogador.setEquipe(equipe);
-
-        jogoFutsal.getEquipes().add(equipe);
-
-        Passe passe = new Passe();
-        passe.setJogador(jogador);
-        passe.setEquipe(equipe);
-        passe.setGrauDificuldade(1);
-        passe.setExito(true);
-        passe.setArea(Area.OFENSIVO.getId());
-        passe.setJogo(jogoFutsal);
-
-        equipeRepository.save(equipe);
-        jogadorRepository.save(jogador);
-        tecnicoRepository.save(tecnico);
-        jogoRepository.save(jogoFutsal);
-        acaoRepository.save(passe);
+        jogoRepository.saveAll(Arrays.asList(jogoFutsal, jogoFutebol));
     }
 
     @Test
     public void case1() throws Exception {
-        mockMvc.perform(get("/jogos/futsal"))
+        mockMvc.perform(get("/jogos/"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     public void case2() throws Exception {
-        mockMvc.perform(get("/jogos/futsal/3/"))
+        mockMvc.perform(get("/jogos/1/"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void case3() throws Exception {
+        mockMvc.perform(get("/jogos/categoria/futeboL/"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

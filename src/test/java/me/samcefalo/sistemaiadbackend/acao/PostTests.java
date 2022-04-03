@@ -81,7 +81,7 @@ public class PostTests {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(jogoFutsal);
 
-        mockMvc.perform(post("/jogos/futsal")
+        mockMvc.perform(post("/jogos/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())

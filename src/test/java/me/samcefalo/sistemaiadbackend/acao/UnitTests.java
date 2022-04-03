@@ -6,7 +6,7 @@ import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogadorService;
-import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
+import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -40,7 +40,7 @@ public class UnitTests {
     @Autowired
     private AcaoService acaoService;
     @Autowired
-    private JogoFutsalService jogoFutsalService;
+    private JogoService jogoService;
 
     @BeforeAll
     void setUp() {
@@ -59,7 +59,7 @@ public class UnitTests {
         passe.setJogo(jogoFutsal);
 
         jogadorService.insert(jogador);
-        jogoFutsalService.insert(jogoFutsal);
+        jogoService.insert(jogoFutsal);
         acaoService.insert(passe);
     }
 

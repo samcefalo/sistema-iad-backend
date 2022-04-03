@@ -4,7 +4,7 @@ import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
 import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
-import me.samcefalo.sistemaiadbackend.services.JogoFutsalService;
+import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -31,7 +31,7 @@ public class DeleteTests {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private JogoFutsalService jogoFutsalService;
+    private JogoService jogoService;
     @Autowired
     private AcaoService acaoService;
 
@@ -44,20 +44,20 @@ public class DeleteTests {
         passe.setExito(true);
         passe.setJogo(jogo);
 
-        jogoFutsalService.insert(jogo);
+        jogoService.insert(jogo);
         acaoService.insert(passe);
     }
 
     @Test
     void case1() throws Exception {
-        mockMvc.perform(delete("/jogos/futsal/1"))
+        mockMvc.perform(delete("/jogos//1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void case2() throws Exception {
-        mockMvc.perform(get("/jogos/futsal"))
+        mockMvc.perform(get("/jogos/"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
