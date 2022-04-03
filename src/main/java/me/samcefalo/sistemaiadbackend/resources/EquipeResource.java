@@ -53,7 +53,7 @@ public class EquipeResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(equipeService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
-                        .map(acao -> acaoMappers.getAcaoDto(acao)));
+                        .map(acao -> acaoMappers.acaoToAcaoDto(acao)));
     }
 
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
@@ -63,7 +63,7 @@ public class EquipeResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(equipeService.findJogosPage(id, page, linesPerPage, orderBy, direction)
-                        .map(jogo -> jogoMappers.getJogoDto(jogo)));
+                        .map(jogo -> jogoMappers.jogoToJogoDto(jogo)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

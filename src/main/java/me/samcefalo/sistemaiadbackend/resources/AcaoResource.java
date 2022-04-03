@@ -25,7 +25,7 @@ public class AcaoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AcaoDTO> find(@PathVariable int id) {
         Acao acao = acaoService.find(id);
-        return ResponseEntity.ok().body(mappers.getAcaoDto(acao));
+        return ResponseEntity.ok().body(mappers.acaoToAcaoDto(acao));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -35,12 +35,12 @@ public class AcaoResource {
                                                   @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(acaoService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(acao -> mappers.getAcaoDto(acao)));
+                        .map(acao -> mappers.acaoToAcaoDto(acao)));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody AcaoDTO acaoDTO) {
-        Acao acao = mappers.getAcao(acaoDTO);
+        Acao acao = mappers.acaoDtoToAcao(acaoDTO);
         acao = acaoService.insert(acao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(acao.getId()).toUri();
@@ -49,7 +49,7 @@ public class AcaoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody AcaoDTO acaoDTO, @PathVariable int id) {
-        Acao acao = mappers.getAcao(acaoDTO);
+        Acao acao = mappers.acaoDtoToAcao(acaoDTO);
         acao.setId(id);
         acaoService.update(acao);
         return ResponseEntity.noContent().build();

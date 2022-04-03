@@ -8,6 +8,7 @@ import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutebolDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.ObjectFactory;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.ArrayList;
@@ -28,7 +29,13 @@ public interface JogoMappers {
     @InheritInverseConfiguration(name = "jogoFutebolDtoToJogoFutebol")
     JogoFutebolDTO jogoFutebolToJogoFutebolDto(JogoFutebol jogoFutebol);
 
-    default JogoDTO getJogoDto(Jogo jogo) {
+    @ObjectFactory
+    default Jogo createJogo() {
+        return new JogoFutsal();
+    }
+
+    @ObjectFactory
+    default JogoDTO jogoToJogoDto(Jogo jogo) {
         if (jogo instanceof JogoFutsal) {
             return jogoFutsalToJogoFutsalDto((JogoFutsal) jogo);
         } else {
@@ -36,9 +43,19 @@ public interface JogoMappers {
         }
     }
 
-    default List<JogoDTO> getListJogoDto(List<Jogo> jogos) {
+    @ObjectFactory
+    default Jogo jogoDtoToJogo(JogoDTO jogoDTO) {
+        if (jogoDTO instanceof JogoFutsalDTO) {
+            return jogoFutsalDtoToJogoFutsal((JogoFutsalDTO) jogoDTO);
+        } else {
+            return jogoFutebolDtoToJogoFutebol((JogoFutebolDTO) jogoDTO);
+        }
+    }
+
+    @ObjectFactory
+    default List<JogoDTO> listJogotoListJogoDto(List<Jogo> jogos) {
         List<JogoDTO> jogosDtos = new ArrayList<>();
-        jogosDtos.addAll(jogos.stream().map(acao -> getJogoDto(acao))
+        jogosDtos.addAll(jogos.stream().map(jogo -> jogoToJogoDto(jogo))
                 .collect(Collectors.toList()));
         return jogosDtos;
     }

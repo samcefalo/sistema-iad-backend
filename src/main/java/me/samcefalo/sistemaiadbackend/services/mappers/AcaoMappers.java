@@ -2,21 +2,20 @@ package me.samcefalo.sistemaiadbackend.services.mappers;
 
 import me.samcefalo.sistemaiadbackend.domain.*;
 import me.samcefalo.sistemaiadbackend.domain.dto.*;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = {JogoMappers.class})
 public interface AcaoMappers {
 
     //Acao
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
+    @Mapping(target = "jogo.id", source = "jogoId")
     Drible dribleDtoToDrible(DribleDTO dribleDTO);
 
     @InheritInverseConfiguration(name = "dribleDtoToDrible")
@@ -24,6 +23,7 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
+    @Mapping(target = "jogo.id", source = "jogoId")
     Desarme desarmeDtoToDesarme(DesarmeDTO desarmeDTO);
 
     @InheritInverseConfiguration(name = "desarmeDtoToDesarme")
@@ -31,6 +31,7 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
+    @Mapping(target = "jogo.id", source = "jogoId")
     Finalizacao finalizacaoDtoToFinalizacao(FinalizacaoDTO finalizacaoDTO);
 
     @InheritInverseConfiguration(name = "finalizacaoDtoToFinalizacao")
@@ -38,12 +39,14 @@ public interface AcaoMappers {
 
     @Mapping(target = "equipe.id", source = "equipeId")
     @Mapping(target = "jogador.id", source = "jogadorId")
+    @Mapping(target = "jogo.id", source = "jogoId")
     Passe passeDtoToPasse(PasseDTO passeDTO);
 
     @InheritInverseConfiguration(name = "passeDtoToPasse")
     PasseDTO passeToPasseDto(Passe passe);
 
-    default AcaoDTO getAcaoDto(Acao acao) {
+    @ObjectFactory
+    default AcaoDTO acaoToAcaoDto(Acao acao) {
         if (acao instanceof Finalizacao) {
             return finalizacaoToFinalizacaoDto((Finalizacao) acao);
         } else if (acao instanceof Desarme) {
@@ -55,7 +58,8 @@ public interface AcaoMappers {
         }
     }
 
-    default Acao getAcao(AcaoDTO acaoDTO) {
+    @ObjectFactory
+    default Acao acaoDtoToAcao(AcaoDTO acaoDTO) {
         if (acaoDTO instanceof FinalizacaoDTO) {
             return finalizacaoDtoToFinalizacao((FinalizacaoDTO) acaoDTO);
         } else if (acaoDTO instanceof DesarmeDTO) {
@@ -69,7 +73,7 @@ public interface AcaoMappers {
 
     default List<AcaoDTO> acoesToAcoesDto(List<Acao> acoes) {
         List<AcaoDTO> acoesDTOS = new ArrayList<>();
-        acoesDTOS.addAll(acoes.stream().map(acao -> getAcaoDto(acao))
+        acoesDTOS.addAll(acoes.stream().map(acao -> acaoToAcaoDto(acao))
                 .collect(Collectors.toList()));
         return acoesDTOS;
     }

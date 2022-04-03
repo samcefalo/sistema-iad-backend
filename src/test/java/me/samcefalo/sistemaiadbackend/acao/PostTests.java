@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import me.samcefalo.sistemaiadbackend.domain.dto.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.JogadorDTO;
+import me.samcefalo.sistemaiadbackend.domain.dto.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.domain.dto.PasseDTO;
 import me.samcefalo.sistemaiadbackend.domain.enums.Area;
 import org.junit.jupiter.api.Test;
@@ -68,11 +69,29 @@ public class PostTests {
 
     @Test
     void case3() throws Exception {
+        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        jogoFutsal.setSituacaoJogo(1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(jogoFutsal);
+
+        mockMvc.perform(post("/jogos/futsal")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void case4() throws Exception {
         PasseDTO passe = new PasseDTO();
         passe.setArea(Area.OFENSIVO.getId());
         passe.setGrauDificuldade(1);
         passe.setJogadorId(1);
         passe.setEquipeId(1);
+        passe.setJogoId(2);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -88,7 +107,7 @@ public class PostTests {
 
     //BadRequest - sem atributos necessarios
     @Test
-    void case4() throws Exception {
+    void case5() throws Exception {
         PasseDTO passe = new PasseDTO();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -104,7 +123,7 @@ public class PostTests {
     }
 
     @Test
-    public void case5() throws Exception {
+    public void case6() throws Exception {
         mockMvc.perform(get("/acoes"))
                 .andDo(print())
                 .andExpect(status().isOk());

@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +32,7 @@ public class PostTests {
     private MockMvc mockMvc;
 
     @Test
-    void case1() throws Exception {
+    void case2() throws Exception {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setNome("Teste");
 
@@ -48,7 +49,7 @@ public class PostTests {
     }
 
     @Test
-    void case2() throws Exception {
+    void case3() throws Exception {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
@@ -67,12 +68,30 @@ public class PostTests {
     }
 
     @Test
-    void case3() throws Exception {
+    void case5() throws Exception {
+        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        jogoFutsal.setSituacaoJogo(1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(jogoFutsal);
+
+        mockMvc.perform(post("/jogos/futsal")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void case6() throws Exception {
         PasseDTO passe = new PasseDTO();
         passe.setArea(Area.OFENSIVO.getId());
         passe.setGrauDificuldade(1);
         passe.setJogadorId(1);
         passe.setEquipeId(1);
+        passe.setJogoId(2);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -87,20 +106,10 @@ public class PostTests {
     }
 
     @Test
-    void case4() throws Exception {
-        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
-        jogoFutsal.setSituacaoJogo(1);
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(jogoFutsal);
-
-        mockMvc.perform(post("/jogos/futsal")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJson))
+    public void case7() throws Exception {
+        mockMvc.perform(get("/jogos/futsal/"))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Equipe;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Jogador;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Jogo;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -23,7 +24,6 @@ import java.io.Serializable;
 })
 public abstract class AcaoDTO implements Serializable {
 
-    @Min(value = 1, message = "O id é obrigatório.")
     private int id;
     @Min(value = 1, message = "O grau de dificuldade é obrigatório.")
     private int grauDificuldade;
@@ -35,6 +35,9 @@ public abstract class AcaoDTO implements Serializable {
     @Jogador
     @Min(value = 1, message = "O id do jogador é obrigatório.")
     private int jogadorId;
+    @Jogo
+    @Min(value = 1, message = "O id do jogo é obrigatório.")
+    private int jogoId;
     private boolean exito;
 
 }
