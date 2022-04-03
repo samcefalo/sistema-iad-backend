@@ -2,7 +2,9 @@ package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
+import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,8 @@ public class JogoResource {
 
     @Autowired
     private JogoService jogoService;
+    @Autowired
+    private EquipeService equipeService;
     @Autowired
     private JogoMapper jogoMapper;
 
@@ -52,6 +56,10 @@ public class JogoResource {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody JogoDTO jogoDTO) {
         Jogo jogo = jogoMapper.mapTo(jogoDTO);
+        for (Equipe equipe : jogo.getEquipes()) {
+            equipe = equipeService.find(equipe.getId());
+            jogo.getJogadores().addAll(equipe.getJogadores());
+        }
         jogo = jogoService.insert(jogo);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(jogo.getId()).toUri();

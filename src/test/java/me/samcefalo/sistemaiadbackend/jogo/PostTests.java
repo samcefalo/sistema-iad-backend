@@ -80,7 +80,11 @@ public class PostTests {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(1);
 
+        EquipeDTO equipe2 = new EquipeDTO();
+        equipe2.setId(2);
+
         jogoFutsal.getEquipes().add(equipe);
+        jogoFutsal.getEquipes().add(equipe2);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

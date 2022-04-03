@@ -28,7 +28,7 @@ public class EquipeValidator implements ConstraintValidator<EquipeValid, EquipeD
         //Equipe existente
         if (equipe == null || equipe.getId() == 0
                 || !equipeRepository.findById(equipe.getId()).isPresent()) {
-            list.add(new FieldMessage("equipe", "Equipe inválida."));
+            list.add(new FieldMessage("equipe", "Equipe " + equipe.getId() + " inválida."));
         }
 
         for (FieldMessage e : list) {

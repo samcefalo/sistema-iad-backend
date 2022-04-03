@@ -35,7 +35,7 @@ public class SetEquipeValidator implements ConstraintValidator<EquipeValid, Set<
         for (EquipeDTO equipe : equipes) {
             if (equipe == null || equipe.getId() == 0
                     || !equipeRepository.findById(equipe.getId()).isPresent()) {
-                list.add(new FieldMessage("equipes", "Equipe inválida."));
+                list.add(new FieldMessage("equipes", "Equipe " + equipe.getId() + " inválida."));
             }
         }
 

@@ -3,9 +3,10 @@ package me.samcefalo.sistemaiadbackend.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Getter
 @Setter
@@ -14,12 +15,6 @@ import java.util.Set;
 @ToString
 @Entity
 public class Tecnico extends Entidade {
-
-    @JsonIgnore
-    @ElementCollection
-    @CollectionTable(name = "TECNICO_JOGO")
-    @ToString.Exclude
-    private Set<Jogo> jogos = new HashSet<>();
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
