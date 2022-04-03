@@ -7,7 +7,6 @@ import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
-import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -54,7 +53,11 @@ public class PostTests {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
-        //jogador.setEquipeId(1);
+
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        jogador.setEquipe(equipe);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -120,7 +123,7 @@ public class PostTests {
     //UnprocessableEntity - sem atributos necessarios
     @Test
     void case5() throws Exception {
-        Passe passe = new Passe();
+        PasseDTO passe = new PasseDTO();
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

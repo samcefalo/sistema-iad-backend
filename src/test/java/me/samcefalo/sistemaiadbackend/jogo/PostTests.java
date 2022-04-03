@@ -8,6 +8,7 @@ import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
+import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,11 @@ public class PostTests {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
         jogador.setNumero(10);
-        //jogador.setEquipeId(1);
+
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        jogador.setEquipe(equipe);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -70,7 +75,7 @@ public class PostTests {
     @Test
     void case5() throws Exception {
         JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
-        jogoFutsal.setSituacaoJogo(1);
+        jogoFutsal.setSituacaoJogo(SituacaoJogo.INICIADO.getId());
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
