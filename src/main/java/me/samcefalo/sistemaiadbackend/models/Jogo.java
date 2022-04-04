@@ -23,6 +23,9 @@ public abstract class Jogo implements Serializable {
     private int id;
     private int situacaoJogo;
 
+    @Transient
+    private int limite_jogador_titular;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "EQUIPE_JOGO",
             joinColumns = @JoinColumn(name = "equipe_id"),

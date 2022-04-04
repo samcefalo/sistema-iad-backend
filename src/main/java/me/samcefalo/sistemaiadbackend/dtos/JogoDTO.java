@@ -28,4 +28,6 @@ public abstract class JogoDTO implements Serializable {
     @EquipeValid
     private Set<EquipeDTO> equipes = new HashSet<>();
 
+    private int limite_jogador_titular = 0;
+
 }

@@ -14,5 +14,4 @@ import javax.persistence.Entity;
 @Entity
 public class JogoFutsal extends Jogo {
 
-
 }

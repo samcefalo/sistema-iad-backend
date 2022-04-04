@@ -13,4 +13,9 @@ import lombok.ToString;
 @JsonTypeName("JogoFutebol")
 public class JogoFutebolDTO extends JogoDTO {
 
+    @Override
+    public int getLimite_jogador_titular() {
+        return 11;
+    }
+
 }
