@@ -33,6 +33,23 @@ public class PostTests {
     private MockMvc mockMvc;
 
     @Test
+    void case1() throws Exception {
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setNome("Teste2");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(equipe);
+
+        mockMvc.perform(post("/equipes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     void case2() throws Exception {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setNome("Teste");

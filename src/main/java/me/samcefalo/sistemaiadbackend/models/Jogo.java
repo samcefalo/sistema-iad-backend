@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -40,5 +42,15 @@ public abstract class Jogo implements Serializable {
 
     @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Acao> acoes = new HashSet<>();
+
+    @JsonIgnore
+    @Transient
+    public int getGols(Equipe equipe) {
+        return acoes.stream()
+                .filter(acao -> acao.getEquipe().getId() == equipe.getId())
+                .filter(acao -> acao instanceof Finalizacao)
+                .filter(acao -> acao.isExito() && ((Finalizacao) acao).isGol())
+                .collect(Collectors.toList()).size();
+    }
 
 }
