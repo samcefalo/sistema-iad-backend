@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
-public class SetEquipeValidator implements ConstraintValidator<EquipeValid, Set<EquipeDTO>> {
+public class ListEquipeValidator implements ConstraintValidator<EquipeValid, Set<EquipeDTO>> {
 
     @Autowired
     private EquipeRepository equipeRepository;
