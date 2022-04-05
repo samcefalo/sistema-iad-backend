@@ -13,5 +13,9 @@ import lombok.ToString;
 @JsonTypeName("Drible")
 public class DribleDTO extends AcaoDTO {
 
+    @Override
+    public int getMaxPontuacao() {
+        return 2;
+    }
 
 }

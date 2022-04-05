@@ -23,6 +23,7 @@ public abstract class Acao implements Serializable {
     private int id;
     private int grauDificuldade;
     private int area;
+    private int pontuacao;
     private boolean exito;
 
     @ManyToOne
