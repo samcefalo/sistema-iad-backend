@@ -27,9 +27,10 @@ public class JogadorValidator implements ConstraintValidator<JogadorValid, Jogad
         List<FieldMessage> list = new ArrayList<>();
 
         //Jogador existente
-        if (jogador == null || jogador.getId() == 0
-                || !jogadorRepository.findById(jogador.getId()).isPresent()) {
+        if (jogador == null || jogador.getId() == 0) {
             list.add(new FieldMessage("jogador", "Jogador inválido."));
+        } else if (!jogadorRepository.findById(jogador.getId()).isPresent()) {
+            list.add(new FieldMessage("jogador", "Jogador " + jogador.getId() + " inválido."));
         }
 
         for (FieldMessage e : list) {

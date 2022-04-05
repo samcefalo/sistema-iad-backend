@@ -27,9 +27,10 @@ public class TecnicoValidator implements ConstraintValidator<TecnicoValid, Tecni
         List<FieldMessage> list = new ArrayList<>();
 
         //Tecnico existente
-        if (tecnico == null || tecnico.getId() == 0
-                || !tecnicoRepository.findById(tecnico.getId()).isPresent()) {
+        if (tecnico == null || tecnico.getId() == 0) {
             list.add(new FieldMessage("tecnico", "Técnico inválido."));
+        } else if (!tecnicoRepository.findById(tecnico.getId()).isPresent()) {
+            list.add(new FieldMessage("tecnico", "Técnico " + tecnico.getId() + " inválido."));
         }
 
         for (FieldMessage e : list) {

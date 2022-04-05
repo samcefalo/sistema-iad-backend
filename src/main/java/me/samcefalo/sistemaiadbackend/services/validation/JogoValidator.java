@@ -27,9 +27,10 @@ public class JogoValidator implements ConstraintValidator<JogoValid, JogoDTO> {
         List<FieldMessage> list = new ArrayList<>();
 
         //Jogo existente
-        if (jogo == null || jogo.getId() == 0
-                || !jogoRepository.findById(jogo.getId()).isPresent()) {
+        if (jogo == null || jogo.getId() == 0) {
             list.add(new FieldMessage("jogo", "Jogo inválido."));
+        } else if (!jogoRepository.findById(jogo.getId()).isPresent()) {
+            list.add(new FieldMessage("jogo", "Jogo " + jogo.getId() + " inválido."));
         }
 
         for (FieldMessage e : list) {
