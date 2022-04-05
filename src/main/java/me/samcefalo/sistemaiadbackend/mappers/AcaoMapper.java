@@ -27,6 +27,8 @@ public class AcaoMapper extends JogoMapper {
                 .setConverter(converterWithDestinationSupplier(Drible::new));
         modelMapper.typeMap(FinalizacaoDTO.class, Acao.class)
                 .setConverter(converterWithDestinationSupplier(Finalizacao::new));
+        modelMapper.typeMap(RecepcaoDTO.class, Acao.class)
+                .setConverter(converterWithDestinationSupplier(Recepcao::new));
 
         //dtos
         modelMapper.typeMap(Desarme.class, AcaoDTO.class)
@@ -37,6 +39,8 @@ public class AcaoMapper extends JogoMapper {
                 .setConverter(converterWithDestinationSupplier(DribleDTO::new));
         modelMapper.typeMap(Finalizacao.class, AcaoDTO.class)
                 .setConverter(converterWithDestinationSupplier(FinalizacaoDTO::new));
+        modelMapper.typeMap(Recepcao.class, AcaoDTO.class)
+                .setConverter(converterWithDestinationSupplier(RecepcaoDTO::new));
     }
 
     private void configureDefault() {
@@ -44,10 +48,12 @@ public class AcaoMapper extends JogoMapper {
         Condition<Acao, Acao> isDesarme = ctx -> ctx.getSource() != null && ctx.getSource() instanceof Desarme;
         Condition<Acao, Acao> isDrible = ctx -> ctx.getSource() != null && ctx.getSource() instanceof Drible;
         Condition<Acao, Acao> isFinalizacao = ctx -> ctx.getSource() != null && ctx.getSource() instanceof Finalizacao;
+        Condition<Acao, Acao> isRecepcao = ctx -> ctx.getSource() != null && ctx.getSource() instanceof Recepcao;
         Condition<AcaoDTO, AcaoDTO> isPasseDTO = ctx -> ctx.getSource() != null && ctx.getSource() instanceof PasseDTO;
         Condition<AcaoDTO, AcaoDTO> isDesarmeDTO = ctx -> ctx.getSource() != null && ctx.getSource() instanceof DesarmeDTO;
         Condition<AcaoDTO, AcaoDTO> isDribleDTO = ctx -> ctx.getSource() != null && ctx.getSource() instanceof DribleDTO;
         Condition<AcaoDTO, AcaoDTO> isFinalizacaoDTO = ctx -> ctx.getSource() != null && ctx.getSource() instanceof FinalizacaoDTO;
+        Condition<AcaoDTO, AcaoDTO> isRecepcaoDTO = ctx -> ctx.getSource() != null && ctx.getSource() instanceof RecepcaoDTO;
 
         //seta valor default de AcaoDTO para Acao
         modelMapper.typeMap(AcaoDTO.class, Acao.class)
@@ -57,6 +63,8 @@ public class AcaoMapper extends JogoMapper {
                 .setConverter(converterWithDestinationSupplier(Drible::new))
                 .setCondition(isFinalizacao)
                 .setConverter(converterWithDestinationSupplier(Finalizacao::new))
+                .setCondition(isRecepcao)
+                .setConverter(converterWithDestinationSupplier(Recepcao::new))
                 .setCondition(isPasse)
                 .setConverter(converterWithDestinationSupplier(Passe::new));
 
@@ -68,6 +76,8 @@ public class AcaoMapper extends JogoMapper {
                 .setConverter(converterWithDestinationSupplier(DribleDTO::new))
                 .setCondition(isFinalizacaoDTO)
                 .setConverter(converterWithDestinationSupplier(FinalizacaoDTO::new))
+                .setCondition(isRecepcaoDTO)
+                .setConverter(converterWithDestinationSupplier(RecepcaoDTO::new))
                 .setCondition(isPasseDTO)
                 .setConverter(converterWithDestinationSupplier(PasseDTO::new));
     }
