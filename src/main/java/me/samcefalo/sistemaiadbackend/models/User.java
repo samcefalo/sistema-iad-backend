@@ -20,6 +20,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String username;
+    private String email;
     private String senha;
 
 }
