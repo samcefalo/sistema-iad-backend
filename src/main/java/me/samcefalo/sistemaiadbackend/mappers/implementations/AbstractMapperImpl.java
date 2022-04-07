@@ -41,7 +41,7 @@ public abstract class AbstractMapperImpl<M, D> {
                 .findAny().orElse(null);
     }
 
-    private <S, D> Converter<S, D> converterWithDestinationSupplier(Class<? extends D> supplier) {
+    private <S, T> Converter<S, T> converterWithDestinationSupplier(Class<? extends T> supplier) {
         return ctx -> ctx.getMappingEngine().map(ctx.create(ctx.getSource(), supplier));
     }
 
