@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -31,9 +30,6 @@ public abstract class AcaoDTO implements Serializable {
     private int grauDificuldade;
     @Min(value = 1, message = "A area é obrigatória.")
     private int area;
-    private int pontuacao;
-    @JsonIgnore
-    private int maxPontuacao = 4;
 
     @EquipeValid
     private EquipeDTO equipe;
@@ -43,17 +39,5 @@ public abstract class AcaoDTO implements Serializable {
     private JogoDTO jogo;
 
     private boolean exito;
-
-    public int getPontuacao() {
-        int pontuacao = 0;
-
-        if (exito) {
-            pontuacao += grauDificuldade;
-        } else {
-            pontuacao -= (getMaxPontuacao() - grauDificuldade) + 1;
-        }
-
-        return pontuacao;
-    }
 
 }

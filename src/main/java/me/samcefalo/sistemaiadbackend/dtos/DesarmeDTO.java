@@ -13,9 +13,4 @@ public class DesarmeDTO extends AcaoDTO {
 
     private boolean posseDeBola;
 
-    @Override
-    public int getMaxPontuacao() {
-        return 3;
-    }
-
 }

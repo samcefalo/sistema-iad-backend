@@ -33,7 +33,7 @@ public class EquipeResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EquipeDTO> find(@PathVariable int id) {
         Equipe equipe = equipeService.find(id);
-        return ResponseEntity.ok().body(equipeMapper.mapTo(equipe));
+        return ResponseEntity.ok().body(equipeMapper.mapToDTO(equipe, EquipeDTO.class));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class EquipeResource {
                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(equipeService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(equipe -> equipeMapper.mapTo(equipe)));
+                        .map(equipe -> equipeMapper.mapToDTO(equipe, EquipeDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class EquipeResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(equipeService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
-                        .map(acao -> acaoMapper.mapTo(acao)));
+                        .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
@@ -63,12 +63,12 @@ public class EquipeResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(equipeService.findJogosPage(id, page, linesPerPage, orderBy, direction)
-                        .map(jogo -> jogoMapper.mapTo(jogo)));
+                        .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody EquipeDTO equipeDTO, @PathVariable int id) {
-        Equipe equipe = equipeMapper.mapTo(equipeDTO);
+        Equipe equipe = equipeMapper.mapToModel(equipeDTO, Equipe.class);
         equipe.setId(id);
         equipeService.update(equipe);
         return ResponseEntity.noContent().build();
@@ -76,7 +76,7 @@ public class EquipeResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody EquipeDTO equipeDTO) {
-        Equipe equipe = equipeMapper.mapTo(equipeDTO);
+        Equipe equipe = equipeMapper.mapToModel(equipeDTO, Equipe.class);
         equipe = equipeService.insert(equipe);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(equipe.getId()).toUri();

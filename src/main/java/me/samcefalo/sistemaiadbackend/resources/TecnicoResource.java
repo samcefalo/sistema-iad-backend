@@ -25,7 +25,7 @@ public class TecnicoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<TecnicoDTO> find(@PathVariable int id) {
         Tecnico tecnico = tecnicoService.find(id);
-        return ResponseEntity.ok().body((TecnicoDTO) entidadeMapper.mapTo(tecnico));
+        return ResponseEntity.ok().body((TecnicoDTO) entidadeMapper.mapToDTO(tecnico, TecnicoDTO.class));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -35,12 +35,12 @@ public class TecnicoResource {
                                                      @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(tecnicoService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(tecnico -> (TecnicoDTO) entidadeMapper.mapTo(tecnico)));
+                        .map(tecnico -> (TecnicoDTO) entidadeMapper.mapToDTO(tecnico, TecnicoDTO.class)));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
-        Tecnico tecnico = (Tecnico) entidadeMapper.mapTo(tecnicoDTO);
+        Tecnico tecnico = (Tecnico) entidadeMapper.mapToModel(tecnicoDTO, Tecnico.class);
         tecnico = tecnicoService.insert(tecnico);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(tecnico.getId()).toUri();
@@ -49,7 +49,7 @@ public class TecnicoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody TecnicoDTO tecnicoDTO, @PathVariable int id) {
-        Tecnico tecnico = (Tecnico) entidadeMapper.mapTo(tecnicoDTO);
+        Tecnico tecnico = (Tecnico) entidadeMapper.mapToModel(tecnicoDTO, Tecnico.class);
         tecnico.setId(id);
         tecnicoService.update(tecnico);
         return ResponseEntity.noContent().build();

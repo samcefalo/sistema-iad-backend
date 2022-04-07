@@ -33,7 +33,7 @@ public class JogadorResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<JogadorDTO> find(@PathVariable int id) {
         Jogador jogador = jogadorService.find(id);
-        return ResponseEntity.ok().body((JogadorDTO) entidadeMapper.mapTo(jogador));
+        return ResponseEntity.ok().body((JogadorDTO) entidadeMapper.mapToDTO(jogador, JogadorDTO.class));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class JogadorResource {
                                                      @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(jogadorService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(jogador -> (JogadorDTO) entidadeMapper.mapTo(jogador)));
+                        .map(jogador -> (JogadorDTO) entidadeMapper.mapToDTO(jogador, JogadorDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class JogadorResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(jogadorService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
-                        .map(acao -> acaoMapper.mapTo(acao)));
+                        .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
@@ -63,12 +63,12 @@ public class JogadorResource {
                                                        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(jogadorService.findJogosPage(id, page, linesPerPage, orderBy, direction)
-                        .map(jogo -> jogoMapper.mapTo(jogo)));
+                        .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody JogadorDTO jogadorDTO) {
-        Jogador jogador = (Jogador) entidadeMapper.mapTo(jogadorDTO);
+        Jogador jogador = (Jogador) entidadeMapper.mapToModel(jogadorDTO, Jogador.class);
         jogador = jogadorService.insert(jogador);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(jogador.getId()).toUri();
@@ -77,7 +77,7 @@ public class JogadorResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody JogadorDTO jogadorDTO, @PathVariable int id) {
-        Jogador jogador = (Jogador) entidadeMapper.mapTo(jogadorDTO);
+        Jogador jogador = (Jogador) entidadeMapper.mapToModel(jogadorDTO, Jogador.class);
         jogador.setId(id);
         jogadorService.update(jogador);
         return ResponseEntity.noContent().build();

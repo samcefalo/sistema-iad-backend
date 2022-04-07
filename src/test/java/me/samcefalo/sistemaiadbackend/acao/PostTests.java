@@ -49,6 +49,23 @@ public class PostTests {
     }
 
     @Test
+    void case10() throws Exception {
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setNome("Teste");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(equipe);
+
+        mockMvc.perform(post("/equipes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     void case2() throws Exception {
         JogadorDTO jogador = new JogadorDTO();
         jogador.setNome("Samuel");
@@ -75,6 +92,15 @@ public class PostTests {
     void case3() throws Exception {
         JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
         jogoFutsal.setSituacaoJogo(1);
+
+        EquipeDTO equipe = new EquipeDTO();
+        equipe.setId(1);
+
+        EquipeDTO equipe2 = new EquipeDTO();
+        equipe2.setId(2);
+
+        jogoFutsal.getEquipes().add(equipe);
+        jogoFutsal.getEquipes().add(equipe2);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

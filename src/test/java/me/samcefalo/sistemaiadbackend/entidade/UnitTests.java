@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.entidade;
 
-import me.samcefalo.sistemaiadbackend.models.Desarme;
 import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
 import me.samcefalo.sistemaiadbackend.services.EstatisticaService;
@@ -54,11 +53,6 @@ public class UnitTests {
         Jogador jogador = jogadores.get(0);
         assertFalse(jogadores.isEmpty());
         assertEquals("Samuel", jogador.getNome());
-    }
-
-    @Test
-    public void case10() {
-        System.out.println(estatisticaService.getPontuacao(1, Desarme.class));
     }
 
     @Test
