@@ -3,12 +3,10 @@ package me.samcefalo.sistemaiadbackend.mappers.implementations;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.reflections.Reflections;
-import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-@Component
-public class AbstractMapperImpl<M, D> {
+public abstract class AbstractMapperImpl<M, D> {
 
     private ModelMapper modelMapper;
 

@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.models;
 
 import lombok.*;
+import me.samcefalo.sistemaiadbackend.models.enums.UserRole;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,5 +23,6 @@ public class User implements Serializable {
     private String username;
     private String email;
     private String senha;
+    private UserRole userRole;
 
 }
