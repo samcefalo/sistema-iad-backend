@@ -7,8 +7,7 @@ import org.springframework.util.StringUtils;
 public class ClassUtil {
 
     public Class<?> getJogoClass(String categoria) throws ClassNotFoundException {
-        categoria = categoria.toLowerCase();
-        categoria = StringUtils.capitalize(categoria);
+        categoria = StringUtils.capitalize(categoria.toLowerCase());
         return Class.forName("me.samcefalo.sistemaiadbackend.models.Jogo" + categoria);
     }
 }

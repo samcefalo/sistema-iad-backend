@@ -21,7 +21,6 @@ public class AcaoResource {
     private AcaoService acaoService;
     @Autowired
     private AcaoMapper acaoMapper;
-    //private AcaoMapper acaoMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AcaoDTO> find(@PathVariable int id) {

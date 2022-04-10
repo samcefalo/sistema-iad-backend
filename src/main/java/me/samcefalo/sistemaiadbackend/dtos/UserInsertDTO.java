@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
+import me.samcefalo.sistemaiadbackend.models.enums.UserRole;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -23,5 +24,6 @@ public class UserInsertDTO implements Serializable {
     private String email;
     @NotBlank(message = "A senha é obrigatória.")
     private String senha;
+    private UserRole userRole;
 
 }

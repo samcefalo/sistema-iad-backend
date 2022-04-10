@@ -25,7 +25,7 @@ public abstract class JogoDTO implements Serializable {
     private int id;
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
-    private int limite_jogador_titular;
     @Team
     private Set<EquipeDTO> equipes = new HashSet<>();
+
 }
