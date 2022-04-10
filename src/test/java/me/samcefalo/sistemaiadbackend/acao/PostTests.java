@@ -49,7 +49,7 @@ public class PostTests {
     }
 
     @Test
-    void case10() throws Exception {
+    void case0() throws Exception {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setNome("Teste");
 

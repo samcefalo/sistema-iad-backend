@@ -3,7 +3,7 @@ package me.samcefalo.sistemaiadbackend.dtos;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -26,6 +26,6 @@ public abstract class JogoDTO implements Serializable {
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
     private int limite_jogador_titular;
-    @EquipeValid
+    @Team
     private Set<EquipeDTO> equipes = new HashSet<>();
 }

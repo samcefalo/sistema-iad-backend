@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
 
@@ -14,7 +14,7 @@ public class JogadorDTO extends EntidadeDTO {
 
     @Min(value = 1, message = "O número é obrigatório.")
     private int numero;
-    @EquipeValid
+    @Team
     private EquipeDTO equipe;
     private boolean expulso, titular;
 

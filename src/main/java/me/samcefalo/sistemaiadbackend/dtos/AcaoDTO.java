@@ -3,9 +3,9 @@ package me.samcefalo.sistemaiadbackend.dtos;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.JogadorValid;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.JogoValid;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Game;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Player;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -31,11 +31,11 @@ public abstract class AcaoDTO implements Serializable {
     @Min(value = 1, message = "A area é obrigatória.")
     private int area;
 
-    @EquipeValid
+    @Team
     private EquipeDTO equipe;
-    @JogadorValid
+    @Player
     private JogadorDTO jogador;
-    @JogoValid
+    @Game
     private JogoDTO jogo;
 
     private boolean exito;

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeValid;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 @Getter
 @Setter
@@ -12,7 +12,7 @@ import me.samcefalo.sistemaiadbackend.services.validation.constraints.EquipeVali
 @ToString
 public class TecnicoDTO extends EntidadeDTO {
 
-    @EquipeValid
+    @Team
     private EquipeDTO equipe;
 
 }
