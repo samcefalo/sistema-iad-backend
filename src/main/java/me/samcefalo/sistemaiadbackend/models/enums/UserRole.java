@@ -7,7 +7,7 @@ import java.util.Arrays;
 @Getter
 public enum UserRole {
 
-    DEFAULT(1, "Padrão"),
+    DEFAULT(1, "Default"),
     ADMIN(2, "Administrador");
 
     private int id;
