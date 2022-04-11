@@ -1,15 +1,14 @@
 package me.samcefalo.sistemaiadbackend.mappers.implementations;
 
-import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.dtos.UserInsertDTO;
-import me.samcefalo.sistemaiadbackend.mappers.UserMapper;
+import me.samcefalo.sistemaiadbackend.mappers.UserInsertMapper;
 import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapperImpl extends AbstractMapperImpl<User, UserDTO> implements UserMapper {
+public class UserInsertMapperImpl extends AbstractMapperImpl<User, UserInsertDTO> implements UserInsertMapper {
 
-    public UserMapperImpl() {
+    public UserInsertMapperImpl() {
         super.configure(User.class, UserInsertDTO.class);
     }
 

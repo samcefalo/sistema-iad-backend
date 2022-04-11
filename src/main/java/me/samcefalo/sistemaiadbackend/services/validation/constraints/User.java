@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(validatedBy = {UserValidator.class})
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface User {
     String message() default "Erro de validação";

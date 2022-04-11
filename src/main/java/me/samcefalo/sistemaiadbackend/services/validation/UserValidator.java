@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
 import lombok.NoArgsConstructor;
-import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserInsertDTO;
 import me.samcefalo.sistemaiadbackend.repositories.UserRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.User;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-public class UserValidator implements ConstraintValidator<User, UserDTO> {
+public class UserValidator implements ConstraintValidator<User, UserInsertDTO> {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,16 +23,17 @@ public class UserValidator implements ConstraintValidator<User, UserDTO> {
     }
 
     @Override
-    public boolean isValid(UserDTO userDTO, ConstraintValidatorContext context) {
+    public boolean isValid(UserInsertDTO userInsertDTO, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        if (userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
-            list.add(new FieldMessage("email", "Email já cadastrado."));
+        if (userRepository.findByEmail(userInsertDTO.getEmail()).isPresent()) {
+            list.add(new FieldMessage("email", "Este email já está cadastrado."));
         }
 
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(e.getMessage())
+                    .addPropertyNode(e.getFieldName())
                     .addConstraintViolation();
         }
 

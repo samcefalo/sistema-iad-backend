@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String email;
     @JsonIgnore
     private String senha;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles")
     private Set<Integer> userRoles = new HashSet<>();
 
@@ -35,7 +35,7 @@ public class User implements Serializable {
         this.addRole(UserRole.DEFAULT);
     }
 
-    public Set<UserRole> getUserRoles() {
+    public Set<UserRole> getUserRolesEnum() {
         return this.userRoles.stream().map(role -> UserRole.toEnum(role)).collect(Collectors.toSet());
     }
 
