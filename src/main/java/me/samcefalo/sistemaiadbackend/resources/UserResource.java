@@ -33,6 +33,12 @@ public class UserResource {
         return ResponseEntity.ok().body(userMapper.mapToDTO(user, UserDTO.class));
     }
 
+    @RequestMapping(value = "/email", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> findByEmail(@RequestParam(value = "value") String email) {
+        User user = userService.findByEmail(email);
+        return ResponseEntity.ok().body(userMapper.mapToDTO(user, UserDTO.class));
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<UserDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
