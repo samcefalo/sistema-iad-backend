@@ -8,8 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface JogadorRepository extends JpaRepository<Jogador, Integer> {
+
+    @Transactional(readOnly = true)
+    List<Jogador> findAllByUser(User user);
 
     @Transactional(readOnly = true)
     Page<Jogador> findAllByUser(Pageable pageable, User user);

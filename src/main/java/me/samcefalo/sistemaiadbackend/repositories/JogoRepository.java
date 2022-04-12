@@ -18,6 +18,9 @@ import java.util.List;
 public interface JogoRepository extends JpaRepository<Jogo, Integer> {
 
     @Transactional(readOnly = true)
+    List<Jogo> findAllByUser(User user);
+
+    @Transactional(readOnly = true)
     Page<Jogo> findAllByUser(Pageable pageable, User user);
 
     @Transactional(readOnly = true)
