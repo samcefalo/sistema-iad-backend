@@ -32,6 +32,10 @@ public class UserSS implements UserDetails {
         return authorities;
     }
 
+    public boolean hasRole(UserRole userRole) {
+        return authorities.contains(new SimpleGrantedAuthority(userRole.getDescricao()));
+    }
+
     @Override
     public String getPassword() {
         return senha;

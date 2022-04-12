@@ -20,4 +20,8 @@ public abstract class Entidade implements Serializable {
     private int id;
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

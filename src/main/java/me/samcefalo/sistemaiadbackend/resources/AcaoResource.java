@@ -1,9 +1,11 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.dtos.AcaoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
+import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,13 @@ public class AcaoResource {
     private AcaoService acaoService;
     @Autowired
     private AcaoMapper acaoMapper;
+    @Autowired
+    private UserSecurityService userSecurityService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AcaoDTO> find(@PathVariable int id) {
         Acao acao = acaoService.find(id);
+
         return ResponseEntity.ok().body(acaoMapper.mapToDTO(acao, AcaoDTO.class));
     }
 
@@ -40,6 +45,8 @@ public class AcaoResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody AcaoDTO acaoDTO) {
+        if (userSecurityService.authenticated() != null)
+            acaoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Acao acao = acaoMapper.mapToModel(acaoDTO, Acao.class);
         acao = acaoService.insert(acao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

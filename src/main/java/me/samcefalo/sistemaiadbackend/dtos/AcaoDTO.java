@@ -30,6 +30,7 @@ public abstract class AcaoDTO implements Serializable {
     private int grauDificuldade;
     @Min(value = 1, message = "A area é obrigatória.")
     private int area;
+    private boolean exito;
 
     @Team
     private EquipeDTO equipe;
@@ -38,6 +39,7 @@ public abstract class AcaoDTO implements Serializable {
     @Game
     private JogoDTO jogo;
 
-    private boolean exito;
+    private UserDTO user;
+
 
 }

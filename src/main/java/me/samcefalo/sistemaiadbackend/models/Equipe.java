@@ -41,5 +41,9 @@ public class Equipe implements Serializable {
     @ToString.Exclude
     private Set<Acao> acoes = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
 

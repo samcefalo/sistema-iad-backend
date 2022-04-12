@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.resources.exceptions;
 
+import me.samcefalo.sistemaiadbackend.services.exceptions.AuthorizationException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.DataIntegrityException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,13 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException error, HttpServletRequest request) {
         StandardError standardError = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Integridade dos dados", error.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(standardError);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acesso negado", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

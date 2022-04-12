@@ -1,9 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import me.samcefalo.sistemaiadbackend.models.enums.UserRole;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.User;
 import org.hibernate.validator.constraints.Length;
@@ -16,6 +13,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @User
@@ -31,10 +29,6 @@ public class UserInsertDTO implements Serializable {
     @NotBlank(message = "A senha é obrigatória.")
     private String senha;
     private Set<Integer> userRoles = new HashSet<>();
-
-    public UserInsertDTO() {
-        this.addRole(UserRole.DEFAULT);
-    }
 
     public void addRole(UserRole userRole) {
         this.userRoles.add(userRole.getId());

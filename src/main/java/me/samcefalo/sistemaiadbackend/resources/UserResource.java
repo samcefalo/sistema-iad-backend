@@ -9,6 +9,7 @@ import me.samcefalo.sistemaiadbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,7 @@ public class UserResource {
         return ResponseEntity.ok().body(userMapper.mapToDTO(user, UserDTO.class));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<UserDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
                                                   @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
@@ -52,13 +54,14 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody UserInsertDTO userInsertDTO, @PathVariable int id) {
-        User user = userInsertMapper.mapToModel(userInsertDTO, User.class);
+    public ResponseEntity<Void> update(@Valid @RequestBody UserDTO userDTO, @PathVariable int id) {
+        User user = userMapper.mapToModel(userDTO, User.class);
         user.setId(id);
         userService.update(user);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable int id) {
         userService.delete(id);

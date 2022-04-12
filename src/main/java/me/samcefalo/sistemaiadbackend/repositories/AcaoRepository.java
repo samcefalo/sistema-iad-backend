@@ -3,6 +3,7 @@ package me.samcefalo.sistemaiadbackend.repositories;
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,18 +16,21 @@ import java.util.List;
 public interface AcaoRepository extends JpaRepository<Acao, Integer> {
 
     @Transactional(readOnly = true)
-    List<Acao> findByEquipe(Equipe equipe);
+    Page<Acao> findAllByUser(Pageable pageable, User user);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogador(Jogador jogador);
+    List<Acao> findByEquipeAndUser(Equipe equipe, User user);
 
     @Transactional(readOnly = true)
-    Page<Acao> findByEquipe(Equipe equipe, Pageable pageable);
+    List<Acao> findByJogadorAndUser(Jogador jogador, User user);
 
     @Transactional(readOnly = true)
-    Page<Acao> findByJogador(Jogador jogador, Pageable pageable);
+    Page<Acao> findByEquipeAndUser(Equipe equipe, Pageable pageable, User user);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndExito(Jogador jogador, boolean exito);
+    Page<Acao> findByJogadorAndUser(Jogador jogador, Pageable pageable, User user);
+
+    @Transactional(readOnly = true)
+    List<Acao> findByJogadorAndExitoAndUser(Jogador jogador, boolean exito, User user);
 
 }

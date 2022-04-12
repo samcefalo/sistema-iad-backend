@@ -1,11 +1,13 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
+import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class JogoResource {
     private EquipeService equipeService;
     @Autowired
     private JogoMapper jogoMapper;
+    @Autowired
+    private UserSecurityService userSecurityService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<JogoDTO> find(@PathVariable int id) {
@@ -55,6 +59,8 @@ public class JogoResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody JogoDTO jogoDTO) {
+        if (userSecurityService.authenticated() != null)
+            jogoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Jogo jogo = jogoMapper.mapToModel(jogoDTO, Jogo.class);
         for (Equipe equipe : jogo.getEquipes()) {
             equipe = equipeService.find(equipe.getId());

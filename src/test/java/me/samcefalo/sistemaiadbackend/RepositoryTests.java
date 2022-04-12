@@ -3,7 +3,7 @@ package me.samcefalo.sistemaiadbackend;
 import me.samcefalo.sistemaiadbackend.models.*;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
-import me.samcefalo.sistemaiadbackend.repositories.*;
+import me.samcefalo.sistemaiadbackend.services.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,15 +30,15 @@ public class RepositoryTests {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private JogadorRepository jogadorRepository;
+    private JogadorService jogadorService;
     @Autowired
-    private JogoRepository jogoRepository;
+    private JogoService jogoService;
     @Autowired
-    private AcaoRepository acaoRepository;
+    private AcaoService acaoService;
     @Autowired
-    private EquipeRepository equipeRepository;
+    private EquipeService equipeService;
     @Autowired
-    private TecnicoRepository tecnicoRepository;
+    private TecnicoService tecnicoService;
 
     /*
     A classe mais dependente (filho) sempre adiciona a classe pai
@@ -77,11 +77,11 @@ public class RepositoryTests {
         passe.setArea(Area.OFENSIVO.getId());
         passe.setJogo(jogoFutsal);
 
-        equipeRepository.save(equipe);
-        jogadorRepository.save(jogador);
-        tecnicoRepository.save(tecnico);
-        jogoRepository.save(jogoFutsal);
-        acaoRepository.save(passe);
+        equipeService.insert(equipe);
+        jogadorService.insert(jogador);
+        tecnicoService.insert(tecnico);
+        jogoService.insert(jogoFutsal);
+        acaoService.insert(passe);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class RepositoryTests {
 
     @Test
     public void case3() {
-        List<Acao> acoes = acaoRepository.findAll();
+        List<Acao> acoes = acaoService.findAll();
         Acao acao = acoes.get(0);
         assertFalse(acoes.isEmpty());
         assertFalse(acao.getEquipe() == null);
@@ -118,9 +118,9 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case4() {
-        List<Jogador> jogadores = jogadorRepository.findAll();
+        List<Jogador> jogadores = jogadorService.findAll();
         Jogador jogador = jogadores.get(0);
-        List<Acao> acoes = acaoRepository.findByJogador(jogador);
+        List<Acao> acoes = acaoService.findByJogador(jogador);
         Acao acao = acoes.get(0);
         assertFalse(jogadores.isEmpty());
         assertFalse(jogador.getJogos().isEmpty());
@@ -131,9 +131,9 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case5() {
-        List<Equipe> equipes = equipeRepository.findAll();
+        List<Equipe> equipes = equipeService.findAll();
         Equipe equipe = equipes.get(0);
-        List<Acao> acoes = acaoRepository.findByEquipe(equipe);
+        List<Acao> acoes = acaoService.findByEquipe(equipe);
         Acao acao = acoes.get(0);
         assertFalse(equipes.isEmpty());
         assertFalse(equipe.getJogos().isEmpty());
@@ -145,9 +145,9 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case6() {
-        List<Jogador> jogadores = jogadorRepository.findAll();
+        List<Jogador> jogadores = jogadorService.findAll();
         Jogador jogador = jogadores.get(0);
-        List<Jogo> jogos = jogoRepository.findByJogadores(jogador);
+        List<Jogo> jogos = jogoService.findByJogadores(jogador);
         Jogo jogo = jogos.get(0);
         assertFalse(jogos.isEmpty());
         assertFalse(jogo.getJogadores().isEmpty());
@@ -158,7 +158,7 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case7() {
-        List<Tecnico> tecnicos = tecnicoRepository.findAll();
+        List<Tecnico> tecnicos = tecnicoService.findAll();
         Tecnico tecnico = tecnicos.get(0);
         assertNotNull(tecnico.getEquipe());
     }

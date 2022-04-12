@@ -8,7 +8,7 @@ import java.util.Arrays;
 public enum UserRole {
 
     DEFAULT(1, "ROLE_DEFAULT"),
-    ADMIN(2, "ROLE_ADMIN");
+    ADMIN(100, "ROLE_ADMIN");
 
     private int id;
     private String descricao;

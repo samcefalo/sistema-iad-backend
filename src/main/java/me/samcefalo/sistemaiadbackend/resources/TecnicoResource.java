@@ -1,9 +1,11 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.dtos.TecnicoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.EntidadeMapper;
 import me.samcefalo.sistemaiadbackend.models.Tecnico;
 import me.samcefalo.sistemaiadbackend.services.TecnicoService;
+import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ public class TecnicoResource {
     private TecnicoService tecnicoService;
     @Autowired
     private EntidadeMapper entidadeMapper;
+    @Autowired
+    private UserSecurityService userSecurityService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<TecnicoDTO> find(@PathVariable int id) {
@@ -40,6 +44,8 @@ public class TecnicoResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+        if (userSecurityService.authenticated() != null)
+            tecnicoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Tecnico tecnico = (Tecnico) entidadeMapper.mapToModel(tecnicoDTO, Tecnico.class);
         tecnico = tecnicoService.insert(tecnico);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

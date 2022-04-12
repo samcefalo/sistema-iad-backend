@@ -17,5 +17,6 @@ public abstract class EntidadeDTO implements Serializable {
     @NotBlank(message = "O nome é obrigatório.")
     @Length(min = 3, max = 100, message = "Insira um nome com {min}-{max} caracteres.")
     private String nome;
+    private UserDTO user;
 
 }

@@ -3,11 +3,13 @@ package me.samcefalo.sistemaiadbackend.resources;
 import me.samcefalo.sistemaiadbackend.dtos.AcaoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
 import me.samcefalo.sistemaiadbackend.mappers.EquipeMapper;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
+import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import java.net.URI;
 @RequestMapping(value = "/equipes")
 public class EquipeResource {
 
+    @Autowired
+    private UserSecurityService userSecurityService;
     @Autowired
     private EquipeService equipeService;
     @Autowired
@@ -76,6 +80,8 @@ public class EquipeResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody EquipeDTO equipeDTO) {
+        if (userSecurityService.authenticated() != null)
+            equipeDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Equipe equipe = equipeMapper.mapToModel(equipeDTO, Equipe.class);
         equipe = equipeService.insert(equipe);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

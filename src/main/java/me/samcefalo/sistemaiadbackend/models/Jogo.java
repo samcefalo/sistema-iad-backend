@@ -38,4 +38,8 @@ public abstract class Jogo implements Serializable {
     @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Acao> acoes = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
