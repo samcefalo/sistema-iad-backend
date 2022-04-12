@@ -42,17 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/users/**"
     };
 
-    /*
-    private static final String[] PUBLIC_MATCHERS_GET = {
-            "/acoes/**",
-            "/equipes/**",
-            "/jogadores/**",
-            "/tecnicos/**",
-            "/users/**",
-            "/jogos/**"
-    };
-     */
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
