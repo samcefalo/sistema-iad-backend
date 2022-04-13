@@ -16,6 +16,9 @@ import java.util.List;
 public interface AcaoRepository extends JpaRepository<Acao, Integer> {
 
     @Transactional(readOnly = true)
+    List<Acao> findAllByUser(User user);
+
+    @Transactional(readOnly = true)
     Page<Acao> findAllByUser(Pageable pageable, User user);
 
     @Transactional(readOnly = true)
