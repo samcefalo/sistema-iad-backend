@@ -24,6 +24,7 @@ public abstract class Acao implements Serializable {
     private int grauDificuldade;
     private int area;
     private boolean exito;
+    private int pontuacao;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")

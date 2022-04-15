@@ -13,4 +13,17 @@ import lombok.ToString;
 @JsonTypeName("Drible")
 public class DribleDTO extends AcaoDTO {
 
+    private int maxPontuacao = 2;
+
+    @Override
+    public int getPontuacao() {
+        int pontuacao = 0;
+        if (isExito()) {
+            pontuacao += getGrauDificuldade();
+        } else {
+            pontuacao -= (maxPontuacao - getGrauDificuldade()) + 1;
+        }
+        return pontuacao;
+    }
+
 }

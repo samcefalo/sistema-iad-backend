@@ -14,5 +14,21 @@ import lombok.ToString;
 public class FinalizacaoDTO extends AcaoDTO {
 
     private boolean gol;
+    private int maxPontuacao = 4;
+    private int bonificacaoGol = 2;
+
+    @Override
+    public int getPontuacao() {
+        int pontuacao = 0;
+        if (isExito()) {
+            pontuacao += getGrauDificuldade();
+            if (gol) {
+                pontuacao += bonificacaoGol;
+            }
+        } else {
+            pontuacao -= (maxPontuacao - getGrauDificuldade()) + 1;
+        }
+        return pontuacao;
+    }
 
 }

@@ -29,7 +29,6 @@ public class AcaoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AcaoDTO> find(@PathVariable int id) {
         Acao acao = acaoService.find(id);
-
         return ResponseEntity.ok().body(acaoMapper.mapToDTO(acao, AcaoDTO.class));
     }
 

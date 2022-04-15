@@ -7,6 +7,8 @@ import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,10 @@ import java.util.List;
 
 @Repository
 public interface AcaoRepository extends JpaRepository<Acao, Integer> {
+
+    @Transactional(readOnly = true)
+    @Query("SELECT avg(a.pontuacao) FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user")
+    Double avg(@Param(value = "categoria") Class<? extends Acao> categoria, @Param(value = "user") User user);
 
     @Transactional(readOnly = true)
     List<Acao> findAllByUser(User user);
