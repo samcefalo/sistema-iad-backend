@@ -1,10 +1,15 @@
 package me.samcefalo.sistemaiadbackend.estatistica;
 
-import java.util.List;
+import lombok.Builder;
+import lombok.Data;
 
-public interface Estatistica {
+import java.io.Serializable;
 
-    double getMedia(List<Class<? extends Integer>> list);
+@Data
+@Builder
+public class Estatistica implements Serializable {
 
-    double getDesvPada();
+    private double media, variancia, desvio_padrao, scoreT, scoreZ, max, min;
+    private int total, totalExito;
+
 }

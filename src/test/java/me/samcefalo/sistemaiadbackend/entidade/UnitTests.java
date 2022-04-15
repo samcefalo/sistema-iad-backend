@@ -2,7 +2,6 @@ package me.samcefalo.sistemaiadbackend.entidade;
 
 import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
-import me.samcefalo.sistemaiadbackend.services.EstatisticaService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -33,8 +32,6 @@ public class UnitTests {
     private MockMvc mockMvc;
     @Autowired
     private JogadorRepository jogadorRepository;
-    @Autowired
-    private EstatisticaService estatisticaService;
 
     @BeforeAll
     void setUp() {

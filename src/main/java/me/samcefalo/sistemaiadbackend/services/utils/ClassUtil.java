@@ -10,4 +10,9 @@ public class ClassUtil {
         categoria = StringUtils.capitalize(categoria.toLowerCase());
         return Class.forName("me.samcefalo.sistemaiadbackend.models.Jogo" + categoria);
     }
+
+    public Class<?> getAcaoClass(String categoria) throws ClassNotFoundException {
+        categoria = StringUtils.capitalize(categoria.toLowerCase());
+        return Class.forName("me.samcefalo.sistemaiadbackend.models." + categoria);
+    }
 }
