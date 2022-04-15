@@ -42,5 +42,4 @@ public abstract class Acao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }

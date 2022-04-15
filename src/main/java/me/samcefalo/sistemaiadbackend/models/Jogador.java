@@ -17,6 +17,7 @@ public class Jogador extends Entidade {
 
     private int numero;
     private boolean expulso, titular;
+    private int sexo;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "jogadores", fetch = FetchType.LAZY)
@@ -31,5 +32,4 @@ public class Jogador extends Entidade {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
-
 }
