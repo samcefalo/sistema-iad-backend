@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.User;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserInsert;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@User
+@UserInsert
 public class CredenciaisDTO implements Serializable {
 
     private int id;

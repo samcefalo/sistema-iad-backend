@@ -2,8 +2,10 @@ package me.samcefalo.sistemaiadbackend.resources;
 
 import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.dtos.UserInsertDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserUpdateDTO;
 import me.samcefalo.sistemaiadbackend.mappers.UserInsertMapper;
 import me.samcefalo.sistemaiadbackend.mappers.UserMapper;
+import me.samcefalo.sistemaiadbackend.mappers.UserUpdateMapper;
 import me.samcefalo.sistemaiadbackend.models.User;
 import me.samcefalo.sistemaiadbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class UserResource {
     private UserMapper userMapper;
     @Autowired
     private UserInsertMapper userInsertMapper;
+    @Autowired
+    private UserUpdateMapper userUpdateMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> find(@PathVariable int id) {
@@ -60,8 +64,8 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody UserDTO userDTO, @PathVariable int id) {
-        User user = userMapper.mapToModel(userDTO, User.class);
+    public ResponseEntity<Void> update(@Valid @RequestBody UserUpdateDTO userDTO, @PathVariable int id) {
+        User user = userUpdateMapper.mapToModel(userDTO, User.class);
         user.setId(id);
         userService.update(user);
         return ResponseEntity.noContent().build();

@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SistemaIadBackendApplication {
 
 
-    //TODO resolver UsernameNotFoundException: post /login
-    //TODO criar usuario e token de acesso JWT
     public static void main(String[] args) {
         SpringApplication.run(SistemaIadBackendApplication.class, args);
     }

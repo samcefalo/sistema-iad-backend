@@ -4,7 +4,7 @@ import lombok.NoArgsConstructor;
 import me.samcefalo.sistemaiadbackend.dtos.UserInsertDTO;
 import me.samcefalo.sistemaiadbackend.repositories.UserRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.User;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-public class UserValidator implements ConstraintValidator<User, UserInsertDTO> {
+public class UserInsertValidator implements ConstraintValidator<UserInsert, UserInsertDTO> {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public void initialize(User ann) {
+    public void initialize(UserInsert ann) {
     }
 
     @Override
