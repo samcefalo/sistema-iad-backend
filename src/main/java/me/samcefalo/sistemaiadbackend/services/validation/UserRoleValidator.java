@@ -29,7 +29,7 @@ public class UserRoleValidator implements ConstraintValidator<UserRoleId, Set<In
 
         if (userRoles.contains(UserRole.ADMIN.getId())
                 && !userSecurityService.isAdmin()) {
-            list.add(new FieldMessage("userRoles", "Sem permissão."));
+            list.add(new FieldMessage("userRoles", "Sem permissão para adicionar cargo ADMIN."));
         }
 
         for (FieldMessage e : list) {
