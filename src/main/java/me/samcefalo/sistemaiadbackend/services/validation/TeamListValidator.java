@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class TeamListValidator implements ConstraintValidator<Team, Set<EquipeDTO>> {
@@ -26,8 +28,10 @@ public class TeamListValidator implements ConstraintValidator<Team, Set<EquipeDT
     @Override
     public boolean isValid(Set<EquipeDTO> equipes, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
+        //evitar id duplicado
+        Set<Integer> equipeIds = new HashSet<>(equipes.stream().mapToInt(EquipeDTO::getId).boxed().collect(Collectors.toList()));
         //tamanho da lista
-        if (equipes.size() != 2) {
+        if (equipeIds.size() != 2 || equipes.size() != 2) {
             list.add(new FieldMessage("equipes", "Insira 2 equipes."));
         }
 

@@ -3,7 +3,6 @@ package me.samcefalo.sistemaiadbackend.resources;
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
-import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
@@ -62,10 +61,6 @@ public class JogoResource {
         if (userSecurityService.authenticated() != null)
             jogoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Jogo jogo = jogoMapper.mapToModel(jogoDTO, Jogo.class);
-        for (Equipe equipe : jogo.getEquipes()) {
-            equipe = equipeService.find(equipe.getId());
-            jogo.getJogadores().addAll(equipe.getJogadores());
-        }
         jogo = jogoService.insert(jogo);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(jogo.getId()).toUri();
