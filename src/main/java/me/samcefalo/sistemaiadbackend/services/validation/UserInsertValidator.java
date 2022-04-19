@@ -3,7 +3,7 @@ package me.samcefalo.sistemaiadbackend.services.validation;
 import lombok.NoArgsConstructor;
 import me.samcefalo.sistemaiadbackend.dtos.UserInsertDTO;
 import me.samcefalo.sistemaiadbackend.repositories.UserRepository;
-import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
+import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.FieldMessage;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 

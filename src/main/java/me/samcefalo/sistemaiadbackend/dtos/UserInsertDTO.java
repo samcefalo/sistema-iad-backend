@@ -1,7 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.models.enums.UserRole;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserInsert;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserRoleId;
 import org.hibernate.validator.constraints.Length;
@@ -31,9 +30,5 @@ public class UserInsertDTO implements Serializable {
     private String senha;
     @UserRoleId
     private Set<Integer> userRoles = new HashSet<>();
-
-    public void addRole(UserRole userRole) {
-        this.userRoles.add(userRole.getId());
-    }
 
 }

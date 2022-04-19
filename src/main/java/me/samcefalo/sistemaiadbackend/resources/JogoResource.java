@@ -4,7 +4,6 @@ import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
-import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
 import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,6 @@ public class JogoResource {
 
     @Autowired
     private JogoService jogoService;
-    @Autowired
-    private EquipeService equipeService;
     @Autowired
     private JogoMapper jogoMapper;
     @Autowired

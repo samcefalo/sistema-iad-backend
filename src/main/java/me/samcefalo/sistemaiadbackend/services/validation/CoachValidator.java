@@ -2,7 +2,7 @@ package me.samcefalo.sistemaiadbackend.services.validation;
 
 import me.samcefalo.sistemaiadbackend.dtos.TecnicoDTO;
 import me.samcefalo.sistemaiadbackend.repositories.TecnicoRepository;
-import me.samcefalo.sistemaiadbackend.resources.exceptions.FieldMessage;
+import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.FieldMessage;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

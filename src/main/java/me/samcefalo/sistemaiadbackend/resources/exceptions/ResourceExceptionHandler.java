@@ -1,5 +1,7 @@
 package me.samcefalo.sistemaiadbackend.resources.exceptions;
 
+import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.StandardError;
+import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.ValidationError;
 import me.samcefalo.sistemaiadbackend.services.exceptions.AuthorizationException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.DataIntegrityException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;

@@ -70,7 +70,7 @@ public class EstatisticaService {
         } else
             acoes = acaoService.findAllByCategoria(categoria);
 
-        return onlyExito ? toIntegerListExito(acoes) : toIntegerList(acoes);
+        return toIntegerList(acoes, onlyExito);
     }
 
     private List<Integer> getAcoes(int jogadorId, Class<?> categoria, boolean onlyExito) {
@@ -80,17 +80,16 @@ public class EstatisticaService {
         } else
             acoes = jogadorService.findAcoesByCategoria(jogadorId, categoria);
 
-        return onlyExito ? toIntegerListExito(acoes) : toIntegerList(acoes);
+        return toIntegerList(acoes, onlyExito);
     }
 
-    private List<Integer> toIntegerList(List<Acao> acoes) {
-        return acoes.stream()
-                .mapToInt(Acao::getPontuacao)
-                .boxed()
-                .collect(Collectors.toList());
-    }
-
-    private List<Integer> toIntegerListExito(List<Acao> acoes) {
+    private List<Integer> toIntegerList(List<Acao> acoes, boolean onlyExito) {
+        if (onlyExito) {
+            return acoes.stream()
+                    .mapToInt(Acao::getPontuacao)
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
         return acoes.stream()
                 .filter(acao -> acao.isExito())
                 .mapToInt(Acao::getPontuacao)
