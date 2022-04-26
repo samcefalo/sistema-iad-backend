@@ -23,19 +23,19 @@ public abstract class MapperImpl<M, D> {
             modelMapper.typeMap(dto, model)
                     .setConverter(converterWithDestinationSupplier(tClass));
             modelMapper.typeMap(tClass, dto)
-                    .setConverter(converterWithDestinationSupplier(findClassInSet(dtoSubTypes, tClass.getSimpleName() + "DTO")));
+                    .setConverter(converterWithDestinationSupplier(findClass(dtoSubTypes, tClass.getSimpleName() + "DTO")));
         }
 
         for (Class tClass : dtoSubTypes) {
             modelMapper.typeMap(model, dto)
                     .setConverter(converterWithDestinationSupplier(tClass));
             modelMapper.typeMap(tClass, model)
-                    .setConverter(converterWithDestinationSupplier(findClassInSet(modelSubTypes, tClass.getSimpleName().replaceAll("DTO", ""))));
+                    .setConverter(converterWithDestinationSupplier(findClass(modelSubTypes, tClass.getSimpleName().replaceAll("DTO", ""))));
         }
         return modelMapper;
     }
 
-    private Class findClassInSet(Set<Class> set, String nome) {
+    private Class findClass(Set<Class> set, String nome) {
         return set.stream()
                 .filter(aClass -> aClass.getSimpleName().equalsIgnoreCase(nome))
                 .findAny().orElse(null);
