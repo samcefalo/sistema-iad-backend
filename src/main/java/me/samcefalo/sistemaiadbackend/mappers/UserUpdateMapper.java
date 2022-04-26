@@ -5,6 +5,10 @@ import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserUpdateMapper extends AbstractMapper<User, UserUpdateDTO> {
+public class UserUpdateMapper extends MapperImpl<User, UserUpdateDTO> {
+
+    public UserUpdateMapper() {
+        super.configure(User.class, UserUpdateDTO.class);
+    }
 
 }

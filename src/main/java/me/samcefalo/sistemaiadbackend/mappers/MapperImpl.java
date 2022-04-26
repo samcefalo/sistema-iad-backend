@@ -1,4 +1,4 @@
-package me.samcefalo.sistemaiadbackend.mappers.implementations;
+package me.samcefalo.sistemaiadbackend.mappers;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -6,11 +6,11 @@ import org.reflections.Reflections;
 
 import java.util.Set;
 
-public abstract class AbstractMapperImpl<M, D> {
+public abstract class MapperImpl<M, D> {
 
     private ModelMapper modelMapper;
 
-    public AbstractMapperImpl() {
+    public MapperImpl() {
         modelMapper = new ModelMapper();
     }
 

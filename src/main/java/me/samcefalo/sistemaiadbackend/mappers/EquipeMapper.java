@@ -5,6 +5,10 @@ import me.samcefalo.sistemaiadbackend.models.Equipe;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface EquipeMapper extends AbstractMapper<Equipe, EquipeDTO> {
+public class EquipeMapper extends MapperImpl<Equipe, EquipeDTO> {
+
+    public EquipeMapper() {
+        super.configure(Equipe.class, EquipeDTO.class);
+    }
 
 }

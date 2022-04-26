@@ -5,6 +5,10 @@ import me.samcefalo.sistemaiadbackend.models.Jogo;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface JogoMapper extends AbstractMapper<Jogo, JogoDTO> {
+public class JogoMapper extends MapperImpl<Jogo, JogoDTO> {
+
+    public JogoMapper() {
+        super.configure(Jogo.class, JogoDTO.class);
+    }
 
 }

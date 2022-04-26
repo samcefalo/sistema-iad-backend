@@ -5,6 +5,10 @@ import me.samcefalo.sistemaiadbackend.models.Entidade;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface EntidadeMapper extends AbstractMapper<Entidade, EntidadeDTO> {
+public class EntidadeMapper extends MapperImpl<Entidade, EntidadeDTO> {
+
+    public EntidadeMapper() {
+        super.configure(Entidade.class, EntidadeDTO.class);
+    }
 
 }
