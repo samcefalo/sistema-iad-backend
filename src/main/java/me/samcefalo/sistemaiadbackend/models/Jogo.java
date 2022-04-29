@@ -1,10 +1,12 @@
 package me.samcefalo.sistemaiadbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,8 @@ public abstract class Jogo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int situacaoJogo;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date data;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "EQUIPE_JOGO",

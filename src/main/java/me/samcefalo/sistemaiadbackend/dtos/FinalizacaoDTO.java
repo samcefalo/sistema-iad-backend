@@ -14,8 +14,8 @@ import lombok.ToString;
 public class FinalizacaoDTO extends AcaoDTO {
 
     private boolean gol;
-    private int maxPontuacao = 4;
-    private int bonificacaoGol = 2;
+    private final int maxPontuacao = 4;
+    private final int bonificacaoGol = 2;
 
     @Override
     public int getPontuacao() {

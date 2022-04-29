@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -7,6 +8,7 @@ import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,5 +30,7 @@ public abstract class JogoDTO implements Serializable {
     private UserDTO user;
     @Team
     private Set<EquipeDTO> equipes = new HashSet<>();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date data;
 
 }

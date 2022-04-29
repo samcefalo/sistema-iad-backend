@@ -1,9 +1,8 @@
-package me.samcefalo.sistemaiadbackend.estatistica;
+package me.samcefalo.sistemaiadbackend.services;
 
+import me.samcefalo.sistemaiadbackend.estatistica.Estatistica;
 import me.samcefalo.sistemaiadbackend.estatistica.utils.EstatisticaUtils;
 import me.samcefalo.sistemaiadbackend.models.Acao;
-import me.samcefalo.sistemaiadbackend.services.AcaoService;
-import me.samcefalo.sistemaiadbackend.services.JogadorService;
 import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
 import me.samcefalo.sistemaiadbackend.services.utils.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +85,12 @@ public class EstatisticaService {
     private List<Integer> toIntegerList(List<Acao> acoes, boolean onlyExito) {
         if (onlyExito) {
             return acoes.stream()
+                    .filter(acao -> acao.isExito())
                     .mapToInt(Acao::getPontuacao)
                     .boxed()
                     .collect(Collectors.toList());
         }
         return acoes.stream()
-                .filter(acao -> acao.isExito())
                 .mapToInt(Acao::getPontuacao)
                 .boxed()
                 .collect(Collectors.toList());

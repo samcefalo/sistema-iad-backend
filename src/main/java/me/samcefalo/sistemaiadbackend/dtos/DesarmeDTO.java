@@ -12,8 +12,8 @@ import lombok.*;
 public class DesarmeDTO extends AcaoDTO {
 
     private boolean posseDeBola;
-    private int maxPontuacao = 3;
-    private int bonificacaoPosse = 1;
+    private final int maxPontuacao = 3;
+    private final int bonificacaoPosse = 1;
 
     @Override
     public int getPontuacao() {

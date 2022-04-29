@@ -13,7 +13,7 @@ import lombok.ToString;
 @JsonTypeName("Recepção")
 public class RecepcaoDTO extends AcaoDTO {
 
-    private int maxPontuacao = 4;
+    private final int maxPontuacao = 4;
 
     @Override
     public int getPontuacao() {
