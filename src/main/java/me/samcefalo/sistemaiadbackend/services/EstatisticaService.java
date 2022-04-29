@@ -33,6 +33,8 @@ public class EstatisticaService {
                 .desvio_padrao(utils.getStandardDeviation(list))
                 .total(list.size()).totalExito(listExito.size())
                 .min(utils.getMin(list)).max(utils.getMax(list))
+                .moda(utils.getModa(list))
+                .mediana(utils.getMediana(list))
                 .build();
     }
 
@@ -49,6 +51,8 @@ public class EstatisticaService {
                 .min(utils.getMin(list)).max(utils.getMax(list))
                 .scoreZ(utils.getScoreZ(utils.getAvg(list), listAcoes))
                 .scoreT(utils.getScoreT(utils.getAvg(list), listAcoes))
+                .moda(utils.getModa(list))
+                .mediana(utils.getMediana(list))
                 .build();
     }
 
