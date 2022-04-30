@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.jogo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
@@ -68,21 +68,21 @@ public class PostTests {
 
     @Test
     void case3() throws Exception {
-        JogadorDTO jogador = new JogadorDTO();
-        jogador.setNome("Samuel");
-        jogador.setNumero(10);
+        AtletaDTO atleta = new AtletaDTO();
+        atleta.setNome("Samuel");
+        atleta.setNumero(10);
 
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(1);
 
-        jogador.setEquipe(equipe);
+        atleta.setEquipe(equipe);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(jogador);
+        String requestJson = ow.writeValueAsString(atleta);
 
-        mockMvc.perform(post("/jogadores")
+        mockMvc.perform(post("/atletas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
@@ -124,13 +124,13 @@ public class PostTests {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(1);
 
-        JogadorDTO jogador = new JogadorDTO();
-        jogador.setId(1);
+        AtletaDTO atleta = new AtletaDTO();
+        atleta.setId(1);
 
         JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
         jogoFutsal.setId(2);
 
-        passe.setJogador(jogador);
+        passe.setAtleta(atleta);
         passe.setEquipe(equipe);
         passe.setJogo(jogoFutsal);
 

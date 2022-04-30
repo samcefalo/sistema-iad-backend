@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.entidade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.TecnicoDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -47,21 +47,21 @@ public class PutTests extends PostTests {
 
     @Test
     void case11() throws Exception {
-        JogadorDTO jogador = new JogadorDTO();
-        jogador.setNome("Tadeu");
-        jogador.setNumero(20);
+        AtletaDTO atleta = new AtletaDTO();
+        atleta.setNome("Tadeu");
+        atleta.setNumero(20);
 
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(2);
 
-        jogador.setEquipe(equipe);
+        atleta.setEquipe(equipe);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(jogador);
+        String requestJson = ow.writeValueAsString(atleta);
 
-        mockMvc.perform(put("/jogadores/1")
+        mockMvc.perform(put("/atletas/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
@@ -92,7 +92,7 @@ public class PutTests extends PostTests {
 
     @Test
     public void case13() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

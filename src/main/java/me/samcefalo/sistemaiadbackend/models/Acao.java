@@ -36,8 +36,8 @@ public abstract class Acao implements Serializable {
     private Equipe equipe;
 
     @ManyToOne
-    @JoinColumn(name = "jogador_id")
-    private Jogador jogador;
+    @JoinColumn(name = "atleta_id")
+    private Atleta atleta;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

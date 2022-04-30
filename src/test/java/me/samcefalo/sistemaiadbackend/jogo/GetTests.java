@@ -30,7 +30,7 @@ public class GetTests {
     @Autowired
     private AcaoRepository acaoRepository;
     @Autowired
-    private JogadorRepository jogadorRepository;
+    private AtletaRepository atletaRepository;
     @Autowired
     private JogoRepository jogoRepository;
     @Autowired

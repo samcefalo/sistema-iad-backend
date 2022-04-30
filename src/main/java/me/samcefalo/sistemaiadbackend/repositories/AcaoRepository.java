@@ -1,8 +1,8 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
 import me.samcefalo.sistemaiadbackend.models.Acao;
+import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
-import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,23 +27,23 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     List<Acao> findByEquipeAndUser(Equipe equipe, User user);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndUser(Jogador jogador, User user);
+    List<Acao> findByAtletaAndUser(Atleta atleta, User user);
 
     @Transactional(readOnly = true)
     Page<Acao> findByEquipeAndUser(Equipe equipe, Pageable pageable, User user);
 
     @Transactional(readOnly = true)
-    Page<Acao> findByJogadorAndUser(Jogador jogador, Pageable pageable, User user);
+    Page<Acao> findByAtletaAndUser(Atleta atleta, Pageable pageable, User user);
 
     @Transactional(readOnly = true)
-    List<Acao> findByJogadorAndExitoAndUser(Jogador jogador, boolean exito, User user);
+    List<Acao> findByAtletaAndExitoAndUser(Atleta atleta, boolean exito, User user);
 
     @Transactional(readOnly = true)
     @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user")
     List<Acao> findAllCategoriaByUser(@Param(value = "categoria") Class<?> categoria, @Param(value = "user") User user);
 
     @Transactional(readOnly = true)
-    @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user AND a.jogador = :jogador")
-    List<Acao> findAllCategoriaByUserAndJogador(@Param(value = "categoria") Class<?> categoria, @Param(value = "jogador") Jogador jogador, @Param(value = "user") User user);
+    @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user AND a.atleta = :atleta")
+    List<Acao> findAllCategoriaByUserAndAtleta(@Param(value = "categoria") Class<?> categoria, @Param(value = "atleta") Atleta atleta, @Param(value = "user") User user);
 
 }

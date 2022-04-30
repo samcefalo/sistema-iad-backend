@@ -17,7 +17,7 @@ public class EstatisticaService {
     @Autowired
     private AcaoService acaoService;
     @Autowired
-    private JogadorService jogadorService;
+    private AtletaService atletaService;
     @Autowired
     private EstatisticaUtils utils;
     @Autowired
@@ -38,10 +38,10 @@ public class EstatisticaService {
                 .build();
     }
 
-    public Estatistica getEstatistica(int jogadorId, String categoria) {
+    public Estatistica getEstatistica(int atletaId, String categoria) {
         List<Integer> listAcoes = getAcoes(getClass(categoria), false);
-        List<Integer> list = getAcoes(jogadorId, getClass(categoria), false);
-        List<Integer> listExito = getAcoes(jogadorId, getClass(categoria), true);
+        List<Integer> list = getAcoes(atletaId, getClass(categoria), false);
+        List<Integer> listExito = getAcoes(atletaId, getClass(categoria), true);
 
         return Estatistica.builder()
                 .media(utils.getAvg(list))
@@ -76,12 +76,12 @@ public class EstatisticaService {
         return toIntegerList(acoes, onlyExito);
     }
 
-    private List<Integer> getAcoes(int jogadorId, Class<?> categoria, boolean onlyExito) {
+    private List<Integer> getAcoes(int atletaId, Class<?> categoria, boolean onlyExito) {
         List<Acao> acoes;
         if (categoria.equals(Acao.class)) {
-            acoes = jogadorService.findAcoes(jogadorId);
+            acoes = atletaService.findAcoes(atletaId);
         } else
-            acoes = jogadorService.findAcoesByCategoria(jogadorId, categoria);
+            acoes = atletaService.findAcoesByCategoria(atletaId, categoria);
 
         return toIntegerList(acoes, onlyExito);
     }

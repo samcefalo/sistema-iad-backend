@@ -1,13 +1,10 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserRoleId;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +19,5 @@ public class UserUpdateDTO implements Serializable {
     private String username;
     @NotBlank(message = "A senha é obrigatória.")
     private String senha;
-    @UserRoleId
-    private Set<Integer> userRoles = new HashSet<>();
 
 }

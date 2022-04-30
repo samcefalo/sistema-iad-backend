@@ -1,9 +1,9 @@
 package me.samcefalo.sistemaiadbackend.services.validation;
 
-import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
-import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
+import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
+import me.samcefalo.sistemaiadbackend.repositories.AtletaRepository;
 import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.FieldMessage;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Player;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Athlete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,24 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class PlayerValidator implements ConstraintValidator<Player, JogadorDTO> {
+public class AthleteValidator implements ConstraintValidator<Athlete, AtletaDTO> {
 
     @Autowired
-    private JogadorRepository jogadorRepository;
+    private AtletaRepository atletaRepository;
 
     @Override
-    public void initialize(Player ann) {
+    public void initialize(Athlete ann) {
     }
 
     @Override
-    public boolean isValid(JogadorDTO jogador, ConstraintValidatorContext context) {
+    public boolean isValid(AtletaDTO atleta, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        //Jogador existente
-        if (jogador == null || jogador.getId() == 0) {
-            list.add(new FieldMessage("jogador", "Jogador inválido."));
-        } else if (!jogadorRepository.findById(jogador.getId()).isPresent()) {
-            list.add(new FieldMessage("jogador", "Jogador " + jogador.getId() + " inválido."));
+        if (atleta == null || atleta.getId() == 0) {
+            list.add(new FieldMessage("atleta", "Atleta inválido."));
+        } else if (!atletaRepository.findById(atleta.getId()).isPresent()) {
+            list.add(new FieldMessage("atleta", "Atleta " + atleta.getId() + " inválido."));
         }
 
         for (FieldMessage e : list) {

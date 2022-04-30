@@ -34,10 +34,10 @@ public abstract class Jogo implements Serializable {
     private Set<Equipe> equipes = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "JOGADOR_JOGO",
+    @JoinTable(name = "ATLETA_JOGO",
             joinColumns = @JoinColumn(name = "jogo_id"),
-            inverseJoinColumns = @JoinColumn(name = "jogador_id"))
-    private Set<Jogador> jogadores = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "atleta_id"))
+    private Set<Atleta> atletas = new HashSet<>();
 
     @OneToMany(mappedBy = "jogo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Acao> acoes = new HashSet<>();

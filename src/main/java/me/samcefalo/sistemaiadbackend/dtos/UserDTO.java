@@ -1,7 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.UserRoleId;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -25,7 +24,6 @@ public class UserDTO implements Serializable {
     @NotBlank(message = "O email é obrigatório.")
     @Email(message = "Email inválido.")
     private String email;
-    @UserRoleId
     private Set<Integer> userRoles = new HashSet<>();
 
 }

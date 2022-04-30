@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.acao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
@@ -57,13 +57,13 @@ public class PutTests extends PostTests {
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(2);
 
-        JogadorDTO jogador = new JogadorDTO();
-        jogador.setId(1);
+        AtletaDTO atleta = new AtletaDTO();
+        atleta.setId(1);
 
         JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
         jogoFutsal.setId(2);
 
-        passe.setJogador(jogador);
+        passe.setAtleta(atleta);
         passe.setEquipe(equipe);
         passe.setJogo(jogoFutsal);
 

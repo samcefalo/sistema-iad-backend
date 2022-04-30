@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
+import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
-import me.samcefalo.sistemaiadbackend.models.Jogador;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
@@ -27,13 +27,13 @@ public interface JogoRepository extends JpaRepository<Jogo, Integer> {
     List<Jogo> findByEquipesAndUser(Equipe equipe, User user);
 
     @Transactional(readOnly = true)
-    List<Jogo> findByJogadoresAndUser(Jogador jogador, User user);
+    List<Jogo> findByAtletasAndUser(Atleta atleta, User user);
 
     @Transactional(readOnly = true)
     Page<Jogo> findByEquipesAndUser(Equipe equipe, Pageable pageable, User user);
 
     @Transactional(readOnly = true)
-    Page<Jogo> findByJogadoresAndUser(Jogador jogador, Pageable pageable, User user);
+    Page<Jogo> findByAtletasAndUser(Atleta atleta, Pageable pageable, User user);
 
     @Transactional(readOnly = true)
     @Query("SELECT a FROM Jogo a WHERE TYPE(a) = :categoria AND a.user = :user")

@@ -1,7 +1,7 @@
 package me.samcefalo.sistemaiadbackend.entidade;
 
-import me.samcefalo.sistemaiadbackend.models.Jogador;
-import me.samcefalo.sistemaiadbackend.repositories.JogadorRepository;
+import me.samcefalo.sistemaiadbackend.models.Atleta;
+import me.samcefalo.sistemaiadbackend.repositories.AtletaRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -31,30 +31,30 @@ public class UnitTests {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private JogadorRepository jogadorRepository;
+    private AtletaRepository atletaRepository;
 
     @BeforeAll
     void setUp() {
-        Jogador jogador = new Jogador();
-        jogador.setExpulso(false);
-        jogador.setTitular(true);
-        jogador.setNumero(10);
-        jogador.setNome("Samuel");
+        Atleta atleta = new Atleta();
+        atleta.setExpulso(false);
+        atleta.setTitular(true);
+        atleta.setNumero(10);
+        atleta.setNome("Samuel");
 
-        jogadorRepository.save(jogador);
+        atletaRepository.save(atleta);
     }
 
     @Test
     public void case1() {
-        List<Jogador> jogadores = jogadorRepository.findAll();
-        Jogador jogador = jogadores.get(0);
-        assertFalse(jogadores.isEmpty());
-        assertEquals("Samuel", jogador.getNome());
+        List<Atleta> atletas = atletaRepository.findAll();
+        Atleta atleta = atletas.get(0);
+        assertFalse(atletas.isEmpty());
+        assertEquals("Samuel", atleta.getNome());
     }
 
     @Test
     void case2() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

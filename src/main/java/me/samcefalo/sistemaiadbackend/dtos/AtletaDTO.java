@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class JogadorDTO extends EntidadeDTO {
+public class AtletaDTO extends EntidadeDTO {
 
     @Min(value = 1, message = "O número é obrigatório.")
     private int numero;

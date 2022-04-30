@@ -31,7 +31,7 @@ public class GetTests {
     @Autowired
     private AcaoRepository acaoRepository;
     @Autowired
-    private JogadorRepository jogadorRepository;
+    private AtletaRepository atletaRepository;
     @Autowired
     private JogoRepository jogoRepository;
     @Autowired
@@ -44,26 +44,26 @@ public class GetTests {
         JogoFutsal jogoFutsal = new JogoFutsal();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
-        Jogador jogador = new Jogador();
-        jogador.setNome("Samuel");
-        jogador.setTitular(true);
-        jogador.setExpulso(false);
+        Atleta atleta = new Atleta();
+        atleta.setNome("Samuel");
+        atleta.setTitular(true);
+        atleta.setExpulso(false);
 
         Tecnico tecnico = new Tecnico();
         tecnico.setNome("Zidane");
 
-        jogoFutsal.getJogadores().add(jogador);
+        jogoFutsal.getAtletas().add(atleta);
 
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
 
-        jogador.setEquipe(equipe);
+        atleta.setEquipe(equipe);
         tecnico.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
         Passe passe = new Passe();
-        passe.setJogador(jogador);
+        passe.setAtleta(atleta);
         passe.setEquipe(equipe);
         passe.setGrauDificuldade(1);
         passe.setExito(false);
@@ -71,7 +71,7 @@ public class GetTests {
         passe.setJogo(jogoFutsal);
 
         equipeRepository.save(equipe);
-        jogadorRepository.save(jogador);
+        atletaRepository.save(atleta);
         tecnicoRepository.save(tecnico);
         jogoRepository.save(jogoFutsal);
         acaoRepository.save(passe);
@@ -79,28 +79,28 @@ public class GetTests {
 
     @Test
     public void case1() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     public void case2() throws Exception {
-        mockMvc.perform(get("/jogadores/1/"))
+        mockMvc.perform(get("/atletas/1/"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     public void case3() throws Exception {
-        mockMvc.perform(get("/jogadores/1/jogos"))
+        mockMvc.perform(get("/atletas/1/jogos"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     public void case4() throws Exception {
-        mockMvc.perform(get("/jogadores/1/acoes"))
+        mockMvc.perform(get("/atletas/1/acoes"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

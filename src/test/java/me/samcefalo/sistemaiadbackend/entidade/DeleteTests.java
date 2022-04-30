@@ -1,9 +1,9 @@
 package me.samcefalo.sistemaiadbackend.entidade;
 
-import me.samcefalo.sistemaiadbackend.models.Jogador;
+import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
-import me.samcefalo.sistemaiadbackend.services.JogadorService;
+import me.samcefalo.sistemaiadbackend.services.AtletaService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,36 +30,36 @@ public class DeleteTests {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private JogadorService jogadorService;
+    private AtletaService atletaService;
     @Autowired
     private AcaoService acaoService;
 
     @BeforeAll
     void setUp() {
-        Jogador jogador = new Jogador();
-        jogador.setExpulso(false);
-        jogador.setTitular(true);
-        jogador.setNumero(10);
-        jogador.setNome("Samuel");
+        Atleta atleta = new Atleta();
+        atleta.setExpulso(false);
+        atleta.setTitular(true);
+        atleta.setNumero(10);
+        atleta.setNome("Samuel");
 
         Passe passe = new Passe();
         passe.setExito(true);
-        passe.setJogador(jogador);
+        passe.setAtleta(atleta);
 
-        jogadorService.insert(jogador);
+        atletaService.insert(atleta);
         acaoService.insert(passe);
     }
 
     @Test
     void case1() throws Exception {
-        mockMvc.perform(delete("/jogadores/1"))
+        mockMvc.perform(delete("/atletas/1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void case2() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

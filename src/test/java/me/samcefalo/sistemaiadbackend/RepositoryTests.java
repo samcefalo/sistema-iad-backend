@@ -30,7 +30,7 @@ public class RepositoryTests {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private JogadorService jogadorService;
+    private AtletaService atletaService;
     @Autowired
     private JogoService jogoService;
     @Autowired
@@ -49,14 +49,14 @@ public class RepositoryTests {
         JogoFutsal jogoFutsal = new JogoFutsal();
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
-        Jogador jogador = new Jogador();
-        jogador.setNumero(10);
-        jogador.setNome("Samuel");
-        jogador.setTitular(true);
-        jogador.setExpulso(false);
-        //jogador.getJogos().add(jogoFutsal);
+        Atleta atleta = new Atleta();
+        atleta.setNumero(10);
+        atleta.setNome("Samuel");
+        atleta.setTitular(true);
+        atleta.setExpulso(false);
+        //atleta.getJogos().add(jogoFutsal);
 
-        jogoFutsal.getJogadores().add(jogador);
+        jogoFutsal.getAtletas().add(atleta);
 
         Tecnico tecnico = new Tecnico();
         tecnico.setNome("Zidane");
@@ -64,13 +64,13 @@ public class RepositoryTests {
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
 
-        jogador.setEquipe(equipe);
+        atleta.setEquipe(equipe);
         tecnico.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
         Passe passe = new Passe();
-        passe.setJogador(jogador);
+        passe.setAtleta(atleta);
         passe.setEquipe(equipe);
         passe.setGrauDificuldade(1);
         passe.setExito(true);
@@ -78,7 +78,7 @@ public class RepositoryTests {
         passe.setJogo(jogoFutsal);
 
         equipeService.insert(equipe);
-        jogadorService.insert(jogador);
+        atletaService.insert(atleta);
         tecnicoService.insert(tecnico);
         jogoService.insert(jogoFutsal);
         acaoService.insert(passe);
@@ -86,7 +86,7 @@ public class RepositoryTests {
 
     @Test
     void case1() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -118,14 +118,14 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case4() {
-        List<Jogador> jogadores = jogadorService.findAll();
-        Jogador jogador = jogadores.get(0);
-        List<Acao> acoes = acaoService.findByJogador(jogador);
+        List<Atleta> atletas = atletaService.findAll();
+        Atleta atleta = atletas.get(0);
+        List<Acao> acoes = acaoService.findByAtleta(atleta);
         Acao acao = acoes.get(0);
-        assertFalse(jogadores.isEmpty());
-        assertFalse(jogador.getJogos().isEmpty());
+        assertFalse(atletas.isEmpty());
+        assertFalse(atleta.getJogos().isEmpty());
         assertFalse(acoes.isEmpty());
-        assertTrue(acao.getJogador().equals(jogador));
+        assertTrue(acao.getAtleta().equals(atleta));
     }
 
     @Transactional
@@ -145,14 +145,14 @@ public class RepositoryTests {
     @Transactional
     @Test
     public void case6() {
-        List<Jogador> jogadores = jogadorService.findAll();
-        Jogador jogador = jogadores.get(0);
-        List<Jogo> jogos = jogoService.findByJogadores(jogador);
+        List<Atleta> atletas = atletaService.findAll();
+        Atleta atleta = atletas.get(0);
+        List<Jogo> jogos = jogoService.findByAtletas(atleta);
         Jogo jogo = jogos.get(0);
         assertFalse(jogos.isEmpty());
-        assertFalse(jogo.getJogadores().isEmpty());
+        assertFalse(jogo.getAtletas().isEmpty());
         assertEquals(SituacaoJogo.ENCERRADO.getId(), jogo.getSituacaoJogo());
-        assertTrue(jogo.getJogadores().contains(jogador));
+        assertTrue(jogo.getAtletas().contains(atleta));
     }
 
     @Transactional

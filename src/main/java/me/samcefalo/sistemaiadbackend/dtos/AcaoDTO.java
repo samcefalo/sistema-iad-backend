@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.dtos;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
+import me.samcefalo.sistemaiadbackend.services.validation.constraints.Athlete;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Game;
-import me.samcefalo.sistemaiadbackend.services.validation.constraints.Player;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
@@ -35,8 +35,8 @@ public abstract class AcaoDTO implements Serializable {
 
     @Team
     private EquipeDTO equipe;
-    @Player
-    private JogadorDTO jogador;
+    @Athlete
+    private AtletaDTO atleta;
     @Game
     private JogoDTO jogo;
 

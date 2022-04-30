@@ -31,10 +31,6 @@ public class User implements Serializable {
     @CollectionTable(name = "user_roles")
     private Set<Integer> userRoles = new HashSet<>();
 
-    public User() {
-        this.addRole(UserRole.DEFAULT);
-    }
-
     public Set<UserRole> getUserRolesEnum() {
         return this.userRoles.stream().map(role -> UserRole.toEnum(role)).collect(Collectors.toSet());
     }

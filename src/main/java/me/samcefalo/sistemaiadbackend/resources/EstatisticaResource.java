@@ -19,7 +19,7 @@ public class EstatisticaResource {
         return ResponseEntity.ok().body(estatistica);
     }
 
-    @RequestMapping(value = "/jogador/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/atleta/{id}", method = RequestMethod.GET)
     public ResponseEntity<Estatistica> find(@PathVariable int id,
                                             @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
         Estatistica estatistica = estatisticaService.getEstatistica(id, categoria);

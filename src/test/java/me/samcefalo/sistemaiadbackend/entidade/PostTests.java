@@ -3,8 +3,8 @@ package me.samcefalo.sistemaiadbackend.entidade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogadorDTO;
 import me.samcefalo.sistemaiadbackend.dtos.TecnicoDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -48,38 +48,38 @@ public class PostTests {
 
     @Test
     void case2() throws Exception {
-        JogadorDTO jogador = new JogadorDTO();
-        jogador.setNome("Samuel");
-        jogador.setNumero(10);
+        AtletaDTO atleta = new AtletaDTO();
+        atleta.setNome("Samuel");
+        atleta.setNumero(10);
 
         EquipeDTO equipe = new EquipeDTO();
         equipe.setId(1);
 
-        jogador.setEquipe(equipe);
+        atleta.setEquipe(equipe);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(jogador);
+        String requestJson = ow.writeValueAsString(atleta);
 
-        mockMvc.perform(post("/jogadores")
+        mockMvc.perform(post("/atletas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
 
-    //UnprocessableEntity - jogador com nome null
+    //UnprocessableEntity - atleta com nome null
     @Test
     void case3() throws Exception {
-        JogadorDTO jogador = new JogadorDTO();
+        AtletaDTO atleta = new AtletaDTO();
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(jogador);
+        String requestJson = ow.writeValueAsString(atleta);
 
-        mockMvc.perform(post("/jogadores")
+        mockMvc.perform(post("/atletas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print())
@@ -128,7 +128,7 @@ public class PostTests {
 
     @Test
     public void case6() throws Exception {
-        mockMvc.perform(get("/jogadores"))
+        mockMvc.perform(get("/atletas"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
