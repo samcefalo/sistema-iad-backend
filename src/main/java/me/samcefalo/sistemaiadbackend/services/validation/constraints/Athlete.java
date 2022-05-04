@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Athlete {
-    String message() default "Erro de validação";
 
     Class<?>[] groups() default {};
 
