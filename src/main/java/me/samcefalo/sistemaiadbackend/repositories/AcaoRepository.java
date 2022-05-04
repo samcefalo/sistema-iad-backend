@@ -1,9 +1,6 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
-import me.samcefalo.sistemaiadbackend.models.Acao;
-import me.samcefalo.sistemaiadbackend.models.Atleta;
-import me.samcefalo.sistemaiadbackend.models.Equipe;
-import me.samcefalo.sistemaiadbackend.models.User;
+import me.samcefalo.sistemaiadbackend.models.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +24,9 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     List<Acao> findByEquipeAndUser(Equipe equipe, User user);
 
     @Transactional(readOnly = true)
+    List<Acao> findByJogoAndUser(Jogo jogo, User user);
+
+    @Transactional(readOnly = true)
     List<Acao> findByAtletaAndUser(Atleta atleta, User user);
 
     @Transactional(readOnly = true)
@@ -46,4 +46,13 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer> {
     @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user AND a.atleta = :atleta")
     List<Acao> findAllCategoriaByUserAndAtleta(@Param(value = "categoria") Class<?> categoria, @Param(value = "atleta") Atleta atleta, @Param(value = "user") User user);
 
+    @Transactional(readOnly = true)
+    @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user AND a.equipe = :equipe")
+    List<Acao> findAllCategoriaByUserAndEquipe(@Param(value = "categoria") Class<?> categoria, @Param(value = "equipe") Equipe equipe, @Param(value = "user") User user);
+
+    @Transactional(readOnly = true)
+    @Query("SELECT a FROM Acao a WHERE TYPE(a) = :categoria AND a.user = :user AND a.jogo = :jogo")
+    List<Acao> findAllCategoriaByUserAndJogo(@Param(value = "categoria") Class<?> categoria, @Param(value = "jogo") Jogo jogo, @Param(value = "user") User user);
+
 }
+

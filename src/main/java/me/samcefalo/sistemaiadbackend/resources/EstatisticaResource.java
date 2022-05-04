@@ -20,9 +20,23 @@ public class EstatisticaResource {
     }
 
     @RequestMapping(value = "/atleta/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Estatistica> find(@PathVariable int id,
-                                            @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
-        Estatistica estatistica = estatisticaService.getEstatistica(id, categoria);
+    public ResponseEntity<Estatistica> findAtleta(@PathVariable int id,
+                                                  @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+        Estatistica estatistica = estatisticaService.getEstatisticaFromJogador(id, categoria);
+        return ResponseEntity.ok().body(estatistica);
+    }
+
+    @RequestMapping(value = "/equipe/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Estatistica> findEquipe(@PathVariable int id,
+                                                  @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+        Estatistica estatistica = estatisticaService.getEstatisticaFromEquipe(id, categoria);
+        return ResponseEntity.ok().body(estatistica);
+    }
+
+    @RequestMapping(value = "/jogo/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Estatistica> findJogo(@PathVariable int id,
+                                                @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+        Estatistica estatistica = estatisticaService.getEstatisticaFromJogo(id, categoria);
         return ResponseEntity.ok().body(estatistica);
     }
 

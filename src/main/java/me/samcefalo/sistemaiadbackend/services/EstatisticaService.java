@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class EstatisticaService {
@@ -19,40 +20,77 @@ public class EstatisticaService {
     @Autowired
     private AtletaService atletaService;
     @Autowired
+    private EquipeService equipeService;
+    @Autowired
+    private JogoService jogoService;
+    @Autowired
     private EstatisticaUtils utils;
     @Autowired
     private ClassUtil classUtil;
 
     public Estatistica getEstatistica(String categoria) {
-        List<Integer> list = getAcoes(getClass(categoria), false);
-        List<Integer> listExito = getAcoes(getClass(categoria), true);
-
-        return Estatistica.builder()
-                .media(utils.getAvg(list))
-                .variancia(utils.getVariance(list))
-                .desvio_padrao(utils.getStandardDeviation(list))
-                .total(list.size()).totalExito(listExito.size())
-                .min(utils.getMin(list)).max(utils.getMax(list))
-                .moda(utils.getModa(list))
-                .mediana(utils.getMediana(list))
-                .build();
+        Class<?> categoriaClass = getClass(categoria);
+        return getEstatistica(categoriaClass);
     }
 
-    public Estatistica getEstatistica(int atletaId, String categoria) {
-        List<Integer> listAcoes = getAcoes(getClass(categoria), false);
-        List<Integer> list = getAcoes(atletaId, getClass(categoria), false);
-        List<Integer> listExito = getAcoes(atletaId, getClass(categoria), true);
+    public Estatistica getEstatistica(Class<?> categoria) {
+        List<Acao> acoes = acaoService.findAll(categoria);
 
+        return getEstatistica(getAcoesGeral(categoria),
+                toIntegerList(acoes, false),
+                toIntegerList(acoes, true));
+    }
+
+    public Estatistica getEstatisticaFromJogador(int atletaId, String categoria) {
+        Class<?> categoriaClass = getClass(categoria);
+        return getEstatisticaFromJogador(atletaId, categoriaClass);
+    }
+
+    public Estatistica getEstatisticaFromJogador(int atletaId, Class<?> categoria) {
+        List<Acao> acoes = atletaService.findAcoes(atletaId, categoria);
+
+        return getEstatistica(getAcoesGeral(categoria),
+                toIntegerList(acoes, false),
+                toIntegerList(acoes, true));
+    }
+
+    public Estatistica getEstatisticaFromEquipe(int equipeId, String categoria) {
+        Class<?> categoriaClass = getClass(categoria);
+        return getEstatisticaFromEquipe(equipeId, categoriaClass);
+    }
+
+    public Estatistica getEstatisticaFromEquipe(int equipeId, Class<?> categoria) {
+        List<Acao> acoes = equipeService.findAcoes(equipeId, categoria);
+
+        return getEstatistica(getAcoesGeral(categoria),
+                toIntegerList(acoes, false),
+                toIntegerList(acoes, true));
+    }
+
+    public Estatistica getEstatisticaFromJogo(int jogoId, String categoria) {
+        Class<?> categoriaClass = getClass(categoria);
+        return getEstatisticaFromJogo(jogoId, categoriaClass);
+    }
+
+    public Estatistica getEstatisticaFromJogo(int jogoId, Class<?> categoria) {
+        List<Acao> acoes = jogoService.findAcoes(jogoId, categoria);
+
+        return getEstatistica(getAcoesGeral(categoria),
+                toIntegerList(acoes, false),
+                toIntegerList(acoes, true));
+    }
+
+    public Estatistica getEstatistica(List<Integer> acoesGeral, List<Integer> acoes, List<Integer> acoesOnlyExito) {
         return Estatistica.builder()
-                .media(utils.getAvg(list))
-                .variancia(utils.getVariance(list))
-                .desvio_padrao(utils.getStandardDeviation(list))
-                .total(list.size()).totalExito(listExito.size())
-                .min(utils.getMin(list)).max(utils.getMax(list))
-                .scoreZ(utils.getScoreZ(utils.getAvg(list), listAcoes))
-                .scoreT(utils.getScoreT(utils.getAvg(list), listAcoes))
-                .moda(utils.getModa(list))
-                .mediana(utils.getMediana(list))
+                .media(utils.getAvg(acoes))
+                .variancia(utils.getVariance(acoes))
+                .desvio_padrao(utils.getStandardDeviation(acoes))
+                .total(acoes.size()).totalExito(acoesOnlyExito.size())
+                .min(utils.getMin(acoes)).max(utils.getMax(acoes))
+                .scoreZ(utils.getScoreZ(utils.getAvg(acoes), acoesGeral))
+                .scoreT(utils.getScoreT(utils.getAvg(acoes), acoesGeral))
+                .moda(utils.getModa(acoes))
+                .mediana(utils.getMediana(acoes))
                 .build();
     }
 
@@ -66,6 +104,10 @@ public class EstatisticaService {
         return categoriaClass;
     }
 
+    private List<Integer> getAcoesGeral(Class<?> categoria) {
+        return getAcoes(categoria, false);
+    }
+
     private List<Integer> getAcoes(Class<?> categoria, boolean onlyExito) {
         List<Acao> acoes;
         if (categoria.equals(Acao.class)) {
@@ -76,25 +118,9 @@ public class EstatisticaService {
         return toIntegerList(acoes, onlyExito);
     }
 
-    private List<Integer> getAcoes(int atletaId, Class<?> categoria, boolean onlyExito) {
-        List<Acao> acoes;
-        if (categoria.equals(Acao.class)) {
-            acoes = atletaService.findAcoes(atletaId);
-        } else
-            acoes = atletaService.findAcoesByCategoria(atletaId, categoria);
-
-        return toIntegerList(acoes, onlyExito);
-    }
-
     private List<Integer> toIntegerList(List<Acao> acoes, boolean onlyExito) {
-        if (onlyExito) {
-            return acoes.stream()
-                    .filter(acao -> acao.isExito())
-                    .mapToInt(Acao::getPontuacao)
-                    .boxed()
-                    .collect(Collectors.toList());
-        }
-        return acoes.stream()
+        Stream<Acao> acaoStream = onlyExito ? acoes.stream().filter(acao -> acao.isExito()) : acoes.stream();
+        return acaoStream
                 .mapToInt(Acao::getPontuacao)
                 .boxed()
                 .collect(Collectors.toList());
