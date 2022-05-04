@@ -5,6 +5,7 @@ import me.samcefalo.sistemaiadbackend.resources.exceptions.objects.ValidationErr
 import me.samcefalo.sistemaiadbackend.services.exceptions.AuthorizationException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.DataIntegrityException;
 import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -43,6 +44,12 @@ public class ResourceExceptionHandler {
             validationError.addError(fieldError.getField(), fieldError.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY.value()).body(validationError);
+    }
+
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<StandardError> methodArgumentNotValid(PropertyReferenceException error, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Erro", error.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
 }
