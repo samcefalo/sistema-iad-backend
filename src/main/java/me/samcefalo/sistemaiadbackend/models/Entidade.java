@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ public abstract class Entidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
+    private LocalDate nascimento;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
