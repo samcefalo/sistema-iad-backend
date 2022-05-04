@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserInsert {
+    String message() default "Erro de validação";
 
     Class<?>[] groups() default {};
 

@@ -22,7 +22,7 @@ public class AgeValidator implements ConstraintValidator<Age, LocalDate> {
         List<FieldMessage> list = new ArrayList<>();
 
         if (localDate == null) {
-            list.add(new FieldMessage("localDate", "A data de nascimento não pode ser nula."));
+            list.add(new FieldMessage("localDate", "Data de nascimento inválida."));
         }
 
         if (localDate != null && localDate.isAfter(LocalDate.now())) {
