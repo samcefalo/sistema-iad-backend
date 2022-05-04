@@ -20,7 +20,7 @@ public abstract class Entidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
-    private LocalDate nascimento;
+    private LocalDate data_nascimento;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

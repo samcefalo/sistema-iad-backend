@@ -22,12 +22,12 @@ public abstract class EntidadeDTO implements Serializable {
     private String nome;
     private UserDTO user;
     @Age
-    private LocalDate nascimento;
+    private LocalDate data_nascimento;
 
     public int getIdade() {
-        if (this.nascimento == null) return 0;
+        if (this.data_nascimento == null) return 0;
 
-        return Period.between(this.nascimento, LocalDate.now()).getYears();
+        return Period.between(this.data_nascimento, LocalDate.now()).getYears();
     }
 
 }
