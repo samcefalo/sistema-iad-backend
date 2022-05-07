@@ -72,6 +72,10 @@ public class EstatisticaUtils {
         return list.stream().mapToInt(Integer::intValue).min().orElse(0);
     }
 
+    public double getSum(List<Integer> list) {
+        return list.stream().mapToInt(Integer::intValue).sum();
+    }
+
     private int getSize(List<Integer> list) {
         return list.size();
     }

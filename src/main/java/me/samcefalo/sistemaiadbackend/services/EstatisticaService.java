@@ -51,7 +51,7 @@ public class EstatisticaService {
 
         return getEstatistica(getAcoesGeral(categoria),
                 toIntegerList(acoes, false),
-                toIntegerList(acoes, true));
+                toIntegerList(acoes, true), acoes);
     }
 
     public Estatistica getEstatisticaFromEquipe(int equipeId, String categoria) {
@@ -64,7 +64,7 @@ public class EstatisticaService {
 
         return getEstatistica(getAcoesGeral(categoria),
                 toIntegerList(acoes, false),
-                toIntegerList(acoes, true));
+                toIntegerList(acoes, true), acoes);
     }
 
     public Estatistica getEstatisticaFromJogo(int jogoId, String categoria) {
@@ -77,7 +77,12 @@ public class EstatisticaService {
 
         return getEstatistica(getAcoesGeral(categoria),
                 toIntegerList(acoes, false),
-                toIntegerList(acoes, true));
+                toIntegerList(acoes, true), acoes);
+    }
+
+    public Estatistica getEstatistica(List<Integer> acoesGeral, List<Integer> acoes, List<Integer> acoesOnlyExito, List<Acao> acoesList) {
+        Estatistica estatistica = getEstatistica(acoesGeral, acoes, acoesOnlyExito);
+        return addIndice(estatistica, acoesList);
     }
 
     public Estatistica getEstatistica(List<Integer> acoesGeral, List<Integer> acoes, List<Integer> acoesOnlyExito) {
@@ -91,7 +96,13 @@ public class EstatisticaService {
                 .scoreT(utils.getScoreT(utils.getAvg(acoes), acoesGeral))
                 .moda(utils.getModa(acoes))
                 .mediana(utils.getMediana(acoes))
+                .sum(utils.getSum(acoes))
                 .build();
+    }
+
+    public Estatistica addIndice(Estatistica estatistica, List<Acao> acoes) {
+        estatistica.setIndice(estatistica.getSum() / getMaxPontuacao(acoes));
+        return estatistica;
     }
 
     private Class<?> getClass(String categoria) {
@@ -116,6 +127,12 @@ public class EstatisticaService {
             acoes = acaoService.findAllByCategoria(categoria);
 
         return toIntegerList(acoes, onlyExito);
+    }
+
+    private double getMaxPontuacao(List<Acao> acoes) {
+        return acoes.stream()
+                .mapToInt(Acao::getGrauDificuldade)
+                .sum();
     }
 
     private List<Integer> toIntegerList(List<Acao> acoes, boolean onlyExito) {
