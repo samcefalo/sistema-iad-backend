@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -26,6 +27,7 @@ public abstract class JogoDTO implements Serializable {
     private int id;
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
+    @JsonIgnore
     private UserDTO user;
     @Team
     private Set<EquipeDTO> equipes = new HashSet<>();

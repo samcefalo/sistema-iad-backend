@@ -24,7 +24,10 @@ public abstract class Acao implements Serializable {
     private int grauDificuldade;
     private int area;
     private boolean exito;
+    @Transient
     private int pontuacao;
+    @Transient
+    private final int maxPontuacao = 4;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")
@@ -42,4 +45,14 @@ public abstract class Acao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public int getPontuacao() {
+        int pontuacao = 0;
+        if (isExito()) {
+            pontuacao += getGrauDificuldade();
+        } else {
+            pontuacao -= (getMaxPontuacao() - getGrauDificuldade()) + 1;
+        }
+        return pontuacao;
+    }
 }

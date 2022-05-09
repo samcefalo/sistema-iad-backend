@@ -14,4 +14,9 @@ import javax.persistence.Entity;
 @Entity
 public class Drible extends Acao {
 
+    @Override
+    public int getMaxPontuacao() {
+        return 2;
+    }
+
 }

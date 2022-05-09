@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -40,6 +41,7 @@ public abstract class AcaoDTO implements Serializable {
     @Game
     private JogoDTO jogo;
 
+    @JsonIgnore
     private UserDTO user;
 
 }

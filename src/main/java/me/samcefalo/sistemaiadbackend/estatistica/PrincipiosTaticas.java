@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Builder
 public class PrincipiosTaticas implements Serializable {
 
+    //TODO fazer principios táticos
     private double penetracao;
 
 }
