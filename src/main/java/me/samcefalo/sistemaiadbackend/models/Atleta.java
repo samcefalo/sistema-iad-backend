@@ -16,7 +16,6 @@ import java.util.Set;
 public class Atleta extends Entidade {
 
     private int numero;
-    private boolean expulso, titular;
     private int sexo;
 
     @JsonIgnore
