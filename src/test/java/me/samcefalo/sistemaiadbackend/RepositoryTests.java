@@ -52,8 +52,6 @@ public class RepositoryTests {
         Atleta atleta = new Atleta();
         atleta.setNumero(10);
         atleta.setNome("Samuel");
-        atleta.setTitular(true);
-        atleta.setExpulso(false);
         //atleta.getJogos().add(jogoFutsal);
 
         jogoFutsal.getAtletas().add(atleta);

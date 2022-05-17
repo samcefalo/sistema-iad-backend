@@ -36,8 +36,6 @@ public class UnitTests {
     @BeforeAll
     void setUp() {
         Atleta atleta = new Atleta();
-        atleta.setExpulso(false);
-        atleta.setTitular(true);
         atleta.setNumero(10);
         atleta.setNome("Samuel");
 

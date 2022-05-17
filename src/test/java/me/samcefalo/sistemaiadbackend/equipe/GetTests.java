@@ -43,8 +43,6 @@ public class GetTests {
 
         Atleta atleta = new Atleta();
         atleta.setNome("Samuel");
-        atleta.setTitular(true);
-        atleta.setExpulso(false);
 
         Tecnico tecnico = new Tecnico();
         tecnico.setNome("Zidane");

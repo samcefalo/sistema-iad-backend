@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SistemaIadBackendApplicationTests {
 
+
+    //TODO refaze todos testes: Teste Unitario, Teste de casos completos,
     @Test
     void contextLoads() {
     }
