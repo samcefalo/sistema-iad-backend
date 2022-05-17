@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 
 @Getter
 @Setter
@@ -25,11 +24,6 @@ public abstract class EntidadeDTO implements Serializable {
     private UserDTO user;
     @Age
     private LocalDate data_nascimento;
-
-    public int getIdade() {
-        if (this.data_nascimento == null) return 0;
-
-        return Period.between(this.data_nascimento, LocalDate.now()).getYears();
-    }
+    private int idade;
 
 }

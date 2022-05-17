@@ -16,7 +16,6 @@ public class AtletaDTO extends EntidadeDTO {
     private int numero;
     @Team
     private EquipeDTO equipe;
-    private boolean expulso, titular;
     @Min(value = 1, message = "O sexo é obrigatório.")
     private int sexo;
 
