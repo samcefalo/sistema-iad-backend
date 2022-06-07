@@ -1,8 +1,9 @@
 package me.samcefalo.sistemaiadbackend.jogo;
 
-import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
+import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
+import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.junit.jupiter.api.BeforeAll;
@@ -37,7 +38,8 @@ public class DeleteTests {
 
     @BeforeAll
     void setUp() {
-        JogoFutsal jogo = new JogoFutsal();
+        Jogo jogo = new Jogo();
+        jogo.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
         jogo.setSituacaoJogo(SituacaoJogo.INICIADO.getId());
 
         Passe passe = new Passe();

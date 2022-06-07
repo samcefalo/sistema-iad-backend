@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,14 +14,13 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@tipo")
-public abstract class Jogo implements Serializable {
+public class Jogo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int situacaoJogo;
+    private int tipoJogo;
     private LocalDate data;
 
     @ManyToMany(fetch = FetchType.LAZY)

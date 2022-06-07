@@ -1,9 +1,8 @@
 package me.samcefalo.sistemaiadbackend.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
+import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
@@ -17,20 +16,25 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@tipo")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = JogoFutsalDTO.class, name = "JogoFutsal"),
-        @JsonSubTypes.Type(value = JogoFutebolDTO.class, name = "JogoFutebol"),
-})
-public abstract class JogoDTO implements Serializable {
+public class JogoDTO implements Serializable {
 
     private int id;
     @Min(value = 1, message = "A situação do jogo é obrigatória.")
     private int situacaoJogo;
+    @Min(value = 1, message = "O tipo de jogo é obrigatório.")
+    private int tipoJogo;
     @JsonIgnore
     private UserDTO user;
     @Team
     private Set<EquipeDTO> equipes = new HashSet<>();
     private LocalDate data;
+
+    public int getSlots() {
+        return TipoJogoEnum.toEnum(this.tipoJogo).getSlots();
+    }
+
+    public String getNome() {
+        return TipoJogoEnum.toEnum(this.tipoJogo).getNome();
+    }
 
 }

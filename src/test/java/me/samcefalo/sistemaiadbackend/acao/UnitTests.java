@@ -2,8 +2,9 @@ package me.samcefalo.sistemaiadbackend.acao;
 
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Atleta;
-import me.samcefalo.sistemaiadbackend.models.JogoFutsal;
+import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.Passe;
+import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.AtletaService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
@@ -48,7 +49,8 @@ public class UnitTests {
         atleta.setNumero(10);
         atleta.setNome("Samuel");
 
-        JogoFutsal jogoFutsal = new JogoFutsal();
+        Jogo jogoFutsal = new Jogo();
+        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
         jogoFutsal.setSituacaoJogo(1);
 
         Passe passe = new Passe();

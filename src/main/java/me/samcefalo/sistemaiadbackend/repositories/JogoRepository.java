@@ -7,8 +7,6 @@ import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +33,12 @@ public interface JogoRepository extends JpaRepository<Jogo, Integer> {
     @Transactional(readOnly = true)
     Page<Jogo> findByAtletasAndUser(Atleta atleta, Pageable pageable, User user);
 
+    /*
     @Transactional(readOnly = true)
     @Query("SELECT a FROM Jogo a WHERE TYPE(a) = :categoria AND a.user = :user")
     Page<Jogo> findAllCategoriaByUser(@Param(value = "categoria") Class<?> categoria, Pageable pageable, @Param(value = "user") User user);
+*/
+    @Transactional(readOnly = true)
+    Page<Jogo> findAllByTipoJogoAndUser(int tipoJogo, Pageable pageable, User user);
 
 }

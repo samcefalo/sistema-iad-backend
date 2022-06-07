@@ -35,6 +35,7 @@ public class User implements Serializable {
         this.addRole(UserRole.DEFAULT);
     }
 
+    @Transient
     public Set<UserRole> getUserRolesEnum() {
         return this.userRoles.stream().map(role -> UserRole.toEnum(role)).collect(Collectors.toSet());
     }

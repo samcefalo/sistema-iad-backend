@@ -3,6 +3,7 @@ package me.samcefalo.sistemaiadbackend.equipe;
 import me.samcefalo.sistemaiadbackend.models.*;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
+import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import me.samcefalo.sistemaiadbackend.repositories.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,8 @@ public class GetTests {
 
     @BeforeAll
     void setUp() {
-        JogoFutsal jogoFutsal = new JogoFutsal();
+        Jogo jogoFutsal = new Jogo();
+        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
         jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
 
         Atleta atleta = new Atleta();

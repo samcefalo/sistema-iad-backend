@@ -5,10 +5,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogoFutsalDTO;
+import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
+import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,8 @@ public class PostTests {
 
     @Test
     void case5() throws Exception {
-        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        JogoDTO jogoFutsal = new JogoDTO();
+        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
         jogoFutsal.setSituacaoJogo(SituacaoJogo.INICIADO.getId());
 
         EquipeDTO equipe = new EquipeDTO();
@@ -127,7 +129,8 @@ public class PostTests {
         AtletaDTO atleta = new AtletaDTO();
         atleta.setId(1);
 
-        JogoFutsalDTO jogoFutsal = new JogoFutsalDTO();
+        JogoDTO jogoFutsal = new JogoDTO();
+        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
         jogoFutsal.setId(2);
 
         passe.setAtleta(atleta);

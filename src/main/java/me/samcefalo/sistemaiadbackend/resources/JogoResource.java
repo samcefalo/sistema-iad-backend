@@ -42,14 +42,14 @@ public class JogoResource {
                         .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 
-    @RequestMapping(value = "/categoria/{categoria}", method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findPageCategoria(@PathVariable String categoria,
+    @RequestMapping(value = "/categoria/{tipoJogo}", method = RequestMethod.GET)
+    public ResponseEntity<Page<JogoDTO>> findPageCategoria(@PathVariable int tipoJogo,
                                                            @RequestParam(value = "page", defaultValue = "0") int page,
                                                            @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                            @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                            @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
-                .body(jogoService.findPageCategoria(categoria, page, linesPerPage, orderBy, direction)
+                .body(jogoService.findPageCategoria(tipoJogo, page, linesPerPage, orderBy, direction)
                         .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 
