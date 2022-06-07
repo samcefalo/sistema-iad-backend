@@ -8,9 +8,9 @@ import java.util.Arrays;
 public enum TipoJogoEnum {
 
     FUTSAL(1, 10, "Futsal"),
-    FUTEBOL(2, 22, "Futebol"),
-    HANDEBOL(3, 14, "Handebol"),
-    VOLEI(4, 12, "Volei");
+    FUTEBOL(2, 22, "Futebol");
+    //HANDEBOL(3, 14, "Handebol"),
+    //VOLEI(4, 12, "Volei");
 
     private int slots, id;
     private String nome;
