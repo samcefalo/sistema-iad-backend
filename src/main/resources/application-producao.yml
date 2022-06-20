@@ -1,9 +1,0 @@
-spring.datasource.url: jdbc:postgresql://ec2-3-225-213-67.compute-1.amazonaws.com:5432/d6k8ktkkcdpfqa
-spring.datasource.username: dbgjkeuiiqrlyz
-spring.datasource.password: 2c847450347d3d156fe9bc5cfdd9aed5e00a1366c37dc9e6c65dfb4a0c3be373
-
-spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto: none
-spring.jpa.show-sql: false
-
-server.error.include-message: always

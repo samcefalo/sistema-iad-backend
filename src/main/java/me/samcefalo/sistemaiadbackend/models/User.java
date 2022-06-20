@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @ToString
 @Entity
+@Table(name = "users")
 public class User implements Serializable {
 
     @Id

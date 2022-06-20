@@ -10,7 +10,7 @@
     </parent>
     <groupId>me.samcefalo</groupId>
     <artifactId>sistema-iad-backend</artifactId>
-    <version>0.0.1</version>
+    <version>1.0</version>
     <name>sistema-iad-backend</name>
     <description>sistema-iad-backend</description>
     <properties>
