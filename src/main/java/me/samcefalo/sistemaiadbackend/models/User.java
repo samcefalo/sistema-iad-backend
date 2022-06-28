@@ -24,7 +24,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String username;
+    private String nome;
     private String email;
     @JsonIgnore
     private String senha;

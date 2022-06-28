@@ -29,10 +29,6 @@ public class JogoDTO implements Serializable {
     private Set<EquipeDTO> equipes = new HashSet<>();
     private LocalDate data;
 
-    public int getSlots() {
-        return TipoJogoEnum.toEnum(this.tipoJogo).getSlots();
-    }
-
     public String getNome() {
         return TipoJogoEnum.toEnum(this.tipoJogo).getNome();
     }

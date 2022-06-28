@@ -7,17 +7,16 @@ import java.util.Arrays;
 @Getter
 public enum TipoJogoEnum {
 
-    FUTSAL(1, 10, "Futsal"),
-    FUTEBOL(2, 22, "Futebol");
-    //HANDEBOL(3, 14, "Handebol"),
-    //VOLEI(4, 12, "Volei");
+    FUTSAL(1, "Futsal"),
+    FUTEBOL(2, "Futebol");
+    //HANDEBOL(3, "Handebol"),
+    //VOLEI(4, "Volei");
 
-    private int slots, id;
+    private int id;
     private String nome;
 
-    TipoJogoEnum(int id, int slots, String nome) {
+    TipoJogoEnum(int id, String nome) {
         this.id = id;
-        this.slots = slots;
         this.nome = nome;
     }
 
