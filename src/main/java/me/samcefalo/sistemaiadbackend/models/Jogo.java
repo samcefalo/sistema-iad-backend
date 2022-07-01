@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Getter
 @Setter
@@ -22,6 +24,7 @@ public class Jogo implements Serializable {
     private int situacaoJogo;
     private int tipoJogo;
     private LocalDate data;
+    private String nome;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "EQUIPE_JOGO",
@@ -41,5 +44,14 @@ public class Jogo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public String getNome() {
+        Iterator<Equipe> equipeIterator = this.equipes.iterator();
+        StringJoiner stringJoiner = new StringJoiner(" x ");
+        while (equipeIterator.hasNext()) {
+            stringJoiner.add(equipeIterator.next().getNome());
+        }
+        return stringJoiner.toString();
+    }
 
 }

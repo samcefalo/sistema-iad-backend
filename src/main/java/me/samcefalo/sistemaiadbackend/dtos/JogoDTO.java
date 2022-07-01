@@ -2,7 +2,6 @@ package me.samcefalo.sistemaiadbackend.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
 import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
@@ -28,9 +27,6 @@ public class JogoDTO implements Serializable {
     @Team
     private Set<EquipeDTO> equipes = new HashSet<>();
     private LocalDate data;
-
-    public String getNome() {
-        return TipoJogoEnum.toEnum(this.tipoJogo).getNome();
-    }
+    private String nome;
 
 }
