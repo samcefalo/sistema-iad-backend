@@ -16,8 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/equipes")
@@ -43,15 +41,6 @@ public class EquipeResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<EquipeDTO>> findAll() {
-        return ResponseEntity.ok()
-                .body(equipeService.findAll().stream()
-                        .map(equipe -> equipeMapper.mapToDTO(equipe, EquipeDTO.class))
-                        .collect(Collectors.toList()));
-    }
-
-
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                     @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,

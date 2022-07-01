@@ -36,20 +36,20 @@ public class EstatisticaService {
     public Estatistica getEstatistica(Class<?> categoria) {
         List<Acao> acoes = acaoService.findAll(categoria);
 
-        return getEstatistica(getAcoesGeral(categoria),
+        return getEstatistica(getAcoes(categoria, false),
                 toIntegerList(acoes, false),
                 toIntegerList(acoes, true));
     }
 
-    public Estatistica getEstatisticaFromJogador(int atletaId, String categoria) {
+    public Estatistica getEstatisticaFromJogador(int atletaId, int equipeId, String categoria) {
         Class<?> categoriaClass = getClass(categoria);
-        return getEstatisticaFromJogador(atletaId, categoriaClass);
+        return getEstatisticaFromJogador(atletaId, equipeId, categoriaClass);
     }
 
-    public Estatistica getEstatisticaFromJogador(int atletaId, Class<?> categoria) {
+    public Estatistica getEstatisticaFromJogador(int atletaId, int equipeId, Class<?> categoria) {
         List<Acao> acoes = atletaService.findAcoes(atletaId, categoria);
 
-        return getEstatistica(getAcoesGeral(categoria),
+        return getEstatistica(getAcoesByEquipe(equipeId, categoria, false),
                 toIntegerList(acoes, false),
                 toIntegerList(acoes, true), acoes);
     }
@@ -62,7 +62,7 @@ public class EstatisticaService {
     public Estatistica getEstatisticaFromEquipe(int equipeId, Class<?> categoria) {
         List<Acao> acoes = equipeService.findAcoes(equipeId, categoria);
 
-        return getEstatistica(getAcoesGeral(categoria),
+        return getEstatistica(getAcoes(categoria, false),
                 toIntegerList(acoes, false),
                 toIntegerList(acoes, true), acoes);
     }
@@ -75,7 +75,7 @@ public class EstatisticaService {
     public Estatistica getEstatisticaFromJogo(int jogoId, Class<?> categoria) {
         List<Acao> acoes = jogoService.findAcoes(jogoId, categoria);
 
-        return getEstatistica(getAcoesGeral(categoria),
+        return getEstatistica(getAcoes(categoria, false),
                 toIntegerList(acoes, false),
                 toIntegerList(acoes, true), acoes);
     }
@@ -115,16 +115,22 @@ public class EstatisticaService {
         return categoriaClass;
     }
 
-    private List<Integer> getAcoesGeral(Class<?> categoria) {
-        return getAcoes(categoria, false);
-    }
-
     private List<Integer> getAcoes(Class<?> categoria, boolean onlyExito) {
         List<Acao> acoes;
         if (categoria.equals(Acao.class)) {
             acoes = acaoService.findAll();
         } else
             acoes = acaoService.findAllByCategoria(categoria);
+
+        return toIntegerList(acoes, onlyExito);
+    }
+
+    private List<Integer> getAcoesByEquipe(int equipeId, Class<?> categoria, boolean onlyExito) {
+        List<Acao> acoes;
+        if (categoria.equals(Acao.class)) {
+            acoes = equipeService.findAcoes(equipeId);
+        } else
+            acoes = equipeService.findAcoesByCategoria(equipeId, categoria);
 
         return toIntegerList(acoes, onlyExito);
     }
