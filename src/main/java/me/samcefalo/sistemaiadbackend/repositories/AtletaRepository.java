@@ -1,6 +1,7 @@
 package me.samcefalo.sistemaiadbackend.repositories;
 
 import me.samcefalo.sistemaiadbackend.models.Atleta;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,5 +19,8 @@ public interface AtletaRepository extends JpaRepository<Atleta, Integer> {
 
     @Transactional(readOnly = true)
     Page<Atleta> findAllByUser(Pageable pageable, User user);
+
+    @Transactional(readOnly = true)
+    Page<Atleta> findAllByEquipe(Pageable pageable, Equipe equipe);
 
 }

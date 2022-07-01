@@ -37,7 +37,7 @@ public class AtletaResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AtletaDTO> find(@PathVariable int id) {
         Atleta atleta = atletaService.find(id);
-        return ResponseEntity.ok().body((AtletaDTO) entidadeMapper.mapToDTO(atleta, AtletaDTO.class));
+        return ResponseEntity.ok().body(entidadeMapper.mapToDTO(atleta, AtletaDTO.class));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class AtletaResource {
                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         return ResponseEntity.ok()
                 .body(atletaService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(atleta -> (AtletaDTO) entidadeMapper.mapToDTO(atleta, AtletaDTO.class)));
+                        .map(atleta -> entidadeMapper.mapToDTO(atleta, AtletaDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)

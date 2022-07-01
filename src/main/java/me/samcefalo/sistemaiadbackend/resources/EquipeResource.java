@@ -1,10 +1,8 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
-import me.samcefalo.sistemaiadbackend.dtos.AcaoDTO;
-import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
-import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
-import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
+import me.samcefalo.sistemaiadbackend.dtos.*;
 import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
+import me.samcefalo.sistemaiadbackend.mappers.AtletaMapper;
 import me.samcefalo.sistemaiadbackend.mappers.EquipeMapper;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
@@ -35,6 +33,8 @@ public class EquipeResource {
     private AcaoMapper acaoMapper;
     @Autowired
     private JogoMapper jogoMapper;
+    @Autowired
+    private AtletaMapper atletaMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EquipeDTO> find(@PathVariable int id) {
@@ -69,6 +69,16 @@ public class EquipeResource {
         return ResponseEntity.ok()
                 .body(equipeService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
                         .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
+    }
+
+    @RequestMapping(value = "/{id}/atletas", method = RequestMethod.GET)
+    public ResponseEntity<Page<AtletaDTO>> findAtletasPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
+                                                           @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+                                                           @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+                                                           @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        return ResponseEntity.ok()
+                .body(equipeService.findAtletlas(id, page, linesPerPage, orderBy, direction)
+                        .map(atleta -> atletaMapper.mapToDTO(atleta, AtletaDTO.class)));
     }
 
     @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
