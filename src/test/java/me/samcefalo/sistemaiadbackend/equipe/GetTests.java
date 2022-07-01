@@ -1,10 +1,16 @@
 package me.samcefalo.sistemaiadbackend.equipe;
 
-import me.samcefalo.sistemaiadbackend.models.*;
+import me.samcefalo.sistemaiadbackend.models.Atleta;
+import me.samcefalo.sistemaiadbackend.models.Equipe;
+import me.samcefalo.sistemaiadbackend.models.Jogo;
+import me.samcefalo.sistemaiadbackend.models.Passe;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
-import me.samcefalo.sistemaiadbackend.repositories.*;
+import me.samcefalo.sistemaiadbackend.repositories.AcaoRepository;
+import me.samcefalo.sistemaiadbackend.repositories.AtletaRepository;
+import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
+import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -34,8 +40,6 @@ public class GetTests {
     private JogoRepository jogoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
-    @Autowired
-    private TecnicoRepository tecnicoRepository;
 
     @BeforeAll
     void setUp() {
@@ -46,16 +50,12 @@ public class GetTests {
         Atleta atleta = new Atleta();
         atleta.setNome("Samuel");
 
-        Tecnico tecnico = new Tecnico();
-        tecnico.setNome("Zidane");
-
         jogoFutsal.getAtletas().add(atleta);
 
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
 
         atleta.setEquipe(equipe);
-        tecnico.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -69,7 +69,6 @@ public class GetTests {
 
         equipeRepository.save(equipe);
         atletaRepository.save(atleta);
-        tecnicoRepository.save(tecnico);
         jogoRepository.save(jogoFutsal);
         acaoRepository.save(passe);
     }

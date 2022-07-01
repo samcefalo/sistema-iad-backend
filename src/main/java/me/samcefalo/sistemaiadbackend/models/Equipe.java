@@ -22,11 +22,6 @@ public class Equipe implements Serializable {
     private String nome;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "equipe", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Tecnico tecnico;
-
-    @JsonIgnore
     @OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Atleta> atletas = new HashSet<>();

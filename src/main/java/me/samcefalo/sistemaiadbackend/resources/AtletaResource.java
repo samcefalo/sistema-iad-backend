@@ -5,7 +5,7 @@ import me.samcefalo.sistemaiadbackend.dtos.AtletaDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
-import me.samcefalo.sistemaiadbackend.mappers.EntidadeMapper;
+import me.samcefalo.sistemaiadbackend.mappers.AtletaMapper;
 import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.services.AtletaService;
@@ -26,7 +26,7 @@ public class AtletaResource {
     @Autowired
     private AtletaService atletaService;
     @Autowired
-    private EntidadeMapper entidadeMapper;
+    private AtletaMapper entidadeMapper;
     @Autowired
     private AcaoMapper acaoMapper;
     @Autowired

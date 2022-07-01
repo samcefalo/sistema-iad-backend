@@ -3,7 +3,10 @@ package me.samcefalo.sistemaiadbackend.jogo;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
-import me.samcefalo.sistemaiadbackend.repositories.*;
+import me.samcefalo.sistemaiadbackend.repositories.AcaoRepository;
+import me.samcefalo.sistemaiadbackend.repositories.AtletaRepository;
+import me.samcefalo.sistemaiadbackend.repositories.EquipeRepository;
+import me.samcefalo.sistemaiadbackend.repositories.JogoRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -35,8 +38,6 @@ public class GetTests {
     private JogoRepository jogoRepository;
     @Autowired
     private EquipeRepository equipeRepository;
-    @Autowired
-    private TecnicoRepository tecnicoRepository;
 
     @BeforeAll
     void setUp() {

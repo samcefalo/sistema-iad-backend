@@ -4,7 +4,10 @@ import me.samcefalo.sistemaiadbackend.models.*;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
 import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
 import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
-import me.samcefalo.sistemaiadbackend.services.*;
+import me.samcefalo.sistemaiadbackend.services.AcaoService;
+import me.samcefalo.sistemaiadbackend.services.AtletaService;
+import me.samcefalo.sistemaiadbackend.services.EquipeService;
+import me.samcefalo.sistemaiadbackend.services.JogoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -38,8 +41,6 @@ public class RepositoryTests {
     private AcaoService acaoService;
     @Autowired
     private EquipeService equipeService;
-    @Autowired
-    private TecnicoService tecnicoService;
 
     /*
     A classe mais dependente (filho) sempre adiciona a classe pai
@@ -58,14 +59,10 @@ public class RepositoryTests {
 
         jogoFutsal.getAtletas().add(atleta);
 
-        Tecnico tecnico = new Tecnico();
-        tecnico.setNome("Zidane");
-
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
 
         atleta.setEquipe(equipe);
-        tecnico.setEquipe(equipe);
 
         jogoFutsal.getEquipes().add(equipe);
 
@@ -79,7 +76,6 @@ public class RepositoryTests {
 
         equipeService.insert(equipe);
         atletaService.insert(atleta);
-        tecnicoService.insert(tecnico);
         jogoService.insert(jogoFutsal);
         acaoService.insert(passe);
     }
@@ -139,7 +135,6 @@ public class RepositoryTests {
         assertFalse(equipe.getJogos().isEmpty());
         assertFalse(acoes.isEmpty());
         assertTrue(acao.getEquipe().equals(equipe));
-        assertNotNull(equipe.getTecnico());
     }
 
     @Transactional
@@ -153,14 +148,6 @@ public class RepositoryTests {
         assertFalse(jogo.getAtletas().isEmpty());
         assertEquals(SituacaoJogo.ENCERRADO.getId(), jogo.getSituacaoJogo());
         assertTrue(jogo.getAtletas().contains(atleta));
-    }
-
-    @Transactional
-    @Test
-    public void case7() {
-        List<Tecnico> tecnicos = tecnicoService.findAll();
-        Tecnico tecnico = tecnicos.get(0);
-        assertNotNull(tecnico.getEquipe());
     }
 
 }
