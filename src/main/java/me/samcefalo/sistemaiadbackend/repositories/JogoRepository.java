@@ -39,6 +39,6 @@ public interface JogoRepository extends JpaRepository<Jogo, Integer> {
     Page<Jogo> findAllCategoriaByUser(@Param(value = "categoria") Class<?> categoria, Pageable pageable, @Param(value = "user") User user);
 */
     @Transactional(readOnly = true)
-    Page<Jogo> findAllByTipoJogoAndUser(int tipoJogo, Pageable pageable, User user);
+    Page<Jogo> findAllByEsporteAndUser(int esporte, Pageable pageable, User user);
 
 }

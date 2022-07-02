@@ -8,7 +8,7 @@ import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
 import me.samcefalo.sistemaiadbackend.dtos.PasseDTO;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
-import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
+import me.samcefalo.sistemaiadbackend.models.enums.EsporteEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class PutTests extends PostTests {
         atleta.setId(1);
 
         JogoDTO jogoFutsal = new JogoDTO();
-        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
+        jogoFutsal.setEsporte(EsporteEnum.FUTSAL.getId());
         jogoFutsal.setId(2);
 
         passe.setAtleta(atleta);

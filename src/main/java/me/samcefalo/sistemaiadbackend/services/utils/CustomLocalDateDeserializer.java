@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 public class CustomLocalDateDeserializer extends JsonDeserializer<LocalDate> {
 
-    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy").withZone(ZoneOffset.UTC);
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
 
     @Override
     public LocalDate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {

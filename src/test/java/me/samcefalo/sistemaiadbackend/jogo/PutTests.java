@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import me.samcefalo.sistemaiadbackend.dtos.JogoDTO;
-import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
-import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
+import me.samcefalo.sistemaiadbackend.models.enums.EsporteEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,7 @@ public class PutTests extends PostTests {
     @Test
     void case10() throws Exception {
         JogoDTO jogoFutsal = new JogoDTO();
-        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
-        jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
+        jogoFutsal.setEsporte(EsporteEnum.FUTSAL.getId());
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

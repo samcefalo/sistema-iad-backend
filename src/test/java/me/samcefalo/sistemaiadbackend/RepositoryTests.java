@@ -2,8 +2,7 @@ package me.samcefalo.sistemaiadbackend;
 
 import me.samcefalo.sistemaiadbackend.models.*;
 import me.samcefalo.sistemaiadbackend.models.enums.Area;
-import me.samcefalo.sistemaiadbackend.models.enums.SituacaoJogo;
-import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
+import me.samcefalo.sistemaiadbackend.models.enums.EsporteEnum;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.AtletaService;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
@@ -49,8 +48,8 @@ public class RepositoryTests {
     @BeforeAll
     void setUp() {
         Jogo jogoFutsal = new Jogo();
-        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
-        jogoFutsal.setSituacaoJogo(SituacaoJogo.ENCERRADO.getId());
+        jogoFutsal.setEsporte(EsporteEnum.FUTSAL.getId());
+
 
         Atleta atleta = new Atleta();
         atleta.setNumero(10);
@@ -146,7 +145,6 @@ public class RepositoryTests {
         Jogo jogo = jogos.get(0);
         assertFalse(jogos.isEmpty());
         assertFalse(jogo.getAtletas().isEmpty());
-        assertEquals(SituacaoJogo.ENCERRADO.getId(), jogo.getSituacaoJogo());
         assertTrue(jogo.getAtletas().contains(atleta));
     }
 

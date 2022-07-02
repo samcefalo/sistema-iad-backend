@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 @Getter
-public enum TipoJogoEnum {
+public enum EsporteEnum {
 
     FUTSAL(1, "Futsal"),
     FUTEBOL(2, "Futebol");
@@ -15,13 +15,13 @@ public enum TipoJogoEnum {
     private int id;
     private String nome;
 
-    TipoJogoEnum(int id, String nome) {
+    EsporteEnum(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public static TipoJogoEnum toEnum(int id) {
-        return Arrays.stream(TipoJogoEnum.values())
+    public static EsporteEnum toEnum(int id) {
+        return Arrays.stream(EsporteEnum.values())
                 .filter(jogo -> jogo.getId() == id)
                 .findAny().orElseThrow(() -> new IllegalArgumentException("Id não encontrado (" + id + ")."));
     }

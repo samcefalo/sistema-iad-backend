@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class CustomLocalDateSerializer extends JsonSerializer<LocalDate> {
 
-    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy").withZone(ZoneOffset.UTC);
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
 
     @Override
     public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {

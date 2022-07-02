@@ -18,10 +18,8 @@ import java.util.Set;
 public class JogoDTO implements Serializable {
 
     private int id;
-    @Min(value = 1, message = "A situação do jogo é obrigatória.")
-    private int situacaoJogo;
-    @Min(value = 1, message = "O tipo de jogo é obrigatório.")
-    private int tipoJogo;
+    @Min(value = 1, message = "O Esporte é obrigatório.")
+    private int esporte;
     @JsonIgnore
     private UserDTO user;
     @Team

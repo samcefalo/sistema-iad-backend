@@ -4,7 +4,7 @@ import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.Passe;
-import me.samcefalo.sistemaiadbackend.models.enums.TipoJogoEnum;
+import me.samcefalo.sistemaiadbackend.models.enums.EsporteEnum;
 import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.AtletaService;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
@@ -50,8 +50,7 @@ public class UnitTests {
         atleta.setNome("Samuel");
 
         Jogo jogoFutsal = new Jogo();
-        jogoFutsal.setTipoJogo(TipoJogoEnum.FUTSAL.getId());
-        jogoFutsal.setSituacaoJogo(1);
+        jogoFutsal.setEsporte(EsporteEnum.FUTSAL.getId());
 
         Passe passe = new Passe();
         passe.setExito(true);

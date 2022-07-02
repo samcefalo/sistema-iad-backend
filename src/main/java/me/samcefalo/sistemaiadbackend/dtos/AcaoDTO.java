@@ -33,6 +33,8 @@ public abstract class AcaoDTO implements Serializable {
     private int area;
     private boolean exito;
     private int pontuacao;
+    private String placar;
+    private int tempo;
 
     @Team
     private EquipeDTO equipe;

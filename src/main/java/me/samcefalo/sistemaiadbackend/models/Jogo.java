@@ -21,8 +21,7 @@ public class Jogo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int situacaoJogo;
-    private int tipoJogo;
+    private int esporte;
     private LocalDate data;
     private String nome;
 
