@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public class ClassUtil {
+public class ClassUtils {
 
     public Class<?> getJogoClass(String categoria) throws ClassNotFoundException {
         categoria = StringUtils.capitalize(categoria.toLowerCase());

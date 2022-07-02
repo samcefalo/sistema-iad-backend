@@ -1,5 +1,6 @@
 package me.samcefalo.sistemaiadbackend.estatistica.utils;
 
+import me.samcefalo.sistemaiadbackend.models.Acao;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ public class EstatisticaUtils {
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .average().orElse(0);
+    }
+
+    public double getMaxPontuacao(List<Acao> acoes) {
+        return acoes.stream()
+                .mapToInt(Acao::getGrauDificuldade)
+                .sum();
     }
 
     public double getStandardDeviation(List<Integer> list) {
