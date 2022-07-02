@@ -5,6 +5,7 @@ import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.services.AtletaService;
 import me.samcefalo.sistemaiadbackend.services.EstatisticaQuerryService;
+import me.samcefalo.sistemaiadbackend.services.EstatisticaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class EstatisticaResource {
 
     @Autowired
-    private EstatisticaQuerryService estatisticaService;
+    private EstatisticaQuerryService querryService;
+    @Autowired
+    private EstatisticaService estatisticaService;
     @Autowired
     private AtletaService atletaService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Estatistica> find(@RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
         Estatistica estatistica = estatisticaService
-                .getEstatistica(estatisticaService.getQuerryGlobal(categoria));
+                .getEstatistica(querryService.getQuerryGlobal(categoria));
         return ResponseEntity.ok().body(estatistica);
     }
 
@@ -31,7 +34,7 @@ public class EstatisticaResource {
         Atleta atleta = atletaService.find(id);
         Equipe equipe = atleta.getEquipe();
         Estatistica estatistica = estatisticaService
-                .getEstatistica(estatisticaService.getQuerryFromJogador(id, equipe.getId(), categoria));
+                .getEstatistica(querryService.getQuerryFromJogador(id, equipe.getId(), categoria));
         return ResponseEntity.ok().body(estatistica);
     }
 
@@ -39,7 +42,7 @@ public class EstatisticaResource {
     public ResponseEntity<Estatistica> findEquipe(@PathVariable int id,
                                                   @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
         Estatistica estatistica = estatisticaService
-                .getEstatistica(estatisticaService.getQuerryFromEquipe(id, categoria));
+                .getEstatistica(querryService.getQuerryFromEquipe(id, categoria));
         return ResponseEntity.ok().body(estatistica);
     }
 
@@ -47,7 +50,7 @@ public class EstatisticaResource {
     public ResponseEntity<Estatistica> findJogo(@PathVariable int id,
                                                 @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
         Estatistica estatistica = estatisticaService
-                .getEstatistica(estatisticaService.getQuerryFromJogo(id, categoria));
+                .getEstatistica(querryService.getQuerryFromJogo(id, categoria));
         return ResponseEntity.ok().body(estatistica);
     }
 

@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.services;
 
-import me.samcefalo.sistemaiadbackend.estatistica.Estatistica;
 import me.samcefalo.sistemaiadbackend.estatistica.EstatisticaQuerry;
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.services.utils.AcaoUtils;
@@ -63,10 +62,6 @@ public class EstatisticaQuerryService {
                 .acoes(acoes)
                 .acoesGlobal(acaoUtils.getAcoesGlobal(categoriaClass))
                 .build();
-    }
-
-    public Estatistica getEstatistica(EstatisticaQuerry es) {
-        return estatisticaService.getEstatistica(es);
     }
 
 }
