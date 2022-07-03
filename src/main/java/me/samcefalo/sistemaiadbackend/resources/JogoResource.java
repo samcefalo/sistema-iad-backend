@@ -33,23 +33,18 @@ public class JogoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+    public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "esporte", defaultValue = "0") int esporte,
+                                                  @RequestParam(value = "page", defaultValue = "0") int page,
                                                   @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                   @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                   @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        if (esporte != 0) {
+            return ResponseEntity.ok()
+                    .body(jogoService.findPageCategoria(esporte, page, linesPerPage, orderBy, direction)
+                            .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
+        }
         return ResponseEntity.ok()
                 .body(jogoService.findPage(page, linesPerPage, orderBy, direction)
-                        .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
-    }
-
-    @RequestMapping(value = "/categoria/{tipoJogo}", method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findPageCategoria(@PathVariable int tipoJogo,
-                                                           @RequestParam(value = "page", defaultValue = "0") int page,
-                                                           @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                           @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                           @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        return ResponseEntity.ok()
-                .body(jogoService.findPageCategoria(tipoJogo, page, linesPerPage, orderBy, direction)
                         .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 

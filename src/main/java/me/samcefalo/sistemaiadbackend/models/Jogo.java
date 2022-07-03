@@ -23,6 +23,7 @@ public class Jogo implements Serializable {
     private int id;
     private int esporte;
     private LocalDate data;
+    @Transient
     private String nome;
 
     @ManyToMany(fetch = FetchType.LAZY)
