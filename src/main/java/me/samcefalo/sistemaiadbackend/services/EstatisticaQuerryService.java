@@ -20,8 +20,6 @@ public class EstatisticaQuerryService {
     @Autowired
     private JogoService jogoService;
     @Autowired
-    private EstatisticaService estatisticaService;
-    @Autowired
     private AcaoUtils acaoUtils;
 
     public EstatisticaQuerry getQuerryGlobal(String categoria) {
