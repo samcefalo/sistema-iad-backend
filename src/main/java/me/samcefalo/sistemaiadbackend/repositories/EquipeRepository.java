@@ -20,7 +20,4 @@ public interface EquipeRepository extends JpaRepository<Equipe, Integer>, JpaSpe
     @Transactional(readOnly = true)
     Page<Equipe> findAll(Specification specification, Pageable pageable);
 
-    @Transactional(readOnly = true)
-    void deleteAll(Specification specification);
-
 }

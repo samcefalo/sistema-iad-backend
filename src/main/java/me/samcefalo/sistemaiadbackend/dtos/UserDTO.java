@@ -18,7 +18,7 @@ import java.util.Set;
 public class UserDTO implements Serializable {
 
     private int id;
-    @NotBlank(message = "O username é obrigatório.")
+    @NotBlank(message = "O nome é obrigatório.")
     @Length(min = 3, max = 100, message = "Insira um nome com {min}-{max} caracteres.")
     private String nome;
     @NotBlank(message = "O email é obrigatório.")

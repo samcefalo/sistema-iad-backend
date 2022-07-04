@@ -20,7 +20,4 @@ public interface AtletaRepository extends JpaRepository<Atleta, Integer>, JpaSpe
     @Transactional(readOnly = true)
     Page<Atleta> findAll(Specification specification, Pageable pageable);
 
-    @Transactional(readOnly = true)
-    void deleteAll(Specification specification);
-
 }

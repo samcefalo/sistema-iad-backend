@@ -62,7 +62,5 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer>, JpaSpecifi
     @Transactional(readOnly = true)
     Page<Acao> findAll(Specification specification, Pageable pageable);
 
-    @Transactional(readOnly = true)
-    void deleteAll(Specification specification);
 }
 

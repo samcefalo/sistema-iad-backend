@@ -19,7 +19,4 @@ public interface JogoRepository extends JpaRepository<Jogo, Integer>, JpaSpecifi
 
     @Transactional(readOnly = true)
     Page<Jogo> findAll(Specification specification, Pageable pageable);
-
-    @Transactional(readOnly = true)
-    void deleteAll(Specification specification);
 }

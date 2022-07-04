@@ -36,6 +36,19 @@ public class User implements Serializable {
         this.addRole(UserRole.DEFAULT);
     }
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Acao> acoes = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Atleta> atletas = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Equipe> equipes = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Jogo> jogos = new HashSet<>();
+
     @Transient
     public Set<UserRole> getUserRolesEnum() {
         return this.userRoles.stream().map(role -> UserRole.toEnum(role)).collect(Collectors.toSet());

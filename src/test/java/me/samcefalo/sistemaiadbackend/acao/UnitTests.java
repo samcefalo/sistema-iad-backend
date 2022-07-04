@@ -1,6 +1,5 @@
 package me.samcefalo.sistemaiadbackend.acao;
 
-import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Atleta;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.models.Passe;
@@ -19,10 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,14 +55,6 @@ public class UnitTests {
         atletaService.insert(atleta);
         jogoService.insert(jogoFutsal);
         acaoService.insert(passe);
-    }
-
-    @Test
-    public void case1() {
-        List<Acao> acoes = acaoService.findAll();
-        Acao acao = acoes.get(0);
-        assertFalse(acoes.isEmpty());
-        assertEquals("Samuel", acao.getAtleta().getNome());
     }
 
 
