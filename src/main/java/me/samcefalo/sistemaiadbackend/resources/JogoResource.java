@@ -6,6 +6,7 @@ import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.services.JogoService;
 import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
+import me.samcefalo.sistemaiadbackend.specifications.criterias.JogoCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +34,20 @@ public class JogoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "esporte", defaultValue = "0") int esporte,
+    public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
+                                                  @RequestParam(value = "tipo", defaultValue = "0") Integer tipo,
+                                                  @RequestParam(value = "equipe", required = false) Integer equipe,
+                                                  @RequestParam(value = "atleta", required = false) Integer atleta,
                                                   @RequestParam(value = "page", defaultValue = "0") int page,
                                                   @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                   @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
                                                   @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        if (esporte != 0) {
-            return ResponseEntity.ok()
-                    .body(jogoService.findPageCategoria(esporte, page, linesPerPage, orderBy, direction)
-                            .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
-        }
+        JogoCriteria jogoCriteria = JogoCriteria.builder()
+                .esporte(esporte).tipo(tipo)
+                .equipeId(equipe).atletaId(atleta)
+                .build();
         return ResponseEntity.ok()
-                .body(jogoService.findPage(page, linesPerPage, orderBy, direction)
+                .body(jogoService.findAllPage(jogoCriteria, page, linesPerPage, orderBy, direction)
                         .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 

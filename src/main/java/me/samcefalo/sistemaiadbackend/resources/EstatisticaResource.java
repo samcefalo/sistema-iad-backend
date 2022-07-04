@@ -30,7 +30,7 @@ public class EstatisticaResource {
 
     @RequestMapping(value = "/atleta/{id}", method = RequestMethod.GET)
     public ResponseEntity<Estatistica> findAtleta(@PathVariable int id,
-                                                  @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+                                                  @RequestParam(value = "categoria", required = false) String categoria) {
         Atleta atleta = atletaService.find(id);
         Equipe equipe = atleta.getEquipe();
         Estatistica estatistica = estatisticaService
@@ -40,7 +40,7 @@ public class EstatisticaResource {
 
     @RequestMapping(value = "/equipe/{id}", method = RequestMethod.GET)
     public ResponseEntity<Estatistica> findEquipe(@PathVariable int id,
-                                                  @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+                                                  @RequestParam(value = "categoria", required = false) String categoria) {
         Estatistica estatistica = estatisticaService
                 .getEstatistica(querryService.getQuerryFromEquipe(id, categoria));
         return ResponseEntity.ok().body(estatistica);
@@ -48,7 +48,7 @@ public class EstatisticaResource {
 
     @RequestMapping(value = "/jogo/{id}", method = RequestMethod.GET)
     public ResponseEntity<Estatistica> findJogo(@PathVariable int id,
-                                                @RequestParam(value = "categoria", defaultValue = "Acao") String categoria) {
+                                                @RequestParam(value = "categoria", required = false) String categoria) {
         Estatistica estatistica = estatisticaService
                 .getEstatistica(querryService.getQuerryFromJogo(id, categoria));
         return ResponseEntity.ok().body(estatistica);

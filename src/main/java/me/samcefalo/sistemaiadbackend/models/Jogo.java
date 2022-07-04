@@ -25,6 +25,7 @@ public class Jogo implements Serializable {
     private LocalDate data;
     @Transient
     private String nome;
+    private int tipo;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "EQUIPE_JOGO",

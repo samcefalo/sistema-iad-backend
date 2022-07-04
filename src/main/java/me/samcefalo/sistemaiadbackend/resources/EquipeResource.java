@@ -1,13 +1,12 @@
 package me.samcefalo.sistemaiadbackend.resources;
 
-import me.samcefalo.sistemaiadbackend.dtos.*;
-import me.samcefalo.sistemaiadbackend.mappers.AcaoMapper;
-import me.samcefalo.sistemaiadbackend.mappers.AtletaMapper;
+import me.samcefalo.sistemaiadbackend.dtos.EquipeDTO;
+import me.samcefalo.sistemaiadbackend.dtos.UserDTO;
 import me.samcefalo.sistemaiadbackend.mappers.EquipeMapper;
-import me.samcefalo.sistemaiadbackend.mappers.JogoMapper;
 import me.samcefalo.sistemaiadbackend.models.Equipe;
 import me.samcefalo.sistemaiadbackend.services.EquipeService;
 import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
+import me.samcefalo.sistemaiadbackend.specifications.criterias.EquipeCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +26,6 @@ public class EquipeResource {
     private EquipeService equipeService;
     @Autowired
     private EquipeMapper equipeMapper;
-    @Autowired
-    private AcaoMapper acaoMapper;
-    @Autowired
-    private JogoMapper jogoMapper;
-    @Autowired
-    private AtletaMapper atletaMapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EquipeDTO> find(@PathVariable int id) {
@@ -41,43 +34,22 @@ public class EquipeResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") int page,
+    public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "nome", required = false) String nome,
+                                                    @RequestParam(value = "jogo", required = false) Integer jogo,
+                                                    @RequestParam(value = "atleta", required = false) Integer atleta,
+                                                    @RequestParam(value = "page", defaultValue = "0") int page,
                                                     @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                     @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        EquipeCriteria equipeCriteria = EquipeCriteria.builder()
+                .nome(nome)
+                .jogoId(jogo)
+                .atletaId(atleta)
+                .build();
+
         return ResponseEntity.ok()
-                .body(equipeService.findPage(page, linesPerPage, orderBy, direction)
+                .body(equipeService.findAllPage(equipeCriteria, page, linesPerPage, orderBy, direction)
                         .map(equipe -> equipeMapper.mapToDTO(equipe, EquipeDTO.class)));
-    }
-
-    @RequestMapping(value = "/{id}/acoes", method = RequestMethod.GET)
-    public ResponseEntity<Page<AcaoDTO>> findAcoesPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
-                                                       @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                       @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                       @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        return ResponseEntity.ok()
-                .body(equipeService.findAcoesPage(id, page, linesPerPage, orderBy, direction)
-                        .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
-    }
-
-    @RequestMapping(value = "/{id}/atletas", method = RequestMethod.GET)
-    public ResponseEntity<Page<AtletaDTO>> findAtletasPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
-                                                           @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                           @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                           @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        return ResponseEntity.ok()
-                .body(equipeService.findAtletlas(id, page, linesPerPage, orderBy, direction)
-                        .map(atleta -> atletaMapper.mapToDTO(atleta, AtletaDTO.class)));
-    }
-
-    @RequestMapping(value = "/{id}/jogos", method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findJogosPage(@PathVariable int id, @RequestParam(value = "page", defaultValue = "0") int page,
-                                                       @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                       @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                       @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        return ResponseEntity.ok()
-                .body(equipeService.findJogosPage(id, page, linesPerPage, orderBy, direction)
-                        .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

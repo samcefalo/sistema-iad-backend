@@ -20,6 +20,8 @@ public class JogoDTO implements Serializable {
     private int id;
     @Min(value = 1, message = "O Esporte é obrigatório.")
     private int esporte;
+    @Min(value = 1, message = "O Tipo de jogo é obrigatório.")
+    private int tipo;
     @JsonIgnore
     private UserDTO user;
     @Team

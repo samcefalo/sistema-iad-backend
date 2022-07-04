@@ -30,6 +30,7 @@ public abstract class Acao implements Serializable {
     private final int maxPontuacao = 4;
     private String placar;
     private int tempo;
+    private int etapa;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")

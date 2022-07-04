@@ -2,7 +2,7 @@ package me.samcefalo.sistemaiadbackend.services;
 
 import me.samcefalo.sistemaiadbackend.estatistica.EstatisticaQuerry;
 import me.samcefalo.sistemaiadbackend.models.Acao;
-import me.samcefalo.sistemaiadbackend.services.utils.AcaoUtils;
+import me.samcefalo.sistemaiadbackend.specifications.criterias.AcaoCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,52 +13,60 @@ public class EstatisticaQuerryService {
 
     @Autowired
     private AcaoService acaoService;
-    @Autowired
-    private AtletaService atletaService;
-    @Autowired
-    private EquipeService equipeService;
-    @Autowired
-    private JogoService jogoService;
-    @Autowired
-    private AcaoUtils acaoUtils;
 
     public EstatisticaQuerry getQuerryGlobal(String categoria) {
-        Class<?> categoriaClass = acaoUtils.getClass(categoria);
-        List<Acao> acoes = acaoService.findAll(categoriaClass);
+        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
+                .categoria(categoria).build();
+        List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
+        AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder().build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
-                .acoesGlobal(acaoUtils.getAcoesGlobal(categoriaClass))
+                .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
                 .build();
     }
 
     public EstatisticaQuerry getQuerryFromJogador(int atletaId, int equipeId, String categoria) {
-        Class<?> categoriaClass = acaoUtils.getClass(categoria);
-        List<Acao> acoes = atletaService.findAcoes(atletaId, categoriaClass);
+        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
+                .categoria(categoria)
+                .atletaId(atletaId).build();
+
+        List<Acao> acoes = acaoService.findAll(acaoCriteria);
+
+        AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
+                .categoria(categoria).equipeId(equipeId).build();
 
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
-                .acoesGlobal(acaoUtils.getAcoesFromEquipe(equipeId, categoriaClass))
+                .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
                 .build();
     }
 
     public EstatisticaQuerry getQuerryFromEquipe(int equipeId, String categoria) {
-        Class<?> categoriaClass = acaoUtils.getClass(categoria);
-        List<Acao> acoes = equipeService.findAcoes(equipeId, categoriaClass);
+        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
+                .categoria(categoria)
+                .equipeId(equipeId).build();
+        List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
+        AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
+                .categoria(categoria).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
-                .acoesGlobal(acaoUtils.getAcoesGlobal(categoriaClass))
+                .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
                 .build();
     }
 
     public EstatisticaQuerry getQuerryFromJogo(int jogoId, String categoria) {
-        Class<?> categoriaClass = acaoUtils.getClass(categoria);
-        List<Acao> acoes = jogoService.findAcoes(jogoId, categoriaClass);
+        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
+                .categoria(categoria)
+                .jogoId(jogoId).build();
+        List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
+        AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
+                .categoria(categoria).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
-                .acoesGlobal(acaoUtils.getAcoesGlobal(categoriaClass))
+                .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
                 .build();
     }
 
