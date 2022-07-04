@@ -22,7 +22,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = DesarmeDTO.class, name = "Desarme"),
         @JsonSubTypes.Type(value = DribleDTO.class, name = "Drible"),
         @JsonSubTypes.Type(value = FinalizacaoDTO.class, name = "Finalizacao"),
-        @JsonSubTypes.Type(value = RecepcaoDTO.class, name = "Recepção")
+        @JsonSubTypes.Type(value = RecepcaoDTO.class, name = "Recepcao")
 })
 public abstract class AcaoDTO implements Serializable {
 

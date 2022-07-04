@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@JsonTypeName("Recepção")
+@JsonTypeName("Recepcao")
 public class RecepcaoDTO extends AcaoDTO {
 
 }
