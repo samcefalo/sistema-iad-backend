@@ -44,6 +44,8 @@ public class AcaoResource {
                                                   @RequestParam(value = "equipe", required = false) Integer equipe,
                                                   @RequestParam(value = "atleta", required = false) Integer atleta,
                                                   @RequestParam(value = "exito", required = false) Boolean exito,
+                                                  @RequestParam(value = "gol", required = false) Boolean gol,
+                                                  @RequestParam(value = "posseDeBola", required = false) Boolean posseDeBola,
                                                   @RequestParam(value = "page", defaultValue = "0") int page,
                                                   @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
                                                   @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
@@ -55,7 +57,9 @@ public class AcaoResource {
                 .tempo(tempo).etapa(etapa)
                 .jogoId(jogo).equipeId(equipe)
                 .atletaId(atleta).exito(exito)
+                .gol(gol).posseDeBola(posseDeBola)
                 .build();
+
         return ResponseEntity.ok()
                 .body(acaoService.findAllPage(acaoCriteria, page, linesPerPage, orderBy, direction)
                         .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));

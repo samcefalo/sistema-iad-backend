@@ -8,5 +8,5 @@ import lombok.Data;
 public class AcaoCriteria {
     private String placar, categoria;
     private Integer grauDificuldade, userId, area, tempo, etapa, jogoId, equipeId, atletaId;
-    private Boolean exito;
+    private Boolean exito, gol, posseDeBola;
 }

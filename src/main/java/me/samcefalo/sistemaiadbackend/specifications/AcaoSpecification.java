@@ -2,11 +2,12 @@ package me.samcefalo.sistemaiadbackend.specifications;
 
 import lombok.Data;
 import me.samcefalo.sistemaiadbackend.models.Acao;
+import me.samcefalo.sistemaiadbackend.models.Desarme;
+import me.samcefalo.sistemaiadbackend.models.Finalizacao;
+import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
 import me.samcefalo.sistemaiadbackend.services.utils.ClassUtils;
 import me.samcefalo.sistemaiadbackend.specifications.criterias.AcaoCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,33 +17,28 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 @Data
 public class AcaoSpecification implements Specification<Acao> {
 
-    @Autowired
     private ClassUtils classUtils;
 
     private AcaoCriteria criteria;
 
-    public AcaoSpecification() {
-    }
-
     public AcaoSpecification(AcaoCriteria criteria) {
         this.criteria = criteria;
+        this.classUtils = new ClassUtils();
     }
 
     @Override
     public Predicate toPredicate(Root<Acao> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         List<Predicate> predicateList = new ArrayList<>();
 
-        //TODO categoria (Passe, finalizacao...)
         if (!StringUtils.isEmpty(criteria.getCategoria()) && criteria.getCategoria() != null) {
             try {
                 Class acaoClass = classUtils.getAcaoClass(criteria.getCategoria());
-                root = query.from(acaoClass);
+                predicateList.add(builder.equal(root.type(), acaoClass));
             } catch (ClassNotFoundException e) {
-
+                throw new ObjectNotFoundException("Ação não encontrada. tipo: " + criteria.getCategoria());
             }
         }
 
@@ -84,6 +80,14 @@ public class AcaoSpecification implements Specification<Acao> {
 
         if (criteria.getExito() != null) {
             predicateList.add(builder.equal(root.get("exito"), criteria.getExito()));
+        }
+
+        if (criteria.getGol() != null) {
+            predicateList.add(builder.equal(builder.treat(root, Finalizacao.class).get("gol"), criteria.getGol()));
+        }
+
+        if (criteria.getPosseDeBola() != null) {
+            predicateList.add(builder.equal(builder.treat(root, Desarme.class).get("posseDeBola"), criteria.getPosseDeBola()));
         }
 
         return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));
