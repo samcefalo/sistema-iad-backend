@@ -66,15 +66,15 @@ public class AcaoSpecification implements Specification<Acao> {
             predicateList.add(builder.equal(root.get("tempo"), criteria.getTempo()));
         }
 
-        if (criteria.getGrauDificuldade() > 0 && criteria.getGrauDificuldade() != null) {
+        if (criteria.getGrauDificuldade() != null && criteria.getGrauDificuldade() > 0) {
             predicateList.add(builder.equal(root.get("grauDificuldade"), criteria.getGrauDificuldade()));
         }
 
-        if (criteria.getArea() > 0 && criteria.getArea() != null) {
+        if (criteria.getArea() != null && criteria.getArea() > 0) {
             predicateList.add(builder.equal(root.get("area"), criteria.getArea()));
         }
 
-        if (criteria.getEtapa() > 0 && criteria.getEtapa() != null) {
+        if (criteria.getEtapa() != null && criteria.getEtapa() > 0) {
             predicateList.add(builder.equal(root.get("etapa"), criteria.getGrauDificuldade()));
         }
 

@@ -51,7 +51,7 @@ public class AtletaSpecification implements Specification<Atleta> {
             predicateList.add(builder.equal(root.get("numero"), criteria.getNumero()));
         }
 
-        if (criteria.getSexo() > 0 && criteria.getSexo() != null) {
+        if (criteria.getSexo() != null && criteria.getSexo() > 0) {
             predicateList.add(builder.equal(root.get("sexo"), criteria.getSexo()));
         }
 
