@@ -4,16 +4,14 @@ import lombok.Data;
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import me.samcefalo.sistemaiadbackend.models.Desarme;
 import me.samcefalo.sistemaiadbackend.models.Finalizacao;
+import me.samcefalo.sistemaiadbackend.models.Jogo;
 import me.samcefalo.sistemaiadbackend.services.exceptions.ObjectNotFoundException;
 import me.samcefalo.sistemaiadbackend.services.utils.ClassUtils;
 import me.samcefalo.sistemaiadbackend.specifications.criterias.AcaoCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +86,16 @@ public class AcaoSpecification implements Specification<Acao> {
 
         if (criteria.getPosseDeBola() != null) {
             predicateList.add(builder.equal(builder.treat(root, Desarme.class).get("posseDeBola"), criteria.getPosseDeBola()));
+        }
+
+        if (criteria.getTipoJogo() != null && criteria.getTipoJogo() > 0) {
+            Join<Acao, Jogo> join = root.join("jogo");
+            predicateList.add(builder.equal(join.get("tipo"), criteria.getTipoJogo()));
+        }
+
+        if (criteria.getEsporte() != null && criteria.getEsporte() > 0) {
+            Join<Acao, Jogo> join = root.join("jogo");
+            predicateList.add(builder.equal(join.get("esporte"), criteria.getEsporte()));
         }
 
         return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));

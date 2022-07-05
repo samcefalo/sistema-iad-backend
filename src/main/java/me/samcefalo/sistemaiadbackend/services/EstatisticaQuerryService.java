@@ -13,10 +13,11 @@ public class EstatisticaQuerryService {
 
     @Autowired
     private AcaoService acaoService;
+    @Autowired
+    private UserSecurityService userSecurityService;
 
-    public EstatisticaQuerry getQuerryGlobal(String categoria) {
-        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
-                .categoria(categoria).build();
+    public EstatisticaQuerry getQuerryGlobal(AcaoCriteria acaoCriteria) {
+        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder().build();
@@ -26,44 +27,24 @@ public class EstatisticaQuerryService {
                 .build();
     }
 
-    public EstatisticaQuerry getQuerryFromJogador(int atletaId, int equipeId, String categoria) {
-        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
-                .categoria(categoria)
-                .atletaId(atletaId).build();
-
+    public EstatisticaQuerry getQuerryFromEquipe(AcaoCriteria acaoCriteria) {
+        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
-                .categoria(categoria).equipeId(equipeId).build();
-
+                .equipeId(acaoCriteria.getEquipeId()).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
                 .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
                 .build();
     }
 
-    public EstatisticaQuerry getQuerryFromEquipe(int equipeId, String categoria) {
-        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
-                .categoria(categoria)
-                .equipeId(equipeId).build();
+    public EstatisticaQuerry getQuerryFromJogo(AcaoCriteria acaoCriteria) {
+        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
-                .categoria(categoria).build();
-        return EstatisticaQuerry.builder()
-                .acoes(acoes)
-                .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
-                .build();
-    }
-
-    public EstatisticaQuerry getQuerryFromJogo(int jogoId, String categoria) {
-        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
-                .categoria(categoria)
-                .jogoId(jogoId).build();
-        List<Acao> acoes = acaoService.findAll(acaoCriteria);
-
-        AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
-                .categoria(categoria).build();
+                .jogoId(acaoCriteria.getJogoId()).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
                 .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))

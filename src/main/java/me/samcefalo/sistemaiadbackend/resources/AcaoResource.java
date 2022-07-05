@@ -37,6 +37,8 @@ public class AcaoResource {
     public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "placar", required = false) String placar,
                                                   @RequestParam(value = "categoria", required = false) String categoria,
                                                   @RequestParam(value = "grauDificuldade", defaultValue = "0") Integer grauDificuldade,
+                                                  @RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
+                                                  @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipoJogo,
                                                   @RequestParam(value = "area", defaultValue = "0") Integer area,
                                                   @RequestParam(value = "etapa", defaultValue = "0") Integer etapa,
                                                   @RequestParam(value = "tempo", required = false) Integer tempo,
@@ -58,6 +60,7 @@ public class AcaoResource {
                 .jogoId(jogo).equipeId(equipe)
                 .atletaId(atleta).exito(exito)
                 .gol(gol).posseDeBola(posseDeBola)
+                .tipoJogo(tipoJogo).esporte(esporte)
                 .build();
 
         return ResponseEntity.ok()
