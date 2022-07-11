@@ -3,6 +3,7 @@ package me.samcefalo.sistemaiadbackend.services;
 import me.samcefalo.sistemaiadbackend.estatistica.Estatistica;
 import me.samcefalo.sistemaiadbackend.estatistica.EstatisticaQuerry;
 import me.samcefalo.sistemaiadbackend.estatistica.utils.EstatisticaUtils;
+import me.samcefalo.sistemaiadbackend.services.utils.AcaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,13 @@ public class EstatisticaService {
 
     @Autowired
     private EstatisticaUtils utils;
+    @Autowired
+    private AcaoUtils acaoUtils;
 
     public Estatistica getEstatistica(EstatisticaQuerry querry) {
-        List<Integer> acoes = querry.parseAcaoToInteger(querry.getAcoes());
-        List<Integer> acoesGlobal = querry.parseAcaoToInteger(querry.getAcoesGlobal());
-        List<Integer> acoesOnlyExito = querry.parseAcaoToInteger(querry.getOnlyExito(querry.getAcoes()));
+        List<Integer> acoes = acaoUtils.parseAcaoToInteger(querry.getAcoes());
+        List<Integer> acoesGlobal = acaoUtils.parseAcaoToInteger(querry.getAcoesGlobal());
+        List<Integer> acoesOnlyExito = acaoUtils.parseAcaoToInteger(acaoUtils.getOnlyExito(querry.getAcoes()));
 
         Estatistica estatistica = Estatistica.builder()
                 .media(utils.getAvg(acoes))
