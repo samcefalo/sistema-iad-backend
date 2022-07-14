@@ -27,14 +27,16 @@ public class EstatisticaService {
                 .variancia(utils.getVariance(acoes))
                 .desvio_padrao(utils.getStandardDeviation(acoes))
                 .total(acoes.size()).totalExito(acoesOnlyExito.size())
+                .precisao(utils.getPrecisao(acoesOnlyExito.size(), acoes.size()))
                 .min(utils.getMin(acoes)).max(utils.getMax(acoes))
                 .scoreZ(utils.getScoreZ(utils.getAvg(acoes), acoesGlobal))
                 .scoreT(utils.getScoreT(utils.getAvg(acoes), acoesGlobal))
+                .percentil(utils.getPercentile(utils.getAvg(acoes), acoesGlobal))
                 .moda(utils.getModa(acoes))
                 .mediana(utils.getMediana(acoes))
                 .sum(utils.getSum(acoes))
+                .indice(utils.getSum(acoes) / utils.getMaxPontuacao(querry.getAcoes()))
                 .build();
-        estatistica.setIndice(estatistica.getSum() / utils.getMaxPontuacao(querry.getAcoes()));
         return estatistica;
     }
 

@@ -3,10 +3,7 @@ package me.samcefalo.sistemaiadbackend.estatistica.utils;
 import me.samcefalo.sistemaiadbackend.models.Acao;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -69,6 +66,17 @@ public class EstatisticaUtils {
 
     public double getScoreZ(double value, List<Integer> list) {
         return (value - getAvg(list) / getStandardDeviation(list));
+    }
+
+    public double getPercentile(double value, List<Integer> list) {
+        Collections.sort(list);
+        double bellowValues = list.stream().filter(v -> v < value).count();
+        double total = list.size();
+        return (bellowValues / total) * 100;
+    }
+
+    public double getPrecisao(double value, double total) {
+        return (value / total) * 100;
     }
 
     public double getMax(List<Integer> list) {

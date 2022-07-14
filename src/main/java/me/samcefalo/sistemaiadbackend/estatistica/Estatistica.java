@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class Estatistica implements Serializable {
 
-    private double media, variancia, desvio_padrao, scoreT, scoreZ, max, min, mediana, sum, indice;
+    private double precisao, media, variancia, desvio_padrao, scoreT, scoreZ, max, min, mediana, sum, indice, percentil;
     private int total, totalExito;
     private List<Integer> moda;
 
