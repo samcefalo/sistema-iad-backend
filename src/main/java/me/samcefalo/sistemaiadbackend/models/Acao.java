@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -31,6 +32,8 @@ public abstract class Acao implements Serializable {
     private String placar;
     private int tempo;
     private int etapa;
+    private long tempoInsercao;
+    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id")

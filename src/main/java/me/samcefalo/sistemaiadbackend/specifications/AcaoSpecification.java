@@ -40,6 +40,14 @@ public class AcaoSpecification implements Specification<Acao> {
             }
         }
 
+        if (criteria.getTempoInsercao() > 0) {
+            predicateList.add(builder.equal(root.get("tempoInsercao"), criteria.getTempoInsercao()));
+        }
+
+        if (criteria.getData() != null) {
+            predicateList.add(builder.equal(root.get("data"), criteria.getData()));
+        }
+
         if (criteria.getAtletaId() != null) {
             predicateList.add(builder.equal(root.get("atleta"), criteria.getAtletaId()));
         }

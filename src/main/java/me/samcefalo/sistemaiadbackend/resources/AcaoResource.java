@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/acoes")
@@ -41,6 +42,8 @@ public class AcaoResource {
                                                   @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipoJogo,
                                                   @RequestParam(value = "area", defaultValue = "0") Integer area,
                                                   @RequestParam(value = "etapa", defaultValue = "0") Integer etapa,
+                                                  @RequestParam(value = "tempoInsercao", defaultValue = "0") Integer tempoInsercao,
+                                                  @RequestParam(value = "data", required = false) LocalDate data,
                                                   @RequestParam(value = "tempo", required = false) Integer tempo,
                                                   @RequestParam(value = "jogo", required = false) Integer jogo,
                                                   @RequestParam(value = "equipe", required = false) Integer equipe,
@@ -61,6 +64,7 @@ public class AcaoResource {
                 .atletaId(atleta).exito(exito)
                 .gol(gol).posseDeBola(posseDeBola)
                 .tipoJogo(tipoJogo).esporte(esporte)
+                .tempoInsercao(tempoInsercao).data(data)
                 .build();
 
         return ResponseEntity.ok()

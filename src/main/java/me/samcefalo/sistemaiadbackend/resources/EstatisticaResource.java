@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,6 +124,8 @@ public class EstatisticaResource {
                                                                      @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipoJogo,
                                                                      @RequestParam(value = "area", defaultValue = "0") Integer area,
                                                                      @RequestParam(value = "etapa", defaultValue = "0") Integer etapa,
+                                                                     @RequestParam(value = "tempoInsercao", defaultValue = "0") Integer tempoInsercao,
+                                                                     @RequestParam(value = "data", required = false) LocalDate data,
                                                                      @RequestParam(value = "tempo", required = false) Integer tempo,
                                                                      @RequestParam(value = "jogo", required = false) Integer jogo,
                                                                      @RequestParam(value = "equipe", required = false) Integer equipe,
@@ -139,6 +142,7 @@ public class EstatisticaResource {
                 .atletaId(atleta).exito(exito)
                 .gol(gol).posseDeBola(posseDeBola)
                 .tipoJogo(tipoJogo).esporte(esporte)
+                .tempoInsercao(tempoInsercao).data(data)
                 .build();
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
                 .equipeId(equipe).jogoId(jogo).build();

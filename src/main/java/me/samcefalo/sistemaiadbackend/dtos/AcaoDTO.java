@@ -10,6 +10,7 @@ import me.samcefalo.sistemaiadbackend.services.validation.constraints.Team;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -36,6 +37,8 @@ public abstract class AcaoDTO implements Serializable {
     private String placar;
     private int tempo;
     private int etapa;
+    private long tempoInsercao;
+    private LocalDate data;
 
     @Team
     private EquipeDTO equipe;
