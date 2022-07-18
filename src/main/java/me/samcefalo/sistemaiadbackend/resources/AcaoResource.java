@@ -9,6 +9,7 @@ import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import me.samcefalo.sistemaiadbackend.specifications.criterias.AcaoCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -51,10 +52,7 @@ public class AcaoResource {
                                                   @RequestParam(value = "exito", required = false) Boolean exito,
                                                   @RequestParam(value = "gol", required = false) Boolean gol,
                                                   @RequestParam(value = "posseDeBola", required = false) Boolean posseDeBola,
-                                                  @RequestParam(value = "page", defaultValue = "0") int page,
-                                                  @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                  @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+                                                  Pageable pageable) {
 
         AcaoCriteria acaoCriteria = AcaoCriteria.builder()
                 .placar(placar).categoria(categoria)
@@ -68,7 +66,7 @@ public class AcaoResource {
                 .build();
 
         return ResponseEntity.ok()
-                .body(acaoService.findAllPage(acaoCriteria, page, linesPerPage, orderBy, direction)
+                .body(acaoService.findAllPage(acaoCriteria, pageable)
                         .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
     }
 

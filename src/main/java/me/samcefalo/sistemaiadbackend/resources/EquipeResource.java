@@ -9,6 +9,7 @@ import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import me.samcefalo.sistemaiadbackend.specifications.criterias.EquipeCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,10 +38,7 @@ public class EquipeResource {
     public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "nome", required = false) String nome,
                                                     @RequestParam(value = "jogo", required = false) Integer jogo,
                                                     @RequestParam(value = "atleta", required = false) Integer atleta,
-                                                    @RequestParam(value = "page", defaultValue = "0") int page,
-                                                    @RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
-                                                    @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
-                                                    @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+                                                    Pageable pageable) {
         EquipeCriteria equipeCriteria = EquipeCriteria.builder()
                 .nome(nome)
                 .jogoId(jogo)
@@ -48,7 +46,7 @@ public class EquipeResource {
                 .build();
 
         return ResponseEntity.ok()
-                .body(equipeService.findAllPage(equipeCriteria, page, linesPerPage, orderBy, direction)
+                .body(equipeService.findAllPage(equipeCriteria, pageable)
                         .map(equipe -> equipeMapper.mapToDTO(equipe, EquipeDTO.class)));
     }
 
