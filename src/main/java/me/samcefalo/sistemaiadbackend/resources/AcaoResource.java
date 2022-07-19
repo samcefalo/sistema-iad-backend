@@ -8,7 +8,6 @@ import me.samcefalo.sistemaiadbackend.services.AcaoService;
 import me.samcefalo.sistemaiadbackend.services.UserSecurityService;
 import me.samcefalo.sistemaiadbackend.specifications.criterias.AcaoCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/acoes")
@@ -36,7 +36,7 @@ public class AcaoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<AcaoDTO>> findPage(@RequestParam(value = "placar", required = false) String placar,
+    public ResponseEntity<List<AcaoDTO>> findPage(@RequestParam(value = "placar", required = false) String placar,
                                                   @RequestParam(value = "categoria", required = false) String categoria,
                                                   @RequestParam(value = "grauDificuldade", defaultValue = "0") Integer grauDificuldade,
                                                   @RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
@@ -67,7 +67,7 @@ public class AcaoResource {
 
         return ResponseEntity.ok()
                 .body(acaoService.findAllPage(acaoCriteria, pageable)
-                        .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)));
+                        .map(acao -> acaoMapper.mapToDTO(acao, AcaoDTO.class)).getContent());
     }
 
     @RequestMapping(method = RequestMethod.POST)

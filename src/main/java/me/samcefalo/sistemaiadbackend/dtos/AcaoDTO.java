@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@tipo")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "classe")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PasseDTO.class, name = "Passe"),
         @JsonSubTypes.Type(value = DesarmeDTO.class, name = "Desarme"),

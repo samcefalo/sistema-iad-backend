@@ -36,7 +36,7 @@ public class JogoResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
-                                                  @RequestParam(value = "tipo", defaultValue = "0") Integer tipo,
+                                                  @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipo,
                                                   @RequestParam(value = "equipe", required = false) Integer equipe,
                                                   @RequestParam(value = "atleta", required = false) Integer atleta,
                                                   Pageable pageable) {
