@@ -35,6 +35,9 @@ public class AcaoResource {
         return ResponseEntity.ok().body(acaoMapper.mapToDTO(acao, AcaoDTO.class));
     }
 
+    /*
+    Retorna Componentes da lista para não perder propriedade do @JsonTypeInfo
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<AcaoDTO>> findPage(@RequestParam(value = "placar", required = false) String placar,
                                                   @RequestParam(value = "categoria", required = false) String categoria,
