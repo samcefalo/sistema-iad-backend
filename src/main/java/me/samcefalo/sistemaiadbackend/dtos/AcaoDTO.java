@@ -35,7 +35,9 @@ public abstract class AcaoDTO implements Serializable {
     private boolean exito;
     private int pontuacao;
     private String placar;
+    @Min(value = 1, message = "O tempo é obrigatório.")
     private int tempo;
+    @Min(value = 1, message = "A etapa é obrigatória.")
     private int etapa;
     private long tempoInsercao;
     private LocalDate data;

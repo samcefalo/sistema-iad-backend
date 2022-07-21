@@ -19,7 +19,7 @@ public class AtletaDTO {
 
     private int id;
     @NotBlank(message = "O nome é obrigatório.")
-    @Length(min = 3, max = 100, message = "Insira um nome com {min}-{max} caracteres.")
+    @Length(max = 100, message = "Insira um nome com até {max} caracteres.")
     private String nome;
     @JsonIgnore
     private UserDTO user;
