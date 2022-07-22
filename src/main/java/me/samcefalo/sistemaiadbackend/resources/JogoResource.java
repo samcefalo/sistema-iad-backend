@@ -35,15 +35,8 @@ public class JogoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<JogoDTO>> findPage(@RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
-                                                  @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipo,
-                                                  @RequestParam(value = "equipe", required = false) Integer equipe,
-                                                  @RequestParam(value = "atleta", required = false) Integer atleta,
-                                                  Pageable pageable) {
-        JogoCriteria jogoCriteria = JogoCriteria.builder()
-                .esporte(esporte).tipo(tipo)
-                .equipeId(equipe).atletaId(atleta)
-                .build();
+    public ResponseEntity<Page<JogoDTO>> findPage(@Valid JogoCriteria jogoCriteria, Pageable pageable) {
+
         return ResponseEntity.ok()
                 .body(jogoService.findAllPage(jogoCriteria, pageable)
                         .map(jogo -> jogoMapper.mapToDTO(jogo, JogoDTO.class)));

@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -39,34 +38,9 @@ public class AcaoResource {
     Retorna Componentes da lista para não perder propriedade do @JsonTypeInfo
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<AcaoDTO>> findPage(@RequestParam(value = "placar", required = false) String placar,
-                                                  @RequestParam(value = "categoria", required = false) String categoria,
-                                                  @RequestParam(value = "grauDificuldade", defaultValue = "0") Integer grauDificuldade,
-                                                  @RequestParam(value = "esporte", defaultValue = "0") Integer esporte,
-                                                  @RequestParam(value = "tipoJogo", defaultValue = "0") Integer tipoJogo,
-                                                  @RequestParam(value = "area", defaultValue = "0") Integer area,
-                                                  @RequestParam(value = "etapa", defaultValue = "0") Integer etapa,
-                                                  @RequestParam(value = "tempoInsercao", defaultValue = "0") Integer tempoInsercao,
-                                                  @RequestParam(value = "data", required = false) LocalDate data,
-                                                  @RequestParam(value = "tempo", required = false) Integer tempo,
-                                                  @RequestParam(value = "jogo", required = false) Integer jogo,
-                                                  @RequestParam(value = "equipe", required = false) Integer equipe,
-                                                  @RequestParam(value = "atleta", required = false) Integer atleta,
-                                                  @RequestParam(value = "exito", required = false) Boolean exito,
-                                                  @RequestParam(value = "gol", required = false) Boolean gol,
-                                                  @RequestParam(value = "posseDeBola", required = false) Boolean posseDeBola,
+    public ResponseEntity<List<AcaoDTO>> findPage(@Valid AcaoCriteria acaoCriteria,
                                                   Pageable pageable) {
-
-        AcaoCriteria acaoCriteria = AcaoCriteria.builder()
-                .placar(placar).categoria(categoria)
-                .grauDificuldade(grauDificuldade).area(area)
-                .tempo(tempo).etapa(etapa)
-                .jogoId(jogo).equipeId(equipe)
-                .atletaId(atleta).exito(exito)
-                .gol(gol).posseDeBola(posseDeBola)
-                .tipoJogo(tipoJogo).esporte(esporte)
-                .tempoInsercao(tempoInsercao).data(data)
-                .build();
+        System.out.println(acaoCriteria);
 
         return ResponseEntity.ok()
                 .body(acaoService.findAllPage(acaoCriteria, pageable)

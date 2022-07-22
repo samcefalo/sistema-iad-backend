@@ -40,7 +40,7 @@ public class AcaoSpecification implements Specification<Acao> {
             }
         }
 
-        if (criteria.getTempoInsercao() > 0) {
+        if (criteria.getTempoInsercao() != null) {
             predicateList.add(builder.equal(root.get("tempoInsercao"), criteria.getTempoInsercao()));
         }
 
@@ -48,20 +48,20 @@ public class AcaoSpecification implements Specification<Acao> {
             predicateList.add(builder.equal(root.get("data"), criteria.getData()));
         }
 
-        if (criteria.getAtletaId() != null) {
-            predicateList.add(builder.equal(root.get("atleta"), criteria.getAtletaId()));
+        if (criteria.getAtleta() != null) {
+            predicateList.add(builder.equal(root.get("atleta"), criteria.getAtleta()));
         }
 
-        if (criteria.getJogoId() != null) {
-            predicateList.add(builder.equal(root.get("jogo"), criteria.getJogoId()));
+        if (criteria.getJogo() != null) {
+            predicateList.add(builder.equal(root.get("jogo"), criteria.getJogo()));
         }
 
-        if (criteria.getEquipeId() != null) {
-            predicateList.add(builder.equal(root.get("equipe"), criteria.getEquipeId()));
+        if (criteria.getEquipe() != null) {
+            predicateList.add(builder.equal(root.get("equipe"), criteria.getEquipe()));
         }
 
-        if (criteria.getUserId() != null) {
-            predicateList.add(builder.equal(root.get("user"), criteria.getUserId()));
+        if (criteria.getUser() != null) {
+            predicateList.add(builder.equal(root.get("user"), criteria.getUser()));
         }
 
         if (!StringUtils.isEmpty(criteria.getPlacar()) && criteria.getPlacar() != null) {
@@ -86,6 +86,18 @@ public class AcaoSpecification implements Specification<Acao> {
 
         if (criteria.getExito() != null) {
             predicateList.add(builder.equal(root.get("exito"), criteria.getExito()));
+        }
+
+        if (criteria.getData() != null) {
+            predicateList.add(builder.equal(root.get("data"), criteria.getData()));
+        }
+
+        if (criteria.getMinData() != null) {
+            predicateList.add(builder.greaterThan(root.get("data"), criteria.getData()));
+        }
+
+        if (criteria.getMaxData() != null) {
+            predicateList.add(builder.lessThan(root.get("data"), criteria.getData()));
         }
 
         if (criteria.getGol() != null) {

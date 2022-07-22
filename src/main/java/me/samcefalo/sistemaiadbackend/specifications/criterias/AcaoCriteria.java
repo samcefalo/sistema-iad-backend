@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @Builder
 public class AcaoCriteria {
     private String placar, categoria;
-    private Integer grauDificuldade, userId, area, tempo, etapa, jogoId, equipeId, atletaId, esporte, tipoJogo;
+    private Integer grauDificuldade, user, area, tempo, etapa, jogo, equipe, atleta, esporte, tipoJogo;
     private Boolean exito, gol, posseDeBola;
-    private long tempoInsercao;
-    private LocalDate data;
+    private Long tempoInsercao;
+    private LocalDate data, minData, maxData;
 }

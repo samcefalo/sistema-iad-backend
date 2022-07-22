@@ -26,7 +26,7 @@ public class EstatisticaQuerryService {
     };
 
     public EstatisticaQuerry getQuerryGlobal(AcaoCriteria acaoCriteria) {
-        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
+        acaoCriteria.setUser(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder().build();
@@ -37,11 +37,11 @@ public class EstatisticaQuerryService {
     }
 
     public EstatisticaQuerry getQuerryFromEquipe(AcaoCriteria acaoCriteria) {
-        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
+        acaoCriteria.setUser(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
-                .equipeId(acaoCriteria.getEquipeId()).build();
+                .equipe(acaoCriteria.getEquipe()).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
                 .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
@@ -49,11 +49,11 @@ public class EstatisticaQuerryService {
     }
 
     public EstatisticaQuerry getQuerryFromJogo(AcaoCriteria acaoCriteria) {
-        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
+        acaoCriteria.setUser(userSecurityService.authenticatedUser().getId());
         List<Acao> acoes = acaoService.findAll(acaoCriteria);
 
         AcaoCriteria acaoCriteriaGlobal = AcaoCriteria.builder()
-                .jogoId(acaoCriteria.getJogoId()).build();
+                .jogo(acaoCriteria.getJogo()).build();
         return EstatisticaQuerry.builder()
                 .acoes(acoes)
                 .acoesGlobal(acaoService.findAll(acaoCriteriaGlobal))
@@ -62,8 +62,8 @@ public class EstatisticaQuerryService {
 
     public List<EstatisticaQuerry> getIndividualQuerries(AcaoCriteria acaoCriteria, AcaoCriteria acaoCriteriaGlobal) {
         List<EstatisticaQuerry> estatisticaQuerries = new ArrayList<>();
-        acaoCriteria.setUserId(userSecurityService.authenticatedUser().getId());
-        acaoCriteriaGlobal.setUserId(userSecurityService.authenticatedUser().getId());
+        acaoCriteria.setUser(userSecurityService.authenticatedUser().getId());
+        acaoCriteriaGlobal.setUser(userSecurityService.authenticatedUser().getId());
 
         for (String categoria : this.CATEGORIAS) {
             acaoCriteria.setCategoria(categoria);

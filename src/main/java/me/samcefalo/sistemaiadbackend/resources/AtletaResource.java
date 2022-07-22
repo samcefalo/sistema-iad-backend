@@ -35,21 +35,8 @@ public class AtletaResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<AtletaDTO>> findPage(@RequestParam(value = "nome", defaultValue = "") String nome,
-                                                    @RequestParam(value = "sexo", defaultValue = "0") Integer sexo,
-                                                    @RequestParam(value = "equipe", required = false) Integer equipe,
-                                                    @RequestParam(value = "acao", required = false) Integer acao,
-                                                    @RequestParam(value = "jogo", required = false) Integer jogo,
-                                                    @RequestParam(value = "numero", required = false) Integer numero,
+    public ResponseEntity<Page<AtletaDTO>> findPage(@Valid AtletaCriteria atletaCriteria,
                                                     Pageable pageable) {
-        AtletaCriteria atletaCriteria = AtletaCriteria.builder()
-                .nome(nome)
-                .sexo(sexo)
-                .equipeId(equipe)
-                .acaoId(acao)
-                .jogoId(jogo)
-                .numero(numero)
-                .build();
         return ResponseEntity.ok()
                 .body(atletaService.findAllPage(atletaCriteria, pageable)
                         .map(atleta -> atletaMapper.mapToDTO(atleta, AtletaDTO.class)));

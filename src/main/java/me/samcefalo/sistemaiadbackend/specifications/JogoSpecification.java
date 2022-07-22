@@ -24,18 +24,18 @@ public class JogoSpecification implements Specification<Jogo> {
     public Predicate toPredicate(Root<Jogo> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         List<Predicate> predicateList = new ArrayList<>();
 
-        if (criteria.getAtletaId() != null) {
+        if (criteria.getAtleta() != null) {
             Join<Jogo, Atleta> join = root.join("atletas");
-            predicateList.add(builder.equal(join.get("id"), criteria.getAtletaId().intValue()));
+            predicateList.add(builder.equal(join.get("id"), criteria.getAtleta().intValue()));
         }
 
-        if (criteria.getEquipeId() != null) {
+        if (criteria.getEquipe() != null) {
             Join<Jogo, Equipe> join = root.join("equipes");
-            predicateList.add(builder.equal(join.get("id"), criteria.getEquipeId().intValue()));
+            predicateList.add(builder.equal(join.get("id"), criteria.getEquipe().intValue()));
         }
 
-        if (criteria.getUserId() != null) {
-            predicateList.add(builder.equal(root.get("user"), criteria.getUserId()));
+        if (criteria.getUser() != null) {
+            predicateList.add(builder.equal(root.get("user"), criteria.getUser()));
         }
 
         if (criteria.getTipo() != null && criteria.getTipo() > 0) {

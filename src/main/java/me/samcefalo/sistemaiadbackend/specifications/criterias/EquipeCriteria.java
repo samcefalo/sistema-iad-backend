@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class EquipeCriteria {
     private String nome;
-    private Integer atletaId, userId, jogoId;
+    private Integer atleta, user, jogo;
 }

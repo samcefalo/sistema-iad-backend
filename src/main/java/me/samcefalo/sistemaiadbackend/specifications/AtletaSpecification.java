@@ -25,22 +25,22 @@ public class AtletaSpecification implements Specification<Atleta> {
     public Predicate toPredicate(Root<Atleta> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         List<Predicate> predicateList = new ArrayList<>();
 
-        if (criteria.getAcaoId() != null) {
+        if (criteria.getAcao() != null) {
             Join<Jogo, Acao> join = root.join("acoes");
-            predicateList.add(builder.equal(join.get("id"), criteria.getAcaoId().intValue()));
+            predicateList.add(builder.equal(join.get("id"), criteria.getAcao().intValue()));
         }
 
-        if (criteria.getJogoId() != null) {
+        if (criteria.getJogo() != null) {
             Join<Jogo, Jogo> join = root.join("jogos");
-            predicateList.add(builder.equal(join.get("id"), criteria.getJogoId().intValue()));
+            predicateList.add(builder.equal(join.get("id"), criteria.getJogo().intValue()));
         }
 
-        if (criteria.getEquipeId() != null) {
-            predicateList.add(builder.equal(root.get("equipe"), criteria.getEquipeId()));
+        if (criteria.getEquipe() != null) {
+            predicateList.add(builder.equal(root.get("equipe"), criteria.getEquipe()));
         }
 
-        if (criteria.getUserId() != null) {
-            predicateList.add(builder.equal(root.get("user"), criteria.getUserId()));
+        if (criteria.getUser() != null) {
+            predicateList.add(builder.equal(root.get("user"), criteria.getUser()));
         }
 
         if (!StringUtils.isEmpty(criteria.getNome()) && criteria.getNome() != null) {

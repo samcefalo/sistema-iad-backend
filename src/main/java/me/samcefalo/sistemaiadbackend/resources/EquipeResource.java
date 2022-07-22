@@ -35,15 +35,9 @@ public class EquipeResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<EquipeDTO>> findPage(@RequestParam(value = "nome", required = false) String nome,
-                                                    @RequestParam(value = "jogo", required = false) Integer jogo,
-                                                    @RequestParam(value = "atleta", required = false) Integer atleta,
+    public ResponseEntity<Page<EquipeDTO>> findPage(@Valid EquipeCriteria equipeCriteria,
                                                     Pageable pageable) {
-        EquipeCriteria equipeCriteria = EquipeCriteria.builder()
-                .nome(nome)
-                .jogoId(jogo)
-                .atletaId(atleta)
-                .build();
+
 
         return ResponseEntity.ok()
                 .body(equipeService.findAllPage(equipeCriteria, pageable)
