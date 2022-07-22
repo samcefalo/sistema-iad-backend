@@ -20,5 +20,9 @@ public interface AcaoRepository extends JpaRepository<Acao, Integer>, JpaSpecifi
     @Transactional(readOnly = true)
     Page<Acao> findAll(Specification specification, Pageable pageable);
 
+    @Override
+    long count(Specification spec);
+
+
 }
 
