@@ -40,7 +40,6 @@ public class AcaoResource {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<AcaoDTO>> findPage(@Valid AcaoCriteria acaoCriteria,
                                                   Pageable pageable) {
-        System.out.println(acaoCriteria);
 
         return ResponseEntity.ok()
                 .body(acaoService.findAllPage(acaoCriteria, pageable)

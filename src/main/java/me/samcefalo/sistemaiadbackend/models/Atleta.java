@@ -33,11 +33,6 @@ public class Atleta implements Serializable {
     private int sexo;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "atletas", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<Jogo> jogos = new HashSet<>();
-
-    @JsonIgnore
     @OneToMany(mappedBy = "atleta", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Acao> acoes = new HashSet<>();
