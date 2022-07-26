@@ -51,8 +51,6 @@ public class GetTests {
         Atleta atleta = new Atleta();
         atleta.setNome("Samuel");
 
-        jogoFutsal.getAtletas().add(atleta);
-
         Equipe equipe = new Equipe();
         equipe.setNome("Corinthians");
 

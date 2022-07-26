@@ -30,7 +30,7 @@ public abstract class MapperImpl<M, D> {
             modelMapper.typeMap(model, dto)
                     .setConverter(converterWithDestinationSupplier(tClass));
             modelMapper.typeMap(tClass, model)
-                    .setConverter(converterWithDestinationSupplier(findClass(modelSubTypes, tClass.getSimpleName().replaceAll("DTO", ""))));
+                    .setConverter(converterWithDestinationSupplier(findClass(modelSubTypes, tClass.getSimpleName().replace("DTO", ""))));
         }
         return modelMapper;
     }
