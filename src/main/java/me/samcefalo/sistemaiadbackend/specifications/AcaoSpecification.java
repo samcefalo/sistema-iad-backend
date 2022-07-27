@@ -81,7 +81,7 @@ public class AcaoSpecification implements Specification<Acao> {
         }
 
         if (criteria.getEtapa() != null && criteria.getEtapa() > 0) {
-            predicateList.add(builder.equal(root.get("etapa"), criteria.getGrauDificuldade()));
+            predicateList.add(builder.equal(root.get("etapa"), criteria.getEtapa()));
         }
 
         if (criteria.getExito() != null) {
@@ -93,11 +93,11 @@ public class AcaoSpecification implements Specification<Acao> {
         }
 
         if (criteria.getMinData() != null) {
-            predicateList.add(builder.greaterThan(root.get("data"), criteria.getData()));
+            predicateList.add(builder.greaterThan(root.get("data"), criteria.getMinData()));
         }
 
         if (criteria.getMaxData() != null) {
-            predicateList.add(builder.lessThan(root.get("data"), criteria.getData()));
+            predicateList.add(builder.lessThan(root.get("data"), criteria.getMaxData()));
         }
 
         if (criteria.getGol() != null) {
