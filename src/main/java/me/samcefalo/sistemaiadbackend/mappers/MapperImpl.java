@@ -3,6 +3,7 @@ package me.samcefalo.sistemaiadbackend.mappers;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.reflections.Reflections;
+import org.reflections.util.ConfigurationBuilder;
 
 import java.util.Set;
 
@@ -15,7 +16,8 @@ public abstract class MapperImpl<M, D> {
     }
 
     public ModelMapper configure(Class model, Class dto) {
-        Reflections reflections = new Reflections("me.samcefalo.sistemaiadbackend");
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .forPackage("me.samcefalo.sistemaiadbackend"));
         Set<Class> modelSubTypes = reflections.getSubTypesOf(model);
         Set<Class> dtoSubTypes = reflections.getSubTypesOf(dto);
 
