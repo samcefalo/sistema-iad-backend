@@ -43,6 +43,6 @@ public class EquipeSpecification implements Specification<Equipe> {
             predicateList.add(builder.equal(root.get("nome"), criteria.getNome()));
         }
 
-        return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        return builder.and(predicateList.toArray(new Predicate[0]));
     }
 }

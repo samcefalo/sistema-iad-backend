@@ -118,6 +118,6 @@ public class AcaoSpecification implements Specification<Acao> {
             predicateList.add(builder.equal(join.get("esporte"), criteria.getEsporte()));
         }
 
-        return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        return builder.and(predicateList.toArray(new Predicate[0]));
     }
 }

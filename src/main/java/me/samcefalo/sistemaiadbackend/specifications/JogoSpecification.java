@@ -46,6 +46,6 @@ public class JogoSpecification implements Specification<Jogo> {
             predicateList.add(builder.equal(root.get("esporte"), criteria.getEsporte()));
         }
 
-        return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        return builder.and(predicateList.toArray(new Predicate[0]));
     }
 }

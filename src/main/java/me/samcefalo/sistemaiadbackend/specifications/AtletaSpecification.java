@@ -55,6 +55,6 @@ public class AtletaSpecification implements Specification<Atleta> {
             predicateList.add(builder.equal(root.get("sexo"), criteria.getSexo()));
         }
 
-        return builder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        return builder.and(predicateList.toArray(new Predicate[0]));
     }
 }
