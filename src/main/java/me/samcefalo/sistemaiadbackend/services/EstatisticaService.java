@@ -19,11 +19,13 @@ public class EstatisticaService {
 
     public Estatistica getEstatistica(EstatisticaQuerry querry) {
         List<Integer> acoes = acaoUtils.parseAcaoToInteger(querry.getAcoes());
+        List<Long> tempoInsercao = acaoUtils.parseTempoInsercaoToInteger(querry.getAcoes());
         List<Integer> acoesGlobal = acaoUtils.parseAcaoToInteger(querry.getAcoesGlobal());
         List<Integer> acoesOnlyExito = acaoUtils.parseAcaoToInteger(acaoUtils.getOnlyExito(querry.getAcoes()));
 
         Estatistica estatistica = Estatistica.builder()
                 .media(utils.getAvg(acoes))
+                .mediaTempoInsercao(tempoInsercao.stream().mapToLong(Long::longValue).average().orElse(0))
                 .variancia(utils.getVariance(acoes))
                 .desvio_padrao(utils.getStandardDeviation(acoes))
                 .total(acoes.size()).totalExito(acoesOnlyExito.size())

@@ -24,4 +24,12 @@ public class AcaoUtils {
                 .boxed()
                 .collect(Collectors.toList());
     }
+
+    public List<Long> parseTempoInsercaoToInteger(List<Acao> acoes) {
+        Stream<Acao> acaoStream = acoes.stream();
+        return acaoStream
+                .mapToLong(Acao::getTempoInsercao)
+                .boxed()
+                .collect(Collectors.toList());
+    }
 }
