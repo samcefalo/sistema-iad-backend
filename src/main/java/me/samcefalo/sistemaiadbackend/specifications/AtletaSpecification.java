@@ -30,11 +30,6 @@ public class AtletaSpecification implements Specification<Atleta> {
             predicateList.add(builder.equal(join.get("id"), criteria.getAcao().intValue()));
         }
 
-        if (criteria.getJogo() != null) {
-            Join<Jogo, Jogo> join = root.join("jogos");
-            predicateList.add(builder.equal(join.get("id"), criteria.getJogo().intValue()));
-        }
-
         if (criteria.getEquipe() != null) {
             predicateList.add(builder.equal(root.get("equipe"), criteria.getEquipe()));
         }

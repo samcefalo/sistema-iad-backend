@@ -37,6 +37,7 @@ public class EstatisticaService {
                 .moda(utils.getModa(acoes))
                 .mediana(utils.getMediana(acoes))
                 .sum(utils.getSum(acoes))
+                .pontuacaoPossivel(utils.getMaxPontuacao(querry.getAcoes()))
                 .indice(utils.getSum(acoes) / utils.getMaxPontuacao(querry.getAcoes()))
                 .build();
         return estatistica;
