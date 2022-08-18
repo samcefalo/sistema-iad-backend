@@ -44,8 +44,7 @@ public class JogoResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody JogoDTO jogoDTO) {
-        if (userSecurityService.authenticated() != null)
-            jogoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
+        jogoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Jogo jogo = jogoMapper.mapToModel(jogoDTO, Jogo.class);
         jogo = jogoService.insert(jogo);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -38,7 +38,6 @@ public class EquipeResource {
     public ResponseEntity<Page<EquipeDTO>> findPage(@Valid EquipeCriteria equipeCriteria,
                                                     Pageable pageable) {
 
-
         return ResponseEntity.ok()
                 .body(equipeService.findAllPage(equipeCriteria, pageable)
                         .map(equipe -> equipeMapper.mapToDTO(equipe, EquipeDTO.class)));
@@ -54,8 +53,7 @@ public class EquipeResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody EquipeDTO equipeDTO) {
-        if (userSecurityService.authenticated() != null)
-            equipeDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
+        equipeDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Equipe equipe = equipeMapper.mapToModel(equipeDTO, Equipe.class);
         equipe = equipeService.insert(equipe);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

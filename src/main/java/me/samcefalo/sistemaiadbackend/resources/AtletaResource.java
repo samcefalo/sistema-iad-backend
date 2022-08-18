@@ -44,8 +44,7 @@ public class AtletaResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody AtletaDTO atletaDTO) {
-        if (userSecurityService.authenticated() != null)
-            atletaDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
+        atletaDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Atleta atleta = atletaMapper.mapToModel(atletaDTO, Atleta.class);
         atleta = atletaService.insert(atleta);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

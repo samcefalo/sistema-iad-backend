@@ -48,8 +48,7 @@ public class AcaoResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody AcaoDTO acaoDTO) {
-        if (userSecurityService.authenticated() != null)
-            acaoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
+        acaoDTO.setUser(UserDTO.builder().id(userSecurityService.authenticated().getId()).build());
         Acao acao = acaoMapper.mapToModel(acaoDTO, Acao.class);
         acao = acaoService.insert(acao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
