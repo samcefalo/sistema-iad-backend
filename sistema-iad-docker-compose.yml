@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    build:
+      context: src
+      dockerfile: Dockerfile
+    image: samcefalo/sistema_iad:1.0
+    networks:
+      - entidades-compose-network
+    ports:
+      - 8081:8081
+
+networks:
+  entidades-compose-network:
+    driver: bridge
